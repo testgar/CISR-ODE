@@ -21,7 +21,7 @@ public:
 		// washouts dynamics
 		hp_surge(u,x,dxdt);// influence hp surge x 1,2
 		lp_surge(u,x,dxdt);// influence lp surge x 1,2
-		hp_pitch(u,x,dxdt);
+		hp_pitch(u,x,dxdt);// influence hp pitch x 1
 		
 		// kinematics
 		const double surge_vmax=platform::max_vel_surge;
