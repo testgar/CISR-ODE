@@ -1,0 +1,4 @@
+
+* online c++ demo https://ideone.com/
+* passing an array to a function decays it to pointer and loses size the information unless passing by reference `double (&array)[N]`.
+* aka: also known as

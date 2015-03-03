@@ -1,0 +1,66 @@
+body {
+	background: #FFF;
+	color: #000;
+	font: normal normal 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin: 10px;
+	padding: 0
+}
+
+div.fhs-table table tbody, div.fhs-table table thead
+{
+    display: block;
+}
+
+div.fhs-table table tbody 
+{
+   overflow: auto;
+}
+
+div.fhs-table {
+	clear: both;
+	border: 1px solid #963;
+	height: 500px;
+	overflow: auto;
+	width: 756px
+}
+
+/*html>body div.tableContainer {
+	width: 756px
+}*/
+
+div.fhs-table thead th {
+	background: #C96;
+	border-left: 1px solid #EB8;
+	border-right: 1px solid #B74;
+	border-top: 1px solid #EB8;
+	font-weight: normal;
+	padding: 4px 3px;
+	text-align: left
+}
+
+div.fhs-table tbody.scrollContent {
+	height: 475px;
+}
+
+
+div.fhs-table tr.alternateRow td {
+	background: #EEE;
+	border-bottom: none;
+	border-left: none;
+	border-right: 1px solid #CCC;
+	border-top: 1px solid #DDD;
+	padding: 2px 3px 3px 4px
+}
+
+
+div.fhs-table tbody.scrollContent td {
+	width: 200px
+}
+
+div.fhs-table tbody.scrollContent td + td {
+	width: 240px
+}
+
+div.fhs-table tbody.scrollContent td + td + td {
+	width: 300px
+}
