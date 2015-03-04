@@ -1,19 +1,15 @@
 class CSysHandler
-//: public CSolver<controlled_stepper_type,state_type,time_type>
 {
 private:
 	buffer_type buffer;
 	arma::mat results;
 	int buffer_index=0;
 	time_type last_observed_time;
+	state_type last_observed_states;
 public:
-	// System system;
 	time_type start_time;
 	time_type end_time;
 	time_type dt;
-	// state_type& start_state;
-	// Stepper stepper;
-	// CSimulator simulator;
 
     const value_type eps_rel=1E-10;
     const value_type eps_abs=1E-10;
@@ -31,11 +27,12 @@ public:
 		CSimulator::observer(x,t,ymat);
 		results_push(t,ymat);
 		last_observed_time=t;
+		last_observed_states=x;
 	}
 
 	void rhs(const state_type &x, state_type &dxdt, const double t)
 	{	
-		CSimulator::rhs(x,dxdt,t,last_observed_time);
+		CSimulator::rhs(x,dxdt,t,last_observed_states,last_observed_time);
 	}
 
 	double timer(const state_type &x, const double t)

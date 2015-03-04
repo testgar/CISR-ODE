@@ -18,8 +18,8 @@ namespace states
 
 	const int hp_pitch_x1=8;
 
-	const int tilt_coordination_rate_limited=9;
-	const int tilt_coordination_rate_limited_derivative=10;
+	const int tc_rate_limited=9;
+	const int tc_rate_limited_derivative=10;
 
 	const int position_pitch_theta=11;
 

@@ -9,14 +9,16 @@ public:
 	static void rhs(
 		const state_type &x,
 		state_type &dxdt,
-		const time_type t,
-		const time_type previous_observed_t)
+		const time_type &t,
+		const time_type &last_observed_x,
+		const time_type &last_observed_t
+		)
 	{
 		// ******* system implementation *******
 		input_type u;
 		input(t,u);
 		intermediate_type mid;
-		intermediate_states(u,x,mid,t);
+		intermediate_states(u,x,mid,t,last_observed_x,last_observed_t);
 
 		// washouts dynamics
 		hp_surge(u,x,dxdt);// influence hp surge x 1,2
@@ -35,7 +37,7 @@ public:
 			rate_limit(
 				x(states::tilt_coordination_rate_limited),
 				mid(mids::tilt_coordination),
-				t,previous_observed_t,
+				t,last_observed_t,
 				surge_max_tilt_rate
 				);
 
@@ -45,7 +47,7 @@ public:
 
 	static void observer(
 		const state_type &x ,
-		const double t,
+		const double &t,
 		observer_type &ymat)
 	{
 		input_type u;
@@ -62,37 +64,51 @@ public:
 
 	}
 
-	static void intermediate_states(const input_type &u,const state_type &x,intermediate_type &mid,const time_type t)
+	static void intermediate_states(
+		const input_type &u,
+		const state_type &x,
+		intermediate_type &mid,
+		const time_type &t,
+		const time_type &last_observed_x,
+		const time_type &last_observed_t
+		)
 	{
 		_unused(t);
 		const double surge_vmax=platform::max_vel_surge;
 		const double surge_xmax=platform::max_pos_surge;
+		const double surge_amax=platform::max_acc_surge;
 
 		mid(mids::hp_surge_out)=hp_surge_out(u,x);
+		mid(mids::ref_surge_acc)=mid(mids::hp_surge_out);// dependant (must be located right after the previous intermediate calculation)
+
+		double ref_surge_acc_unlimited=bound(mid(mids::hp_surge_out),-surge_amax,surge_amax);
+		mid(mids::ref_surge_acc)=limited_surge_acc(x,ref_surge_acc_unlimited,surge_vmax,surge_xmax);
+
+		mid(mids::ref_surge_vel)=x(states::ref_surge_vel);
+
+		mid(mids::kin_surge_pos)=x(states::kin_surge_pos);
+
+		mid(mids::kin_surge_acc)=x(states::kin_surge_acc);
+
 		mid(mids::lp_surge_out)=lp_surge_out(x);
-		mid(mids::hp_pitch_out)=hp_pitch_out(u,x);
+		mid(mids::tc)=mid(mids::lp_surge_out)/constants::g;// dependant
 
-		const double surge_amax=platform::max_acc_surge;
-		double ref_surge_acc=bound(mid(mids::hp_surge_out),-surge_amax,surge_amax);
-		double kin_surge_acc=limited_surge_acc(x,ref_surge_acc,surge_vmax,surge_xmax);
-		double kin_surge_vel=x(states::kin_surge_vel);//limited_surge_vel(x,surge_vmax,surge_xmax);
-		double kin_surge_pos=x(states::kin_surge_pos);//limited_surge_pos(x);
+		mid(mids::hp_pitch_out)=hp_pitch_out(u,x); // ref 1
+		mid(mids::tc_rate_limited)=x(states::tc_rate_limited); // ref 2
+		mid(mids::kin_pitch_vel)=mid(mids::hp_pitch_out)+mid(mids::tc_rate_limited); // dependant on ref 1, 2
 
-		mid(mids::kin_surge_acc)=kin_surge_acc;
-		mid(mids::kin_surge_vel)=kin_surge_vel;
-		mid(mids::kin_surge_pos)=kin_surge_pos;
-		mid(mids::ref_surge_acc)=ref_surge_acc;
+// fixed till here
 
-		mid(mids::tilt_coordination)=mid(mids::lp_surge_out)/constants::g;
 		mid(mids::scc_pitch_input)=mid(mids::hp_pitch_out)+x(states::tilt_coordination_rate_limited);
 		mid(mids::otolith_surge_input)=mid(mids::hp_pitch_out)+constants::g*x(mids::scc_pitch_input);
+
 	}
 
 	static void input(const time_type t,input_type &u)
 	{
 		u(inputs::surge_acc)=(t>1?(t>7?0:1):0);
 		u(inputs::pitch_angvel)=0;
-	_(t);
+	// _(t);
 	}
 
 // protected:
