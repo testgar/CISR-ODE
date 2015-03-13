@@ -41,7 +41,7 @@ public:
 				surge_max_tilt_rate
 				);
 
-		dxdt(states::position_pitch_theta)=mid(mids::scc_pitch_input);
+		dxdt(states::pitch_pos)=mid(mids::scc_pitch_input);
 
 	}
 
@@ -55,8 +55,8 @@ public:
 		input(t,u);
 		intermediate_states(u,x,mid,t);
 
-		ymat(outputs::kin_surge_acc)=mid(mids::kin_surge_acc);
-		ymat(outputs::kin_surge_vel)=mid(mids::kin_surge_vel);
+		ymat(outputs::surge_kin_acc)=mid(mids::surge_kin_acc);
+		ymat(outputs::surge_kin_vel)=mid(mids::surge_kin_vel);
 		ymat(outputs::kin_surge_pos)=mid(mids::kin_surge_pos);
 		ymat(outputs::hp_surge_out)=mid(mids::hp_surge_out);
 		ymat(outputs::input_surge_acc)=u(inputs::surge_acc);
@@ -88,17 +88,17 @@ public:
 
 		mid(mids::kin_surge_pos)=x(states::kin_surge_pos);
 
-		mid(mids::kin_surge_acc)=x(states::kin_surge_acc);
+		mid(mids::surge_kin_acc)=x(states::surge_kin_acc);
 
 		mid(mids::lp_surge_out)=lp_surge_out(x);
 		mid(mids::tc)=mid(mids::lp_surge_out)/constants::g;// dependant
 
 		mid(mids::hp_pitch_out)=hp_pitch_out(u,x); // ref 1
-		mid(mids::tc_rate_limited)=x(states::tc_rate_limited); // ref 2
-		mid(mids::kin_pitch_vel)=mid(mids::hp_pitch_out)+mid(mids::tc_rate_limited); // dependant on ref 1, 2
+		mid(mids::surgepitch_TCRL)=x(states::surgepitch_TCRL); // ref 2
+		mid(mids::kin_pitch_vel)=mid(mids::hp_pitch_out)+mid(mids::surgepitch_TCRL); // dependant on ref 1, 2
 
 // fixed till here
-
+surgepitch_TCRL_deriv?????
 		mid(mids::scc_pitch_input)=mid(mids::hp_pitch_out)+x(states::tilt_coordination_rate_limited);
 		mid(mids::otolith_surge_input)=mid(mids::hp_pitch_out)+constants::g*x(mids::scc_pitch_input);
 
@@ -144,15 +144,15 @@ public:
 		// observable form
 		const double w=platform::omega_hp_x;
 		const double z=platform::zeta_hp_x;
-		const int x1=states::hp_surge_x1;
-		const int x2=states::hp_surge_x2;
+		const int x1=states::surge_hp_x1;
+		const int x2=states::surge_hp_x2;
 		dxdt(x1)=-w*w*x(x2)-w*w*u(inputs::surge_acc);
 		dxdt(x2)=x(x1)-2*z*w*x(x2)-2*z*w*u(inputs::surge_acc);
 	}
 
 	static double hp_surge_out(const input_type &u,const state_type &x)
 	{
-		return x(states::hp_surge_x2)+u(inputs::surge_acc);
+		return x(states::surge_hp_x2)+u(inputs::surge_acc);
 	}
 
 	static void lp_surge(const input_type &u,const state_type &x, state_type &dxdt)
@@ -160,28 +160,28 @@ public:
 		// observable form
 		const double w=platform::omega_lp_x;
 		const double z=platform::zeta_lp_x;
-		const int x1=states::lp_surge_x1;
-		const int x2=states::lp_surge_x2;
+		const int x1=states::surge_lp_x1;
+		const int x2=states::surge_lp_x2;
 		dxdt(x1)=-w*w*x(x2)+w*w*u(inputs::surge_acc);
 		dxdt(x2)=x(x1)-2*z*w*x(x2);
 	}
 
 	static double lp_surge_out(const state_type &x)
 	{
-		return x(states::lp_surge_x2);
+		return x(states::surge_lp_x2);
 	}
 
 	static void hp_pitch(const input_type &u,const state_type &x, state_type &dxdt)
 	{
 		// observable form
 		const double w=platform::omega_hp_pitch;
-		const int x1=states::hp_pitch_x1;
+		const int x1=states::pitch_hp_x1;
 		dxdt(x1)=-w*x(x1)-w*u(inputs::surge_acc);
 	}
 
 	static double hp_pitch_out(const input_type &u,const state_type &x)
 	{
-		return x(states::hp_pitch_x1)+u(inputs::surge_acc);
+		return x(states::pitch_hp_x1)+u(inputs::surge_acc);
 	}
 
 	static void linear_kin_limits(const double u,const state_type &x, state_type &dxdt,const double vmax,const double xmax)
@@ -189,8 +189,8 @@ public:
 		// f(x) = d saturation(x) / dx
 		// x0'=f(x0/amax)a
 		// x1'=f(x1/vmax)x0
-		const int x1=states::kin_limits_surge_vel;
-		const int x2=states::kin_limits_surge_pos;
+		const int x1=states::surge_proposed_vel;
+		const int x2=states::surge_kin_pos;
 		dxdt(x1)=saturation_D1(x(x1)/vmax)*u;
 		dxdt(x2)=saturation_D1(x(x2)/xmax)*x(x1);
 	}
@@ -198,7 +198,7 @@ public:
 
 	static void linear_kinematics(const double acc_ref,const state_type &x, state_type &dxdt)
 	{
-		const int x1=states::kin_surge_vel;
+		const int x1=states::surge_kin_vel;
 		const int x2=states::kin_surge_pos;
 		dxdt(x1)=acc_ref;
 		dxdt(x2)=x(x1);
@@ -230,21 +230,21 @@ public:
 
 	static double limited_surge_acc(const state_type &x,const double u,const double vmax,const double xmax)
 	{
-		const int x1=states::kin_limits_surge_vel;
-		const int x2=states::kin_limits_surge_pos;
+		const int x1=states::surge_proposed_vel;
+		const int x2=states::surge_kin_pos;
 		return saturation_D1(x(x2)/xmax)*(saturation_D2(x(x2)/xmax)*x(x1)*x(x1)/xmax+saturation_D1(x(x1)/vmax)*u);
 	}
 
 	static double limited_surge_vel(const state_type &x,const double vmax,const double xmax)
 	{
-		const int x1=states::kin_limits_surge_vel;
-		const int x2=states::kin_limits_surge_pos;
+		const int x1=states::surge_proposed_vel;
+		const int x2=states::surge_kin_pos;
 		return saturation_D1(x(x2)/xmax)*x(x1);
 	}
 
 	static double limited_surge_pos(const state_type &x)
 	{
-		const int x2=states::kin_limits_surge_pos;
+		const int x2=states::surge_kin_pos;
 		return x(x2);
 	}
 
