@@ -76,9 +76,9 @@ public:
     typedef ErrorStepper stepper_type;
     typedef default_error_checker error_checker_type;
 
-    controlled_runge_kutta(const value_type eps_abs,const value_type eps_rel)
+    controlled_runge_kutta(const value_type eps_abs,const value_type eps_rel,const time_type max_dt)
     : m_stepper() , m_error_checker( eps_abs, eps_rel) ,
-      m_first_call( true )
+      m_first_call( true ), max_dt(max_dt)
     { }
 
     template< class System  >
@@ -103,7 +103,7 @@ public:
     //call 4
     template<class System >
     controlled_step_result try_step( System system , const state_type &in , const deriv_type &dxdt_in , time_type &t ,
-            state_type &out , deriv_type &dxdt_out , time_type &dt )
+            state_type &out , deriv_type &dxdt_out , time_type &dt)
     {
         m_stepper.do_step( system , in , dxdt_in , t , out , dxdt_out , dt , m_xerr );
 
@@ -113,7 +113,8 @@ public:
         if( max_rel_err > 1.0 )
         {
             // error too large - decrease dt ,limit scaling factor to 0.2 and reset state
-            dt *= max ( static_cast<value_type>( static_cast<value_type>(9)/static_cast<value_type>(10) *
+            // simplified: max( 9/10*pow( max_rel_err , -1/( m_stepper.error_order_value - 1) ) ,1/5 );
+            dt *= max( static_cast<value_type>( static_cast<value_type>(9)/static_cast<value_type>(10) *
                                                                  pow( max_rel_err , static_cast<value_type>(-1) / ( m_stepper.error_order_value - 1 ) ) ) ,
                                                          static_cast<value_type>( static_cast<value_type>(1)/static_cast<value_type> (5)) );
             return fail;
@@ -121,12 +122,14 @@ public:
         else
         {
             if( max_rel_err < 0.5 )
-            {                //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
+            {   //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
                 // error should be > 0
                 max_rel_err = max( static_cast<value_type>( pow( static_cast<value_type>(5.0) , -static_cast<value_type>(m_stepper.stepper_order_value) ) ) ,
                                                                      max_rel_err );
                 t += dt;
+                // simplified: 9/10 * pow( max_rel_err , -1 / m_stepper.stepper_order_value )
                 dt *= static_cast<value_type>( static_cast<value_type>(9)/static_cast<value_type>(10) * pow( max_rel_err , static_cast<value_type>(-1) / m_stepper.stepper_order_value ) );
+                dt=min(dt,max_dt); // added for maximum step size
                 return success;
             }
             else
@@ -147,6 +150,7 @@ private:
     state_type m_xnew;
     deriv_type m_dxdtnew;
     bool m_first_call;
+    const time_type max_dt;
 };
 
 
@@ -318,7 +322,7 @@ class Solver //<SolverMethod::RKDP5,System>
 
 public:
 
-    Solver(system_type &_system): system(_system), stepper(system.eps_abs,system.eps_rel)
+    Solver(system_type &_system): system(_system), stepper(system.eps_abs,system.eps_rel,system.max_dt)
     {
         // constructor
     }
@@ -334,17 +338,21 @@ public:
         const char *error_string = "Integrate adaptive : Maximal number of iterations reached. A step size could not be found.";
         size_t count = 0;
         time_type next_interrupt_time=system.timer(start_state,start_time);
-        while( less_with_sign( start_time , end_time , dt ) )
+        dt=min(dt,system.max_dt); // what if system.max_dt is mismatches with stepper.max_dt
+        time_type force_point;
+        while(less_with_sign(start_time,end_time,dt))
         {
-            if(start_time==next_interrupt_time)
+            if(abs(start_time-next_interrupt_time)<std::numeric_limits<time_type>::epsilon())
                 next_interrupt_time=system.timer(start_state,start_time);
-            system.observer(start_state , start_time );
-            time_type force_point=(end_time<next_interrupt_time?end_time:next_interrupt_time); // minimum
-            if( less_with_sign( force_point , static_cast<time_type>(start_time + dt) , dt ) )
+            system.observer(start_state,start_time,dt);
+            force_point=min(end_time,next_interrupt_time); // minimum
+            if( less_with_sign(force_point,static_cast<time_type>(start_time + dt) , dt ) )
             {
-                dt = force_point - start_time;
+                dt= force_point - start_time;
+                if(abs(dt)<std::numeric_limits<time_type>::epsilon())
+                    throw std::runtime_error("dt was proposed to be zero!");
+                dt= min(dt,system.max_dt);// what if system.max_dt is mismatches with stepper.max_dt
             }
-
             size_t trials = 0;
             controlled_step_result res = success;
             do
@@ -357,7 +365,7 @@ public:
                 throw std::overflow_error(error_string);
             ++count;
         }
-        system.observer( start_state , start_time );
+        system.observer( start_state , start_time, dt );
         system.results_finalize();
         system.post_solve();
         return count;

@@ -9,7 +9,7 @@ typedef arma::vec::fixed<outputs::output_size> observer_type;
 typedef arma::vec::fixed<inputs::input_size> input_type;
 typedef arma::vec::fixed<mids::intermediate_size> intermediate_type;
 // the extra dimention is for storing the time.
-typedef arma::mat::fixed<outputs::output_size+1,config::buffer_size> buffer_type;
+typedef arma::mat::fixed<config::buffer_headers,config::buffer_size> buffer_type;
 
 typedef double time_type;
 typedef double value_type;

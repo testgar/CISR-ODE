@@ -1,4 +1,10 @@
-
+* 2015/03/19 : adding -Wconversion to makefile list
+* 2015/03/18 : adding dt to observer
+* 2015/03/18 : added maximum step size to DP
+* 2015/03/17 : fixed saturation logistic function
+* 2015/03/16 : fixed wrong input acc to block integrate saturation
+* 2015/03/16 : adding header of columns to the outputs
+* 2015/03/16 : saturation lock is fixed
 * 2015/02/05 : log file includes date and time
 * 2015/02/05 : log file includes fixation list
 * 2015/02/05 : saturation second derivation formula is fixed

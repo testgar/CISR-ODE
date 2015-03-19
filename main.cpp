@@ -29,6 +29,9 @@ void main_normal()
     	config::start_time ,
     	config::stop_time ,
     	0.1);
+    std::string command="md5sum ";
+    command+=files::output_results;
+    system(command.c_str());
 }
 
 void main_test_sat()
@@ -50,13 +53,13 @@ void main_test_sat()
 	std::cout<<"x/xmax: "<<x/xmax<<std::endl;
 
 
-	std::cout<<"sat'(x/amax): "<<CSimulator::saturation_D1(x/amax)<<std::endl;
-	std::cout<<"sat'(x/vmax): "<<CSimulator::saturation_D1(x/vmax)<<std::endl;
-	std::cout<<"sat'(x/xmax): "<<CSimulator::saturation_D1(x/xmax)<<std::endl;
+	std::cout<<"sat'(x/amax): "<<CSimulator::sat_logistic(x/amax)<<std::endl;
+	std::cout<<"sat'(x/vmax): "<<CSimulator::sat_logistic(x/vmax)<<std::endl;
+	std::cout<<"sat'(x/xmax): "<<CSimulator::sat_logistic(x/xmax)<<std::endl;
 
-	std::cout<<"sat'_den(|a/vmax|): "<<CSimulator::saturationD1_denuminator(abs(x/amax))<<std::endl;
-	std::cout<<"sat'_den(|x/vmax|): "<<CSimulator::saturationD1_denuminator(abs(x/vmax))<<std::endl;
-	std::cout<<"sat'_den(|x/xmax|): "<<CSimulator::saturationD1_denuminator(abs(x/xmax))<<std::endl;
+	std::cout<<"sat'_den(|a/vmax|): "<<CSimulator::sat_logistic_denuminator(abs(x/amax))<<std::endl;
+	std::cout<<"sat'_den(|x/vmax|): "<<CSimulator::sat_logistic_denuminator(abs(x/vmax))<<std::endl;
+	std::cout<<"sat'_den(|x/xmax|): "<<CSimulator::sat_logistic_denuminator(abs(x/xmax))<<std::endl;
 }
 
 int main()

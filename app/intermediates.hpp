@@ -7,7 +7,7 @@ namespace mids
 	// m1	surge_hp_out
 	// m2	surge_proposed_acc
 	// m3	surge_proposed_vel
-	// m4	surge_proposed_pos
+	// m4	surge_kin_pos
 	// m5	surge_kin_vel
 	// m6	surge_kin_acc
 	// m7	surge_lp_out

@@ -1,42 +1,53 @@
 #include <iostream>
-#include <string>
-#include <vector>
+#include <cmath>
 
+// #include <boost/array.hpp>
 
-// std::string replace(const std::string text,
-//                   std::string tofind,
-//                   std::string toreplace)
+// #include <boost/numeric/odeint.hpp>
+
+// using namespace std;
+// using namespace boost::numeric::odeint;
+
+// typedef boost::array< double , 3 > state_type;
+
+// double sat_d(double x)
 // {
-// 	int found = text.find(tofind);
-// 	if (found != std::string::npos)
-// 	    return(text.replace(text.find(tofind), tofind.length(), toreplace));
-// 	return text;
+// 	if(abs(x)<1)
+// 		return 1;
+// 	else
+// 		return 0;
 // }
 
-std::string replace(std::string text,
-					std::string find,
-					std::string replace)
-{
-	size_t found_pos = text.find(find);
-	if(found_pos == std::string::npos)
-		return(text);
-	return text.replace(found_pos,find.length(),replace);
-}
+// double input(double t)
+// {
+// 	if(t<1)
+// 		return 0;
+// 	if(t<2)
+// 		return 1;
+// 	if(t<4)
+// 		return 0;
+// 	if(t<10)
+// 		return -1;
+// 	return 0;
+// }
+
+// void lorenz( const state_type &x , state_type &dxdt , double t )
+// {
+//     dxdt[0] = x[0]*x[1]<=0 ? x[1] : sat_d(x[0])*x[1];
+//     dxdt[1] = x[1]*input(t)<=0 ? input(t) : sat_d(x[1])*input(t);
+// }
+
+// void write_lorenz( const state_type &x , const double t )
+// {
+//     cout << t <<'\t'<<input(t)<< '\t' << x[0] << '\t' << x[1] << '\t' << endl;
+// }
 
 int main()
 {
-	std::vector<std::string> mylist={"col1","cell2","col3","col4","col5"};
-	
-	for(const std::string item: mylist)
-	{
-		std::cout<<replace(item,"cell","item")<<std::endl;
-	}
-
-	for(const std::string item: mylist)
-	{
-		std::cout<<item<<std::endl;
-	}
-
-	return 0;
+    // state_type x = { 0, 0 }; // initial conditions
+    // integrate( lorenz , x , 0.0 , 25.0 , 0.1 , write_lorenz );
+    double x=0.1;
+    std::cout<<"x="<<x<<std::endl;
+    std::cout<<"|x|="<<abs(x)<<std::endl;
+    return 0;
 }
-ddd2

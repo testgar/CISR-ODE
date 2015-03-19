@@ -13,19 +13,22 @@ public:
 
     const value_type eps_rel=1E-10;
     const value_type eps_abs=1E-10;
+    const time_type max_dt=0.1;
 
-	CSysHandler():results(outputs::output_size+1,0)
+	CSysHandler():results(config::buffer_headers,0)
 	{
 		// constructor
 		filesystem::ensure_folder(files::output_folder);
-		
+		int out_header_size=extent<decltype(outputs::output_header)>::value;
+		if(out_header_size!=outputs::output_size)
+			throw std::runtime_error("output header size mismatch!");
 	}
 
-	void observer(const state_type &x , const double t)
+	void observer(const state_type &x , const double &t,const double &next_dt)
 	{
 		observer_type ymat;
-		CSimulator::observer(x,t,ymat);
-		results_push(t,ymat);
+		CSimulator::observer(x,t,ymat,last_observed_states,last_observed_time);
+		results_push(t,next_dt,ymat);
 		last_observed_time=t;
 		last_observed_states=x;
 	}
@@ -41,19 +44,20 @@ public:
 		return t+0.1;
 	}
 
-	void export_output(string filename,int out_index)
+	void export_output(string filename,const int fig_index)
 	{
+		int offset=config::results_additions;
 		arma::mat ymat;
 		ymat=get_results();
-		figure_frame results_range=view_range(out_index,out_index);
+		figure_frame results_range=view_range(fig_index,fig_index);
 		CSVG svg_image(filename+".svg",results_range);
 		svg_image.begin();
-		svg_image.draw_frame();
+		// svg_image.draw_frame();
 		svg_image.comment("grids");
 		svg_image.draw_grids();
 		svg_image.comment("main curve");
 		CSVG::Path_Config pconfig;
-		svg_image.path_l(ymat,out_index,pconfig);
+		svg_image.path_l(ymat,fig_index+offset,pconfig);
 		svg_image.comment("frame");
 		svg_image.draw_frame();
 		svg_image.end();
@@ -80,10 +84,11 @@ public:
 		export_outputs(filename);
 	}
 
-	void results_push(time_type t,observer_type& y)
+	void results_push(const time_type t,const time_type &next_dt,observer_type& y)
 	{
 		buffer(0,buffer_index)=t;
-		buffer.submat(1,buffer_index,outputs::output_size,buffer_index)=y;
+		buffer(1,buffer_index)=next_dt;
+		buffer.submat(config::results_additions,buffer_index,config::buffer_headers-1,buffer_index)=y;
 		buffer_index++;
 		if(buffer_index==config::buffer_size)
 		{
@@ -98,7 +103,7 @@ public:
 		{
 			results=join_horiz(
 				results,
-				buffer.submat(0,0,outputs::output_size,buffer_index-1)
+				buffer.submat(0,0,config::buffer_headers-1,buffer_index-1)
 				);
 			buffer_index=0;
 		}
@@ -108,8 +113,20 @@ public:
 	{
 		if(buffer_index>0)
 			throw std::runtime_error("observer is not finalized!");
+		if(results.n_rows==0)
+			throw std::runtime_error("empty results!");
+
 		int n_cols=results.n_cols;
 		int n_rows=results.n_rows;
+
+		*output_media <<"t\tdt";
+		int out_header_size=extent<decltype(outputs::output_header)>::value;
+		for(int i=0;i<out_header_size;i++)
+		{
+			*output_media << '\t' << outputs::output_header[i];
+		}
+		*output_media << std::endl;
+
 		for(int i=0;i<n_cols;i++)
 		{
 			for(int j=0;j<n_rows;j++)
@@ -131,7 +148,8 @@ public:
 		if(y_first>y_last)
 			throw std::runtime_error("wrong matrix dimention!");
 		arma::mat sub_t=results.submat(0,0,0,results.n_cols-1);
-		arma::mat sub_y=results.submat(y_first+1,0,y_last+1,results.n_cols-1);
+		int offset=config::results_additions;
+		arma::mat sub_y=results.submat(y_first+offset,0,y_last+offset,results.n_cols-1);
 
 		double max_time=sub_t.max();
 		double min_time=sub_t.min();

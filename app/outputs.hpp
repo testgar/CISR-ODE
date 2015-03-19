@@ -2,13 +2,17 @@
 
 namespace outputs
 {
-	const int kin_surge_acc=0;
-	const int kin_surge_vel=1;
-	const int kin_surge_pos=2;
-	const int hp_surge_out=3;
-	const int input_surge_acc=4;
-	const int specific_force_surge=5;
+	const std::string output_header[]={"acc","vel","pos","hp","in","spforce","x_proposed_vel","x_kin_pos"};
+
+	const int surge_kin_acc=0;
+	const int surge_kin_vel=1;
+	const int surge_kin_pos=2;
+	const int surge_hp_out=3;
+	const int surge_input_acc=4;
+	const int surgepitch_sp_force=5;
+	const int x_proposed_vel=6; //test
+	const int x_kin_pos=7; //test
 
 	// total size of output vector
-	const int output_size=6;
+	const int output_size=8;
 }

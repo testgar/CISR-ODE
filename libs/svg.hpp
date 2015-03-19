@@ -138,16 +138,17 @@ public:
 			throw std::runtime_error("unexpected small matrix!");
 		svg_file<<"<path d=\"M ";
 		double P0x=fig(0,0);
-		double P0y=fig(1+f_index,0);
+		double P0y=fig(f_index,0);
 		svg_file<<trans_t(P0x)<<" "<<trans_y(P0y); // first point
 		for(int i=1;i<n_cols;i++)
 		{
 			svg_file<<" L ";
 			double Px=fig(0,i);
-			double Py=fig(1+f_index,i);
+			double Py=fig(f_index,i);
 			svg_file<<trans_t(Px)<<" "<<trans_y(Py);
-			if(i<n_cols-1)
-				svg_file<<",";
+			// removed camma insertation due to a bug related to inkscape (it does not work with camma)
+			// - if(i<n_cols-1)
+			// - 	svg_file<<",";
 		}
 		svg_file<<"\"";
 		svg_file<<" stroke=\""<<pconf.color<<"\""

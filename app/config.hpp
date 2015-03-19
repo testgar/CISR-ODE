@@ -5,21 +5,23 @@ namespace config
 	const int debugmod=1;
 
 	const uint buffer_size=1000;
+	const uint results_additions=2; // t, dt
+	const uint buffer_headers=outputs::output_size+config::results_additions;
 
 	const double start_time=0;
 	const double stop_time=15;
 
 	struct ExpList
 	{
-		std::string file_suffix;
+		std::string file_suffix; // no space is accepted in file suffix name
 		int output_index;
-	} exportlist[]={
-		{"input-surge-acc",outputs::input_surge_acc},
-		{"surge-high-pass",outputs::hp_surge_out},
-		{"kin-acc-surge",outputs::kin_surge_acc},
-		{"kin-vel-surge",outputs::kin_surge_vel},
-		{"kin-pos-surge",outputs::kin_surge_pos},
-		{"specific_force-surge",outputs::specific_force_surge},
+	} exportlist[]={ 
+		{"input-surge-acc",outputs::surge_input_acc},
+		{"surge-high-pass",outputs::surge_hp_out},
+		{"kin-acc-surge",outputs::surge_kin_acc},
+		{"kin-vel-surge",outputs::surge_kin_vel},
+		{"kin-pos-surge",outputs::surge_kin_pos},
+		{"specific-force-surge",outputs::surgepitch_sp_force},
 	};
 
 	const std::vector<std::string> log_columns=
@@ -45,8 +47,8 @@ namespace platform
 	const double omega_hp_yaw=1;
 
 	// saturation
-	const double saturation_b=-30;
-	const double saturation_a=-saturation_b;
+	const double saturation_a=200;
+	const double saturation_b=-0.95*saturation_a;
 
 	// limits
 	const double max_acc_surge=3;
@@ -55,7 +57,6 @@ namespace platform
 
 	// tilt thresholds
 	const double surge_tilt_threshold=((double) 2.0)*constants::pi/180;
-
 };
 
 namespace files
