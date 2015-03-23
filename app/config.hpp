@@ -22,6 +22,7 @@ namespace config
 		{"kin-vel-surge",outputs::surge_kin_vel},
 		{"kin-pos-surge",outputs::surge_kin_pos},
 		{"specific-force-surge",outputs::surgepitch_sp_force},
+		{"pitch-tilt-force",outputs::pitch_tilt_force},
 	};
 
 	const std::vector<std::string> log_columns=
@@ -54,7 +55,6 @@ namespace platform
 	const double max_acc_surge=3;
 	const double max_vel_surge=4;
 	const double max_pos_surge=1.2;
-
 	// tilt thresholds
 	const double surge_tilt_threshold=((double) 2.0)*constants::pi/180;
 };
