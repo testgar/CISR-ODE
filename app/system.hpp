@@ -1,12 +1,16 @@
 class CSysHandler
 {
 private:
+
 	buffer_type buffer;
 	arma::mat results;
 	int buffer_index=0;
 	time_type last_observed_time;
 	state_type last_observed_states;
+	// direct_state_type last_observed_direct_states;
+
 public:
+
 	time_type start_time;
 	time_type end_time;
 	time_type dt;
@@ -34,7 +38,7 @@ public:
 	}
 
 	void rhs(const state_type &x, state_type &dxdt, const double t)
-	{	
+	{
 		CSimulator::rhs(x,dxdt,t,last_observed_states,last_observed_time);
 	}
 

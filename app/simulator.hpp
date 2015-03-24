@@ -7,11 +7,12 @@ class CSimulator
 public:
 
 	static void rhs(
-		const state_type &x,
-		state_type &x_dot,
-		const time_type &t,
-		const state_type &last_observed_x,
-		const time_type &last_observed_t
+		const state_type 			&x,
+		state_type 					&x_dot,
+		const time_type				&t,
+		const state_type 			&last_observed_x,
+		// const direct_state_type 	&last_observed_direct_states,
+		const time_type 			&last_observed_t
 		)
 	{
 		// ******* system implementation *******
@@ -28,7 +29,7 @@ public:
 		// x5	surge_lp_x2
 		// x6	surgepitch_TCRL
 		// x7	pitch_hp_x1
-		// x8	pitch_pos
+		// x8	pitch_kin_pos
 
 		// washouts dynamics
 		// x0, x1
@@ -53,11 +54,11 @@ public:
 	}
 
 	static void observer(
-		const state_type &x ,
-		const double &t,
-		observer_type &ymat,
-		const state_type &last_observed_x,
-		const time_type &last_observed_t
+		const state_type 			&x ,
+		const double 				&t,
+		observer_type 				&ymat,
+		const state_type 			&last_observed_x,
+		const time_type 			&last_observed_t
 		)
 	{
 		input_type u;
@@ -65,12 +66,24 @@ public:
 		input(t,u);
 		intermediate_states(u,x,mid,t,last_observed_x,last_observed_t);
 
+		// surge_kin_acc
+		// surge_kin_vel
+		// surge_kin_pos
+		// surge_hp_out
+		// surge_input_acc
+		// surgepitch_sp_force
+		// x_proposed_vel //test
+		// x_kin_pos //test
+		// pitch_tilt_force
+
 		ymat(outputs::surge_kin_acc)=mid(mids::surge_kin_acc);
 		ymat(outputs::surge_kin_vel)=mid(mids::surge_kin_vel);
 		ymat(outputs::surge_kin_pos)=mid(mids::surge_kin_pos);
 		ymat(outputs::surge_hp_out)=mid(mids::surge_hp_out);
 		ymat(outputs::surge_input_acc)=mid(mids::surge_input_acc_ref);
-		ymat(outputs::pitch_tilt_force)=mid(mids::pitch_tilt_force);
+
+		ymat(outputs::pitch_tilt_force)=mid(mids::pitch_tilt_force); //test
+		ymat(outputs::surgepitch_sp_force)=mid(mids::surgepitch_sp_force); //test
 
 		const int x1=states::surge_proposed_vel; //test
 		const int x2=states::surge_kin_pos; //test
@@ -88,7 +101,6 @@ public:
 		const time_type &last_observed_t
 		)
 	{
-
 		// m0	surge_input_acc_ref
 		// m1	surge_hp_out
 		// m2	surge_proposed_acc
@@ -113,10 +125,10 @@ public:
 		const double surge_vmax=platform::max_vel_surge;
 		const double surge_xmax=platform::max_pos_surge;
 		const double surge_amax=platform::max_acc_surge;
+		const double surge_max_tilt_rate=platform::surge_tilt_threshold;
 
-		// m0, m11
+		// m0
 		mid(mids::surge_input_acc_ref)=u(inputs::surge_acc);
-		mid(mids::pitch_input_vel_ref)=u(inputs::pitch_vel);
 
 		// m1
 		mid(mids::surge_hp_out)=hp_surge_out(mid,x);
@@ -137,24 +149,28 @@ public:
 
 		// m7
 		mid(mids::surge_lp_out)=lp_surge_out(x);
+		const double surge_lp_out_old=lp_surge_out(last_observed_x);
 
 		// m8
 		mid(mids::surgepitch_TC)=mid(mids::surge_lp_out)/constants::g; // dependant
+		const double surgepitch_TC_old=surge_lp_out_old/constants::g;
 
 		// m9
 		mid(mids::surgepitch_TCRL)=x(states::surgepitch_TCRL);
 
 		// m10
-		const double surge_max_tilt_rate=platform::surge_tilt_threshold;
+		// rate limit
 		mid(mids::surgepitch_TCRL_deriv)=// next line
 			rate_limit_deriv(
-				x(states::surgepitch_TCRL),
 				mid(mids::surgepitch_TC),
-				t,last_observed_t,
+				surgepitch_TC_old,
+				mid(mids::surgepitch_TCRL),
+				t-last_observed_t,
 				surge_max_tilt_rate
 				);
 
-// x(states::surgepitch_TCRL_deriv)
+		// m11
+		mid(mids::pitch_input_vel_ref)=u(inputs::pitch_vel);
 
 		// m12
 		mid(mids::pitch_hp_out)=hp_pitch_out(mid,x);
@@ -165,8 +181,10 @@ public:
 		// m14
 		mid(mids::pitch_kin_pos)=x(states::pitch_kin_pos);
 
-		// m15, m16
+		// m15
 		mid(mids::pitch_tilt_force)=mid(mids::pitch_kin_pos)*constants::g; // dependant
+
+		// m16
 		mid(mids::surgepitch_sp_force)=mid(mids::pitch_tilt_force)+mid(mids::surge_kin_acc); // dependant
 	}
 
@@ -176,55 +194,25 @@ public:
 		u(inputs::pitch_vel)=0;
 	}
 
-// protected:
+protected:
 
  	static double rate_limit_deriv(
- 		const double &input_ref,
- 		const double &previous_output,
- 		const double &dt,
- 		const double &rate_min,
- 		const double &rate_max
- 		)
- 	{
- 		double current_rate=(input_ref-previous_output)/dt;
- 		if(current_rate>rate_max)
- 			return rate_max;
- 		else if(current_rate<rate_min)
- 			return rate_min;
- 		else
- 			return 
+		const double &signal,
+		const double &signal_last_observed,
+		const double &rate_limited_signal,
+		const double &dt,
+		const double &rate
+		)
+	{
+		if(dt==0)
+			return 0;
+		const double error_threshold=0.002;
+		double current_rate=(signal-signal_last_observed)/dt;
+		// is is correct to use last observed signal instead of current signal?
+		double error=(signal_last_observed-rate_limited_signal);
+		double proposed_derivative=current_rate+error*rate/error_threshold;
+		return bound(proposed_derivative,-rate,+rate);
  	}
-
-
-// 	static double rate_limit_deriv(double limited,double ref,double t, double last_t,double rate_min,double rate_max)
-// 	{
-// 				// x(states::surgepitch_TCRL),
-// 				// mid(mids::surgepitch_TC),
-// 				// t,last_observed_t,
-// 				// surge_max_tilt_rate
-// _unused(t);
-// _unused(last_t);
-// _unused(rate_min);
-// _unused(rate_max);
-// _unused(limited);
-// 		return ref;
-// 		// if(rate_min>=rate_max)
-// 		// 	throw std::runtime_error("wrong rate limiter range!");
-
-// 		// double rate=(ref-limited)/(t-last_t);
-// 		// if(rate>rate_max)
-// 		// 	return rate_max;
-// 		// else if(rate<rate_min)
-// 		// 	return rate_min;
-// 		// else
-// 		// 	return rate;
-// 	}
-
-// 	static double rate_limit_deriv(double limited,double ref,double t, double last_t,double rate)
-// 	{
-// 		return rate_limit_deriv(limited,ref,t,last_t,-rate,+rate);
-// 	}
-
 
 	static double bound(double val,double min,double max)
 	{
@@ -296,10 +284,6 @@ public:
 		_unused(vmax);
 		const int x1=states::surge_proposed_vel;
 		const int x2=states::surge_kin_pos;
-		// if(x(x1)*x(x2)<=0.0)
-		// 	return x(x1);
-		// else
-		// 	return sat_logistic(x(x2)/xmax)*x(x1);
 
 		double pxd=sat_logistic(x(x2)/xmax)*x(x1);
 		if(x(x1)*x(x2)<=0.0)
@@ -325,12 +309,7 @@ public:
 		// const int x2=states::surge_kin_pos;
 		_unused(xmax);
 		double pvd=sat_logistic(x(x1)/vmax)*u;
-		// if(x(x1)*x(x2)>0)
-		// {
-		// 	double slowerer=x(x2)*std::abs(x(x1));
-		// 	slowerer*=slowerer*slowerer;
-		// 	pvd-=(1.0/sat_logistic(x(x2)/xmax)-1.0)*slowerer;
-		// }
+
 		if(u*x(x1)<=0.0)
 		{
 			if(x(x1)>=0.0)
@@ -370,18 +349,6 @@ public:
 		const int x2=states::surge_kin_pos;
 		return x(x1)*x(x2)<=0 ? x(x1) : sat_logistic(x(x2)/xmax)*x(x1);
 	}
-
-	// static double sat_logistic_numinator()
-	// {
-	// 	static double numinator=(1+exp(platform::saturation_b));
-	// 	return numinator;
-	// }
-
-	// static double sat_logistic_denuminator(double x)
-	// {
-	// 	double denuminator=(1+exp(platform::saturation_a*x+platform::saturation_b));
-	// 	return denuminator;
-	// }
 
 	// saturation logistic funciton
 	static double sat_logistic(double x)

@@ -11,11 +11,9 @@ namespace states
 	// x3	surge_kin_pos
 	// x4	surge_lp_x1
 	// x5	surge_lp_x2
-	// x6	pitch_hp_x1
-	// x7	surgepitch_TCRL
-	// x8	surgepitch_TCRL_deriv
-	// x9	pitch_pos
-
+	// x6	surgepitch_TCRL
+	// x7	pitch_hp_x1
+	// x8	pitch_kin_pos
 
 	const int surge_hp_x1=0;
 	const int surge_hp_x2=1;
@@ -23,11 +21,18 @@ namespace states
 	const int surge_kin_pos=3;
 	const int surge_lp_x1=4;
 	const int surge_lp_x2=5;
-	const int pitch_hp_x1=6;
-	const int surgepitch_TCRL=7;
-	const int surgepitch_TCRL_deriv=8;
-	const int pitch_kin_pos=9;
+	const int surgepitch_TCRL=6;
+	const int pitch_hp_x1=7;
+	const int pitch_kin_pos=8;
 
 	// total size of state vector
-	const int state_size=10;
+	const int state_size=9;
 }
+
+// namespace direct_states
+// {
+// 	// const int surgepitch_tilt_rate_limit=0;
+
+// 	// total size of nonderivative state size
+// 	const int direct_state_size=0;
+// }

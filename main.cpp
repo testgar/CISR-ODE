@@ -53,9 +53,9 @@ void main_test_sat()
 	std::cout<<"x/xmax: "<<x/xmax<<std::endl;
 
 
-	std::cout<<"sat'(x/amax): "<<CSimulator::sat_logistic(x/amax)<<std::endl;
-	std::cout<<"sat'(x/vmax): "<<CSimulator::sat_logistic(x/vmax)<<std::endl;
-	std::cout<<"sat'(x/xmax): "<<CSimulator::sat_logistic(x/xmax)<<std::endl;
+	// std::cout<<"sat'(x/amax): "<<CSimulator::sat_logistic(x/amax)<<std::endl;
+	// std::cout<<"sat'(x/vmax): "<<CSimulator::sat_logistic(x/vmax)<<std::endl;
+	// std::cout<<"sat'(x/xmax): "<<CSimulator::sat_logistic(x/xmax)<<std::endl;
 
 	// std::cout<<"sat'_den(|a/vmax|): "<<CSimulator::sat_logistic_denuminator(abs(x/amax))<<std::endl;
 	// std::cout<<"sat'_den(|x/vmax|): "<<CSimulator::sat_logistic_denuminator(abs(x/vmax))<<std::endl;
