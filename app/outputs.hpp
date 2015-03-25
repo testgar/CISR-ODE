@@ -1,19 +1,40 @@
+
+// *** Warning:
+// *** auto-generated file and subjected to be overwritten
+
+// path: ./app/outputs.hpp
+
 #pragma once
 
 namespace outputs
 {
-	const std::string output_header[]={"acc","vel","pos","hp","in","spforce","x_proposed_vel","x_kin_pos","pitch_tilt_force"};
+	const std::string output_header[]={
+		"surgepitch_TC",
+		"surgepitch_TCRL",
+		"surgepitch_TCRL_deriv",
+		"pitch_tilt_force",
+		"surgepitch_sp_force",
+		"pitch_kin_pos",
+		"pitch_kin_vel",
+	};
 
-	const int surge_kin_acc=0;
-	const int surge_kin_vel=1;
-	const int surge_kin_pos=2;
-	const int surge_hp_out=3;
-	const int surge_input_acc=4;
-	const int surgepitch_sp_force=5;
-	const int x_proposed_vel=6; //test
-	const int x_kin_pos=7; //test
-	const int pitch_tilt_force=8;
+	const int surgepitch_TC=0;
+	const int surgepitch_TCRL=1;
+	const int surgepitch_TCRL_deriv=2;
+	const int pitch_tilt_force=3;
+	const int surgepitch_sp_force=4;
+	const int pitch_kin_pos=5;
+	const int pitch_kin_vel=6;
 
 	// total size of output vector
-	const int output_size=9;
+	const int output_size=7;
+
+	//Export list
+	struct ExpList
+	{
+		std::string file_suffix; // no space is accepted in file suffix name
+		int output_index;
+	} figure_list[]={
+		{"surgepitch_sp_force",outputs::surgepitch_sp_force},
+	};
 }

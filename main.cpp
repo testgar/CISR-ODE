@@ -1,37 +1,24 @@
-#include "app/includes.hpp"
-#include "app/declares.hpp"
-#include "app/inputs.hpp"
-#include "app/intermediates.hpp"
-#include "app/outputs.hpp"
-#include "app/constants.hpp"
-#include "app/config.hpp"
-#include "app/states.hpp"
-#include "app/types.hpp"
-#include "libs/application.hpp"
-#include "libs/filesystem.hpp"
-#include "libs/html.hpp"
-#include "libs/log.hpp"
-#include "app/simulator.hpp"
-#include "libs/tf.hpp"
-#include "libs/svg.hpp"
-#include "libs/solver/solver_dp45.hpp"
-#include "libs/solver/solver_ck45.hpp"
-#include "app/system.hpp"
+#include "includes.hpp"
 
 void main_normal()
 {
 	CSysHandler my_system;
 	state_type x_iv;
 	x_iv.zeros();
-    ode::Solver<ode::Steppers::RKDP5,CSysHandler> solver(my_system);
-    solver.integrate_adaptive(
-    	x_iv ,// is manipulated
-    	config::start_time ,
-    	config::stop_time ,
-    	0.1);
-    std::string command="md5sum ";
-    command+=files::output_results;
-    system(command.c_str());
+	// ode::Solver<ode::Steppers::RKDP5,CSysHandler> solver(my_system);
+	// solver.integrate_adaptive(
+	// 	x_iv ,// is manipulated
+	// 	config::start_time ,
+	// 	config::stop_time ,
+	// 	0.1);
+	my_system.integrate_adaptive(
+		x_iv ,// is manipulated
+		config::start_time ,
+		config::stop_time ,
+		0.1);
+	std::string command="md5sum ";
+	command+=files::output_results;
+	system(command.c_str());
 }
 
 void main_test_sat()

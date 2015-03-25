@@ -4,7 +4,6 @@
 
 namespace states
 {
-
 	// x0	surge_hp_x1
 	// x1	surge_hp_x2
 	// x2	surge_proposed_vel
@@ -28,11 +27,3 @@ namespace states
 	// total size of state vector
 	const int state_size=9;
 }
-
-// namespace direct_states
-// {
-// 	// const int surgepitch_tilt_rate_limit=0;
-
-// 	// total size of nonderivative state size
-// 	const int direct_state_size=0;
-// }

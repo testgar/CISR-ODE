@@ -11,86 +11,18 @@ public:
 		state_type 					&x_dot,
 		const time_type				&t,
 		const state_type 			&last_observed_x,
-		// const direct_state_type 	&last_observed_direct_states,
-		const time_type 			&last_observed_t
-		)
-	{
-		// ******* system implementation *******
-		input_type u;
-		input(t,u);
-		intermediate_type mid;
-		intermediate_states(u,x,mid,t,last_observed_x,last_observed_t);
-
-		// x0	surge_hp_x1
-		// x1	surge_hp_x2
-		// x2	surge_proposed_vel
-		// x3	surge_kin_pos
-		// x4	surge_lp_x1
-		// x5	surge_lp_x2
-		// x6	surgepitch_TCRL
-		// x7	pitch_hp_x1
-		// x8	pitch_kin_pos
-
-		// washouts dynamics
-		// x0, x1
-		hp_surge(mid,x,x_dot);// influence hp surge x 1,2
-		// x4, x5
-		lp_surge(mid,x,x_dot);// influence lp surge x 1,2
-		// x7
-		hp_pitch(mid,x,x_dot);// influence hp pitch x 1
-
-		// kinematics
-		const double surge_vmax=platform::max_vel_surge;
-		const double surge_xmax=platform::max_pos_surge;
-		// x2, x3
-		linear_dynamic_proposed(t,mid(mids::surge_proposed_acc),x,x_dot,surge_vmax,surge_xmax);
-
-		// tilt rate limit
-		// x6
-		x_dot(states::surgepitch_TCRL)=mid(mids::surgepitch_TCRL_deriv);
-
-		// x8
-		x_dot(states::pitch_kin_pos)=mid(mids::pitch_kin_vel);
-	}
+		const time_type 			&last_observed_t,
+		input_type					&u
+		);
 
 	static void observer(
 		const state_type 			&x ,
 		const double 				&t,
 		observer_type 				&ymat,
 		const state_type 			&last_observed_x,
-		const time_type 			&last_observed_t
-		)
-	{
-		input_type u;
-		intermediate_type mid;
-		input(t,u);
-		intermediate_states(u,x,mid,t,last_observed_x,last_observed_t);
-
-		// surge_kin_acc
-		// surge_kin_vel
-		// surge_kin_pos
-		// surge_hp_out
-		// surge_input_acc
-		// surgepitch_sp_force
-		// x_proposed_vel //test
-		// x_kin_pos //test
-		// pitch_tilt_force
-
-		ymat(outputs::surge_kin_acc)=mid(mids::surge_kin_acc);
-		ymat(outputs::surge_kin_vel)=mid(mids::surge_kin_vel);
-		ymat(outputs::surge_kin_pos)=mid(mids::surge_kin_pos);
-		ymat(outputs::surge_hp_out)=mid(mids::surge_hp_out);
-		ymat(outputs::surge_input_acc)=mid(mids::surge_input_acc_ref);
-
-		ymat(outputs::pitch_tilt_force)=mid(mids::pitch_tilt_force); //test
-		ymat(outputs::surgepitch_sp_force)=mid(mids::surgepitch_sp_force); //test
-
-		const int x1=states::surge_proposed_vel; //test
-		const int x2=states::surge_kin_pos; //test
-
-		ymat(outputs::x_proposed_vel)=x(x1); //test
-		ymat(outputs::x_kin_pos)=x(x2); //test
-	}
+		const time_type 			&last_observed_t,
+		input_type					&u
+		);
 
 	static void intermediate_states(
 		const input_type &u,
@@ -99,99 +31,23 @@ public:
 		const time_type &t,
 		const state_type &last_observed_x,
 		const time_type &last_observed_t
-		)
+		);
+
+	static double input(const time_type t,input_type &u)
 	{
-		// m0	surge_input_acc_ref
-		// m1	surge_hp_out
-		// m2	surge_proposed_acc
-		// m3	surge_proposed_vel
-		// m4	surge_kin_pos
-		// m5	surge_kin_vel
-		// m6	surge_kin_acc
-		// m7	surge_lp_out
-		// m8	surgepitch_TC
-		// m9	surgepitch_TCRL
-		// m10	surgepitch_TCRL_deriv
-		// m11	pitch_input_vel_ref
-		// m12	pitch_hp_out
-		// m13	pitch_kin_vel
-		// m14	pitch_kin_pos
-		// m15	pitch_tilt_force
-		// m16	surgepitch_sp_force
-
-		_unused(t);
-		_unused(last_observed_x);
-
-		const double surge_vmax=platform::max_vel_surge;
-		const double surge_xmax=platform::max_pos_surge;
-		const double surge_amax=platform::max_acc_surge;
-		const double surge_max_tilt_rate=platform::surge_tilt_threshold;
-
-		// m0
-		mid(mids::surge_input_acc_ref)=u(inputs::surge_acc);
-
-		// m1
-		mid(mids::surge_hp_out)=hp_surge_out(mid,x);
-
-		// m2
-		mid(mids::surge_proposed_acc)=bound(mid(mids::surge_hp_out),-surge_amax,+surge_amax); // dependant
-
-		// m3
-		mid(mids::surge_proposed_vel)=x(states::surge_proposed_vel);
-
-		// m4
-		mid(mids::surge_kin_pos)=x(states::surge_kin_pos);
-
-		// m5, m6
-		mid(mids::surge_kin_vel)=get_kinematic_surge_vel(x,surge_xmax);
-		
-		mid(mids::surge_kin_acc)=get_kinematic_surge_acc(x,mid(mids::surge_proposed_acc),surge_vmax,surge_xmax);
-
-		// m7
-		mid(mids::surge_lp_out)=lp_surge_out(x);
-		const double surge_lp_out_old=lp_surge_out(last_observed_x);
-
-		// m8
-		mid(mids::surgepitch_TC)=mid(mids::surge_lp_out)/constants::g; // dependant
-		const double surgepitch_TC_old=surge_lp_out_old/constants::g;
-
-		// m9
-		mid(mids::surgepitch_TCRL)=x(states::surgepitch_TCRL);
-
-		// m10
-		// rate limit
-		mid(mids::surgepitch_TCRL_deriv)=// next line
-			rate_limit_deriv(
-				mid(mids::surgepitch_TC),
-				surgepitch_TC_old,
-				mid(mids::surgepitch_TCRL),
-				t-last_observed_t,
-				surge_max_tilt_rate
-				);
-
-		// m11
-		mid(mids::pitch_input_vel_ref)=u(inputs::pitch_vel);
-
-		// m12
-		mid(mids::pitch_hp_out)=hp_pitch_out(mid,x);
-
-		// m13
-		mid(mids::pitch_kin_vel)=mid(mids::pitch_hp_out)+mid(mids::surgepitch_TCRL); // dependant
-
-		// m14
-		mid(mids::pitch_kin_pos)=x(states::pitch_kin_pos);
-
-		// m15
-		mid(mids::pitch_tilt_force)=mid(mids::pitch_kin_pos)*constants::g; // dependant
-
-		// m16
-		mid(mids::surgepitch_sp_force)=mid(mids::pitch_tilt_force)+mid(mids::surge_kin_acc); // dependant
-	}
-
-	static void input(const time_type t,input_type &u)
-	{
+		// surge_acc
+		// pitch_vel
 		u(inputs::surge_acc)=(t>1?(t>7?0:1):0);
 		u(inputs::pitch_vel)=0;
+		
+		double next_urgent_time;
+		if(t<1)
+			next_urgent_time=1.0+0.000001;
+		else if(t<7)
+			next_urgent_time=7.0+0.000001;
+		else
+			next_urgent_time=0.0;
+		return next_urgent_time;
 	}
 
 protected:

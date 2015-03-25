@@ -46,8 +46,6 @@ int main()
 {
     // state_type x = { 0, 0 }; // initial conditions
     // integrate( lorenz , x , 0.0 , 25.0 , 0.1 , write_lorenz );
-    double x=0.1;
-    std::cout<<"x="<<x<<std::endl;
-    std::cout<<"|x|="<<abs(x)<<std::endl;
+    std::cout<<"aaaaaaaa"<<std::endl;
     return 0;
 }

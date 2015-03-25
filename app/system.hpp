@@ -7,13 +7,13 @@ private:
 	int buffer_index=0;
 	time_type last_observed_time;
 	state_type last_observed_states;
-	// direct_state_type last_observed_direct_states;
 
 public:
 
 	time_type start_time;
 	time_type end_time;
 	time_type dt;
+	time_type next_urgent_time;
 
     const value_type eps_rel=1E-10;
     const value_type eps_abs=1E-10;
@@ -28,10 +28,17 @@ public:
 			throw std::runtime_error("output header size mismatch!");
 	}
 
-	void observer(const state_type &x , const double &t,const double &next_dt)
+	// void init_integrate(time_type t,state_type x,time_type end_time)
+	// {
+
+	// }
+
+	void observer(const state_type &x, const double &t,const double &next_dt)
 	{
+		input_type u;
+		next_urgent_time=CSimulator::input(t,u);
 		observer_type ymat;
-		CSimulator::observer(x,t,ymat,last_observed_states,last_observed_time);
+		CSimulator::observer(x,t,ymat,last_observed_states,last_observed_time,u);
 		results_push(t,next_dt,ymat);
 		last_observed_time=t;
 		last_observed_states=x;
@@ -39,7 +46,9 @@ public:
 
 	void rhs(const state_type &x, state_type &dxdt, const double t)
 	{
-		CSimulator::rhs(x,dxdt,t,last_observed_states,last_observed_time);
+		input_type u;
+		next_urgent_time=CSimulator::input(t,u);
+		CSimulator::rhs(x,dxdt,t,last_observed_states,last_observed_time,u);
 	}
 
 	double timer(const state_type &x, const double t)
@@ -47,6 +56,29 @@ public:
 		_unused(x);
 		return t+0.1;
 	}
+
+    size_t integrate_adaptive(
+            state_type &start_state ,
+            time_type start_time ,
+            time_type end_time ,
+            time_type dt )
+    {
+		ode::Solver<ode::Steppers::RKDP5,CSysHandler> solver(std::ref(*this));
+		last_observed_time=start_time;
+		last_observed_states=start_state;
+		next_urgent_time=end_time;
+		size_t return_val=
+			solver.integrate_adaptive(
+				start_state,// is manipulated
+				start_time ,
+				end_time ,
+				dt);
+        results_finalize();
+        post_solve();
+        return return_val;
+    }
+
+protected:
 
 	void export_output(string filename,const int fig_index)
 	{
@@ -68,24 +100,24 @@ public:
 		svg_image.close();
 	}
 
-	void export_outputs(string filename)
+	void export_figures(string basename)
 	{
-		int explist_size=extent<decltype(config::exportlist)>::value;
+		int explist_size=extent<decltype(outputs::figure_list)>::value;
 
 		for(int i=0;i<explist_size;i++)
 		{
-			string filename_aug=filename+"_"+config::exportlist[i].file_suffix;
-			export_output(filename_aug,config::exportlist[i].output_index);
+			string filename_aug=basename+"_"+outputs::figure_list[i].file_suffix;
+			export_output(filename_aug,outputs::figure_list[i].output_index);
 		}
 	}
 
 	void post_solve()
 	{
-		std::string filename=files::output_results;
-		ofstream file(filename);
+		std::string basename=files::output_results;
+		ofstream file(basename);
 		results_export(&file);
 		file.close();
-		export_outputs(filename);
+		export_figures(basename);
 	}
 
 	void results_push(const time_type t,const time_type &next_dt,observer_type& y)

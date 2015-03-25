@@ -11,19 +11,19 @@ namespace config
 	const double start_time=0;
 	const double stop_time=15;
 
-	struct ExpList
-	{
-		std::string file_suffix; // no space is accepted in file suffix name
-		int output_index;
-	} exportlist[]={ 
-		{"input-surge-acc",outputs::surge_input_acc},
-		{"surge-high-pass",outputs::surge_hp_out},
-		{"kin-acc-surge",outputs::surge_kin_acc},
-		{"kin-vel-surge",outputs::surge_kin_vel},
-		{"kin-pos-surge",outputs::surge_kin_pos},
-		{"specific-force-surge",outputs::surgepitch_sp_force},
-		{"pitch-tilt-force",outputs::pitch_tilt_force},
-	};
+	// struct ExpList
+	// {
+	// 	std::string file_suffix; // no space is accepted in file suffix name
+	// 	int output_index;
+	// } figure_list[]={ 
+	// 	{"input-surge-acc",outputs::surge_input_acc_ref},
+	// 	{"surge-high-pass",outputs::surge_hp_out},
+	// 	{"kin-acc-surge",outputs::surge_kin_acc},
+	// 	{"kin-vel-surge",outputs::surge_kin_vel},
+	// 	{"kin-pos-surge",outputs::surge_kin_pos},
+	// 	{"specific-force-surge",outputs::surgepitch_sp_force},
+	// 	{"pitch-tilt-force",outputs::pitch_tilt_force},
+	// };
 
 	const std::vector<std::string> log_columns=
 			{"File","Line","Function","Value","Message"};
@@ -56,7 +56,7 @@ namespace platform
 	const double max_vel_surge=4;
 	const double max_pos_surge=1.2;
 	// tilt thresholds
-	const double surge_tilt_threshold=((double) 2.0)*constants::pi/180;
+	const double surge_tilt_threshold=((double) 5.0)*constants::pi/180;
 };
 
 namespace files

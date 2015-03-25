@@ -43,7 +43,6 @@ public :
         const value_type dc6 = c6 - static_cast<value_type> ( 187 ) / static_cast<value_type>( 2100 );
         const value_type dc7 = static_cast<value_type>( -1 ) / static_cast<value_type> ( 40 );
 
-
         do_step_impl_v2( system , in , dxdt_in , t , out , dxdt_out , dt );
         //error estimate
 

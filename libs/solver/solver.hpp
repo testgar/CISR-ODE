@@ -310,6 +310,8 @@ private:
     value_type m_max_rel_error;
 };
 
+#define EPSILON std::numeric_limits<time_type>::epsilon()
+
 template<Steppers SolverMethod, class System>
 class Solver //<SolverMethod::RKDP5,System>
 {
@@ -338,18 +340,21 @@ public:
         const char *error_string = "Integrate adaptive : Maximal number of iterations reached. A step size could not be found.";
         size_t count = 0;
         time_type next_interrupt_time=system.timer(start_state,start_time);
+        time_type next_urgent_time=system.next_urgent_time;
         dt=min(dt,system.max_dt); // what if system.max_dt is mismatches with stepper.max_dt
         time_type force_point;
         while(less_with_sign(start_time,end_time,dt))
         {
-            if(abs(start_time-next_interrupt_time)<std::numeric_limits<time_type>::epsilon())
+            if(abs(start_time-next_interrupt_time)<EPSILON)
                 next_interrupt_time=system.timer(start_state,start_time);
             system.observer(start_state,start_time,dt);
             force_point=min(end_time,next_interrupt_time); // minimum
-            if( less_with_sign(force_point,static_cast<time_type>(start_time + dt) , dt ) )
+            if(next_urgent_time-start_time>EPSILON)
+                force_point=min(force_point,next_urgent_time);
+            if(less_with_sign(force_point,static_cast<time_type>(start_time + dt) , dt ) )
             {
                 dt= force_point - start_time;
-                if(abs(dt)<std::numeric_limits<time_type>::epsilon())
+                if(abs(dt)<EPSILON)
                     throw std::runtime_error("dt was proposed to be zero!");
                 dt= min(dt,system.max_dt);// what if system.max_dt is mismatches with stepper.max_dt
             }
@@ -366,8 +371,7 @@ public:
             ++count;
         }
         system.observer( start_state , start_time, dt );
-        system.results_finalize();
-        system.post_solve();
+
         return count;
     }
 
@@ -376,11 +380,13 @@ private:
     {
         if( dt > 0 )
             //return t1 < t2;
-            return t2-t1 > std::numeric_limits<time_type>::epsilon();
+            return t2-t1 > EPSILON;
         else
             //return t1 > t2;
-            return t1-t2 > std::numeric_limits<time_type>::epsilon();
+            return t1-t2 > EPSILON;
     }
 };
+
+#undef EPSILON 
 
 NS_BNO_END
