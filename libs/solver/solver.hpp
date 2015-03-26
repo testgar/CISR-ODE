@@ -105,6 +105,8 @@ public:
     controlled_step_result try_step( System system , const state_type &in , const deriv_type &dxdt_in , time_type &t ,
             state_type &out , deriv_type &dxdt_out , time_type &dt)
     {
+        using namespace std;
+
         m_stepper.do_step( system , in , dxdt_in , t , out , dxdt_out , dt , m_xerr );
 
         // this potentially overwrites m_x_err! (standard_error_checker does, at least)
@@ -182,6 +184,7 @@ public:
     template< class System >
     controlled_step_result try_step( System system , const state_type &in , const deriv_type &dxdt_in , time_type &t , state_type &out , time_type &dt )
     {
+        using namespace std;
         // do one step with error calculationm_stepper
         m_stepper.do_step( system , in , dxdt_in , t , out , dt , m_xerr );
 
@@ -260,6 +263,8 @@ public:
     template< class System >
     controlled_step_result try_step( System system , const state_type &in , const deriv_type &dxdt_in , time_type &t , state_type &out , time_type &dt )
     {
+        using namespace std;
+ 
         // do one step with error calculationm_stepper
         m_stepper.do_step( system , in , dxdt_in , t , out , dt , m_xerr );
 
@@ -335,6 +340,8 @@ public:
             time_type end_time ,
             time_type dt )
     {
+        using namespace std;
+
         //typename std::remove_reference< Observer >::type &obs = system.observer;
         const size_t max_attempts = 1000;
         const char *error_string = "Integrate adaptive : Maximal number of iterations reached. A step size could not be found.";

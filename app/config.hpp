@@ -11,20 +11,6 @@ namespace config
 	const double start_time=0;
 	const double stop_time=15;
 
-	// struct ExpList
-	// {
-	// 	std::string file_suffix; // no space is accepted in file suffix name
-	// 	int output_index;
-	// } figure_list[]={ 
-	// 	{"input-surge-acc",outputs::surge_input_acc_ref},
-	// 	{"surge-high-pass",outputs::surge_hp_out},
-	// 	{"kin-acc-surge",outputs::surge_kin_acc},
-	// 	{"kin-vel-surge",outputs::surge_kin_vel},
-	// 	{"kin-pos-surge",outputs::surge_kin_pos},
-	// 	{"specific-force-surge",outputs::surgepitch_sp_force},
-	// 	{"pitch-tilt-force",outputs::pitch_tilt_force},
-	// };
-
 	const std::vector<std::string> log_columns=
 			{"File","Line","Function","Value","Message"};
 }
@@ -91,7 +77,8 @@ namespace files
 	const std::string output_folder="out"; 
 	const std::string output_prefix="data_";
 	const char sep=boost::filesystem::path::preferred_separator;
-	const std::string output_common_base=output_prefix+application::serialized_time()+'_';
+	const std::string serialized_time=application::serialized_time();
+	const std::string output_common_base=output_prefix+serialized_time+'_';
 	const std::string output_common=output_folder+sep+output_common_base;
 	const std::string output_results=output_common+"_results";
 	const std::string output_log=output_common+"_log";

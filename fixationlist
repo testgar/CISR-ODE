@@ -1,3 +1,7 @@
+* 2015/03/26 : SHA1 of matrix added
+* 2015/03/25 : sudden input informing
+* 2015/03/25 : two layers core: integrate and framework
+* 2015/03/24 : auto-code generator
 * 2015/03/20 : md5sum added
 * 2015/03/19 : adding -Wconversion to makefile list
 * 2015/03/18 : adding dt to observer

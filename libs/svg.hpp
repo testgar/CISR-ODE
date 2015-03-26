@@ -1,7 +1,5 @@
 #pragma once
 
-using namespace std;
-
 class CSVG
 {
 public:
@@ -17,9 +15,9 @@ public:
 	struct Attribute
 	{
 		double stroke_width=1;
-		string stroke="black";
-		string fill="none";
-		string stroke_dasharray="";
+		std::string stroke="black";
+		std::string fill="none";
+		std::string stroke_dasharray="";
 	};
 
 	struct Rectangle
@@ -69,27 +67,28 @@ public:
 	};
 
 private:
-	ofstream svg_file;
+	std::ofstream svg_file;
 	int width;
 	int height;
 	figure_frame frame;
 	CSVG::Margin margin;
-	const string thicks_color="gray";
-	const string grids_color="lightgray";
+	const std::string thicks_color="gray";
+	const std::string grids_color="lightgray";
 	const double tick_depth_y=5;
 	const double tick_depth_t=5;
 	const double y_label_padding=5;
 	const double t_label_padding=19;
 	const int y_label_fonstsize=20;
 	const int t_label_fonstsize=20;
+
 public:
 
-	CSVG(string filename,figure_frame frame,int width,int height,Margin margin): width(width),height(height),frame(frame), margin(margin)
+	CSVG(std::string filename,figure_frame frame,int width,int height,Margin margin): width(width),height(height),frame(frame), margin(margin)
 	{
 		svg_file.open(filename);
 	}
 
-	CSVG(string filename,figure_frame frame): CSVG(filename,frame,1000,600,{70,130,100,180})
+	CSVG(std::string filename,figure_frame frame): CSVG(filename,frame,1000,600,{70,130,100,180})
 	{
 	}
 
@@ -125,7 +124,7 @@ public:
 		return {trans_t(p.x),trans_y(p.y)};
 	}
 
-	void comment(string comment_text)
+	void comment(std::string comment_text)
 	{
 
 		svg_file<<"<!-- "<<comment_text<<"-->\n";
@@ -291,21 +290,8 @@ public:
 		return get_tickspace(frame.max_y-frame.min_y,tick_number[0],tick_number[1]);
 	}
 
-	// double rounded_precision(double num)
-	// {
-	// 	int precision_digit=(int)floor(log10(num));
-	// 	double precision=1;
-	// 	if(precision_digit<0)
-	// 		for(int i=0;i<-precision_digit;i++)
-	// 			precision*=0.1;
-	// 	return precision;
-	// }
-
 	void label_ticks_y(double label_number,Point position)
 	{
-		// double rp=rounded_precision(tickspace);
-		// double label_rounded=floor(label_number/rp)*rp;
-		// label_rounded=(label_rounded==0?abs(label_rounded):label_rounded); // avoid negative zero according to IEEE 754 standard for floating point arithmatic
 		svg_file<<"<text "
 				<<"x=\""<<position.x-y_label_padding<<"\" "
 				<<"y=\""<<position.y<<"\" "
@@ -319,10 +305,6 @@ public:
 
 	void label_ticks_t(double label_number,Point position)
 	{
-		// double rp=rounded_precision(tickspace);
-		// double label_rounded=floor(label_number/rp)*rp;
-		// label_rounded=(label_rounded==0?abs(label_rounded):label_rounded); // avoid negative zero according to IEEE 754 standard for floating point arithmatic
-		// cout<<tickspace<<","<<rp<<","<<label_rounded<<endl;
 		svg_file<<"<text "
 				<<"x=\""<<position.x<<"\" "
 				<<"y=\""<<position.y+t_label_padding<<"\" "

@@ -23,15 +23,10 @@ public:
 	{
 		// constructor
 		filesystem::ensure_folder(files::output_folder);
-		int out_header_size=extent<decltype(outputs::output_header)>::value;
+		int out_header_size=std::extent<decltype(outputs::output_header)>::value;
 		if(out_header_size!=outputs::output_size)
 			throw std::runtime_error("output header size mismatch!");
 	}
-
-	// void init_integrate(time_type t,state_type x,time_type end_time)
-	// {
-
-	// }
 
 	void observer(const state_type &x, const double &t,const double &next_dt)
 	{
@@ -75,12 +70,14 @@ public:
 				dt);
         results_finalize();
         post_solve();
+        std::cout<<"Results("<<files::serialized_time<<") SHA1: ";
+        sha1sum(results).println();
         return return_val;
     }
 
 protected:
 
-	void export_output(string filename,const int fig_index)
+	void export_output(std::string filename,const int fig_index)
 	{
 		int offset=config::results_additions;
 		arma::mat ymat;
@@ -100,13 +97,13 @@ protected:
 		svg_image.close();
 	}
 
-	void export_figures(string basename)
+	void export_figures(std::string basename)
 	{
-		int explist_size=extent<decltype(outputs::figure_list)>::value;
+		int explist_size=std::extent<decltype(outputs::figure_list)>::value;
 
 		for(int i=0;i<explist_size;i++)
 		{
-			string filename_aug=basename+"_"+outputs::figure_list[i].file_suffix;
+			std::string filename_aug=basename+"_"+outputs::figure_list[i].file_suffix;
 			export_output(filename_aug,outputs::figure_list[i].output_index);
 		}
 	}
@@ -114,7 +111,7 @@ protected:
 	void post_solve()
 	{
 		std::string basename=files::output_results;
-		ofstream file(basename);
+		std::ofstream file(basename);
 		results_export(&file);
 		file.close();
 		export_figures(basename);
@@ -156,7 +153,7 @@ protected:
 		int n_rows=results.n_rows;
 
 		*output_media <<"t\tdt";
-		int out_header_size=extent<decltype(outputs::output_header)>::value;
+		int out_header_size=std::extent<decltype(outputs::output_header)>::value;
 		for(int i=0;i<out_header_size;i++)
 		{
 			*output_media << '\t' << outputs::output_header[i];

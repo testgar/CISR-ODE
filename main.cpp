@@ -16,9 +16,9 @@ void main_normal()
 		config::start_time ,
 		config::stop_time ,
 		0.1);
-	std::string command="md5sum ";
-	command+=files::output_results;
-	system(command.c_str());
+	// std::string command="md5sum ";
+	// command+=files::output_results;
+	// system(command.c_str());
 }
 
 void main_test_sat()
@@ -30,7 +30,7 @@ void main_test_sat()
 
 	double x;
 	std::cout<<"enter x: ";
-	cin>>x;
+	std::cin>>x;
 	std::cout<<"vmax: "<<vmax<<std::endl;
 	std::cout<<"xmax: "<<xmax<<std::endl;
 	std::cout<<"amax: "<<amax<<std::endl;
