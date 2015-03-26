@@ -30,18 +30,18 @@ public :
     void do_step_impl_v1( System system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
             StateOut &out , DerivOut &dxdt_out , time_type dt , Err &xerr )
     {
-        const value_type c1 = static_cast<value_type> ( 35 ) / static_cast<value_type>( 384 );
-        const value_type c3 = static_cast<value_type> ( 500 ) / static_cast<value_type>( 1113 );
-        const value_type c4 = static_cast<value_type> ( 125 ) / static_cast<value_type>( 192 );
-        const value_type c5 = static_cast<value_type> ( -2187 ) / static_cast<value_type>( 6784 );
-        const value_type c6 = static_cast<value_type> ( 11 ) / static_cast<value_type>( 84 );
+        const value_type c1 = value_type( 35 ) / value_type( 384 );
+        const value_type c3 = value_type( 500 ) / value_type( 1113 );
+        const value_type c4 = value_type( 125 ) / value_type( 192 );
+        const value_type c5 = value_type( -2187 ) / value_type( 6784 );
+        const value_type c6 = value_type( 11 ) / value_type( 84 );
 
-        const value_type dc1 = c1 - static_cast<value_type> ( 5179 ) / static_cast<value_type>( 57600 );
-        const value_type dc3 = c3 - static_cast<value_type> ( 7571 ) / static_cast<value_type>( 16695 );
-        const value_type dc4 = c4 - static_cast<value_type> ( 393 ) / static_cast<value_type>( 640 );
-        const value_type dc5 = c5 - static_cast<value_type> ( -92097 ) / static_cast<value_type>( 339200 );
-        const value_type dc6 = c6 - static_cast<value_type> ( 187 ) / static_cast<value_type>( 2100 );
-        const value_type dc7 = static_cast<value_type>( -1 ) / static_cast<value_type> ( 40 );
+        const value_type dc1 = c1 - value_type( 5179 ) / value_type( 57600 );
+        const value_type dc3 = c3 - value_type( 7571 ) / value_type( 16695 );
+        const value_type dc4 = c4 - value_type( 393 ) / value_type( 640 );
+        const value_type dc5 = c5 - value_type( -92097 ) / value_type( 339200 );
+        const value_type dc6 = c6 - value_type( 187 ) / value_type( 2100 );
+        const value_type dc7 = value_type( -1 ) / value_type( 40 );
 
         do_step_impl_v2( system , in , dxdt_in , t , out , dxdt_out , dt );
         //error estimate
@@ -54,36 +54,36 @@ public :
     void do_step_impl_v2( System system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
             StateOut &out , DerivOut &dxdt_out , time_type dt )
     {
-        const value_type a2 = static_cast<value_type> ( 1 ) / static_cast<value_type>( 5 );
-        const value_type a3 = static_cast<value_type> ( 3 ) / static_cast<value_type> ( 10 );
-        const value_type a4 = static_cast<value_type> ( 4 ) / static_cast<value_type> ( 5 );
-        const value_type a5 = static_cast<value_type> ( 8 )/static_cast<value_type> ( 9 );
+        const value_type a2 = value_type( 1 ) / value_type( 5 );
+        const value_type a3 = value_type( 3 ) / value_type( 10 );
+        const value_type a4 = value_type( 4 ) / value_type( 5 );
+        const value_type a5 = value_type( 8 )/value_type( 9 );
 
-        const value_type b21 = static_cast<value_type> ( 1 ) / static_cast<value_type> ( 5 );
+        const value_type b21 = value_type( 1 ) / value_type( 5 );
 
-        const value_type b31 = static_cast<value_type> ( 3 ) / static_cast<value_type>( 40 );
-        const value_type b32 = static_cast<value_type> ( 9 ) / static_cast<value_type>( 40 );
+        const value_type b31 = value_type( 3 ) / value_type( 40 );
+        const value_type b32 = value_type( 9 ) / value_type( 40 );
 
-        const value_type b41 = static_cast<value_type> ( 44 ) / static_cast<value_type> ( 45 );
-        const value_type b42 = static_cast<value_type> ( -56 ) / static_cast<value_type> ( 15 );
-        const value_type b43 = static_cast<value_type> ( 32 ) / static_cast<value_type> ( 9 );
+        const value_type b41 = value_type( 44 ) / value_type( 45 );
+        const value_type b42 = value_type( -56 ) / value_type( 15 );
+        const value_type b43 = value_type( 32 ) / value_type( 9 );
 
-        const value_type b51 = static_cast<value_type> ( 19372 ) / static_cast<value_type>( 6561 );
-        const value_type b52 = static_cast<value_type> ( -25360 ) / static_cast<value_type> ( 2187 );
-        const value_type b53 = static_cast<value_type> ( 64448 ) / static_cast<value_type>( 6561 );
-        const value_type b54 = static_cast<value_type> ( -212 ) / static_cast<value_type>( 729 );
+        const value_type b51 = value_type( 19372 ) / value_type( 6561 );
+        const value_type b52 = value_type( -25360 ) / value_type( 2187 );
+        const value_type b53 = value_type( 64448 ) / value_type( 6561 );
+        const value_type b54 = value_type( -212 ) / value_type( 729 );
 
-        const value_type b61 = static_cast<value_type> ( 9017 ) / static_cast<value_type>( 3168 );
-        const value_type b62 = static_cast<value_type> ( -355 ) / static_cast<value_type>( 33 );
-        const value_type b63 = static_cast<value_type> ( 46732 ) / static_cast<value_type>( 5247 );
-        const value_type b64 = static_cast<value_type> ( 49 ) / static_cast<value_type>( 176 );
-        const value_type b65 = static_cast<value_type> ( -5103 ) / static_cast<value_type>( 18656 );
+        const value_type b61 = value_type( 9017 ) / value_type( 3168 );
+        const value_type b62 = value_type( -355 ) / value_type( 33 );
+        const value_type b63 = value_type( 46732 ) / value_type( 5247 );
+        const value_type b64 = value_type( 49 ) / value_type( 176 );
+        const value_type b65 = value_type( -5103 ) / value_type( 18656 );
 
-        const value_type c1 = static_cast<value_type> ( 35 ) / static_cast<value_type>( 384 );
-        const value_type c3 = static_cast<value_type> ( 500 ) / static_cast<value_type>( 1113 );
-        const value_type c4 = static_cast<value_type> ( 125 ) / static_cast<value_type>( 192 );
-        const value_type c5 = static_cast<value_type> ( -2187 ) / static_cast<value_type>( 6784 );
-        const value_type c6 = static_cast<value_type> ( 11 ) / static_cast<value_type>( 84 );
+        const value_type c1 = value_type( 35 ) / value_type( 384 );
+        const value_type c3 = value_type( 500 ) / value_type( 1113 );
+        const value_type c4 = value_type( 125 ) / value_type( 192 );
+        const value_type c5 = value_type( -2187 ) / value_type( 6784 );
+        const value_type c6 = value_type( 11 ) / value_type( 84 );
 
         typename std::remove_reference< System >::type &sys = system;
 
