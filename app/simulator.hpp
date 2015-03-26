@@ -40,14 +40,14 @@ public:
 		u(inputs::surge_acc)=(t>1?(t>7?0:1):0);
 		u(inputs::pitch_vel)=0;
 		
-		double next_urgent_time;
+		double next_sudden_change_time;
 		if(t<1)
-			next_urgent_time=1.0+0.000001;
+			next_sudden_change_time=1.0+0.000001;
 		else if(t<7)
-			next_urgent_time=7.0+0.000001;
+			next_sudden_change_time=7.0+0.000001;
 		else
-			next_urgent_time=0.0;
-		return next_urgent_time;
+			next_sudden_change_time=0.0;
+		return next_sudden_change_time;
 	}
 
 protected:

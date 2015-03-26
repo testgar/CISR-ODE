@@ -9,7 +9,7 @@ namespace config
 	const uint buffer_headers=outputs::output_size+config::results_additions;
 
 	const double start_time=0;
-	const double stop_time=15;
+	const double stop_time=1.1;//15;
 
 	const std::vector<std::string> log_columns=
 			{"File","Line","Function","Value","Message"};
