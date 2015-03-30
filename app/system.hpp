@@ -59,7 +59,7 @@ public:
 				dt);
 		results_finalize();
 		post_solve();
-		std::cout<<"Results("<<files::serialized_time<<") SHA1: ";
+		std::cout<<"Results("<<files::now_print<<") SHA1: ";
 		std::cout<<sha1sum(results).signature()<<std::endl;
 		return return_val;
 	}

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#define _unused(x) ((void)x)
 
 class unit_test
 {

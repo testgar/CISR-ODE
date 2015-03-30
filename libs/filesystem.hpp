@@ -11,6 +11,11 @@ namespace filesystem
 			boost::filesystem::create_directory(filename);	
 	}
 
+	bool exists(std::string filename)
+	{
+		return boost::filesystem::exists(filename);
+	}
+
 	// std::string base_filename()
 	// {
 	// 	char separator=boost::filesystem::path::preferred_separator;

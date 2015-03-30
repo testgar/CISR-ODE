@@ -19,15 +19,13 @@ class default_error_checker
 {
 public:
 
-
 	default_error_checker(
-			value_type eps_abs = static_cast< value_type >( 1.0e-6 ) ,
-			value_type eps_rel = static_cast< value_type >( 1.0e-6 ) ,
+			value_type eps_abs = static_cast<value_type>( 1.0e-6 ) ,
+			value_type eps_rel = static_cast<value_type>( 1.0e-6 ) ,
 			value_type a_x = static_cast< value_type >( 1 ) ,
 			value_type a_dxdt = static_cast< value_type >( 1 ) )
 	: m_eps_abs( eps_abs ) , m_eps_rel( eps_rel ) , m_a_x( a_x ) , m_a_dxdt( a_dxdt )
 	{ }
-
 
 	value_type error(const state_type &x_old , const deriv_type &dxdt_old , state_type &x_err , time_type dt ) const
 	{
@@ -51,11 +49,6 @@ typedef enum
 	success , // < The trial step was successful, hence the state and the time have been advanced.
 	fail	  // < The step was not successful and might possibly be repeated with a small step size.
 } controlled_step_result;
-
-
-//template< enum Steppers >
-//class controlled_runge_kutta;
-
 
 template<enum Steppers>
 class runge_kutta;
@@ -126,11 +119,6 @@ public:
 		}
 	}
 
-	// value_type last_error( void ) const
-	// {
-	//	 return m_max_rel_error;
-	// }
-
 private:
 
 	stepper_type m_stepper;
@@ -145,7 +133,7 @@ private:
 #define EPSILON (std::numeric_limits<time_type>::epsilon())
 
 template<Steppers SolverMethod, class System>
-class Solver //<SolverMethod::RKDP5,System>
+class Solver
 {
 
 	typedef typename std::remove_reference<System>::type system_type;
@@ -179,6 +167,7 @@ public:
 		time_type force_point;
 		while(less_with_sign(start_time,end_time,dt))
 		{
+// _(start_time);
 			if(std::abs(start_time-next_interrupt_time)<EPSILON)
 				next_interrupt_time=system.timer(start_state,start_time);
 			system.observer(start_state,start_time,dt);
