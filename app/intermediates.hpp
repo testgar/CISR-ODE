@@ -2,7 +2,6 @@
 
 namespace mids
 {
-
 	// m0	surge_input_acc_ref
 	// m1	surge_hp_out
 	// m2	surge_proposed_acc

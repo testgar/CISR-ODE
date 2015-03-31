@@ -16,13 +16,6 @@ namespace filesystem
 		return boost::filesystem::exists(filename);
 	}
 
-	// std::string base_filename()
-	// {
-	// 	char separator=boost::filesystem::path::preferred_separator;
-	// 	std::string output_file=files::output_common;
-	// 	return (files::output_folder+separator+output_file);
-	// }
-
 	std::string read_file(const std::string &filename)
 	{
 		if(!boost::filesystem::exists(filename))

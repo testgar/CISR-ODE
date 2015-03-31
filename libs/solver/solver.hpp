@@ -13,7 +13,7 @@
 
 NS_ODE_BEGIN
 
-enum class Steppers { RKDP5, RKCK45, RKF78 };
+enum class Steppers { RKDP5, RKCK54, RKF78 };
 
 class default_error_checker
 {

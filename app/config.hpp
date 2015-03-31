@@ -2,15 +2,23 @@
 
 namespace config
 {
-	const int debugmod=1;
 
 	const uint buffer_size=1000;
 	const uint results_additions=2; // t, dt
 	const uint buffer_headers=outputs::output_size+config::results_additions;
 
 	const double start_time=0;
-	const double stop_time=1.1;//15;
+	const double stop_time=15;
 	const std::string web_dir="web";
+}
+
+namespace config
+{
+#ifdef NDEBUG
+	const int debugmod=0;
+#else
+	const int debugmod=1;
+#endif
 }
 
 namespace platform

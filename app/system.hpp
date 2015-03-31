@@ -20,9 +20,9 @@ public:
 	void observer(const state_type &x, const double &t,const double &next_dt)
 	{
 		input_type u;
-		next_sudden_change_time=CSimulator::input(t,u);
+		next_sudden_change_time=Model::input(t,u);
 		observer_type ymat;
-		CSimulator::observer(x,t,ymat,last_observed_states,last_observed_time,u);
+		Model::observer(x,t,ymat,last_observed_states,last_observed_time,u);
 		results_push(t,next_dt,ymat);
 		last_observed_time=t;
 		last_observed_states=x;
@@ -31,8 +31,8 @@ public:
 	void rhs(const state_type &x, state_type &dxdt, const double t)
 	{
 		input_type u;
-		next_sudden_change_time=CSimulator::input(t,u);
-		CSimulator::rhs(x,dxdt,t,last_observed_states,last_observed_time,u);
+		next_sudden_change_time=Model::input(t,u);
+		Model::rhs(x,dxdt,t,last_observed_states,last_observed_time,u);
 	}
 
 	double timer(const state_type &x, const double t)
@@ -47,7 +47,7 @@ public:
 			const time_type end_time,
 			const time_type dt )
 	{
-		ode::Solver<ode::Steppers::RKCK45,CSystem> solver(std::ref(*this));
+		ode::Solver<ode::Steppers::RKDP5,CSystem> solver(std::ref(*this));
 		last_observed_time=start_time;
 		last_observed_states=start_state;
 		next_sudden_change_time=end_time;

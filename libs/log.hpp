@@ -47,7 +47,8 @@ private:
 
 public:
 
-	CLog(const std::string log_filename) : html(log_filename)
+	CLog(const std::string log_filename) 
+		: html((filesystem::ensure_folder(files::log_folder),log_filename))
 	{
 		html.head_open();
 		html.js_src(files::jquery);
