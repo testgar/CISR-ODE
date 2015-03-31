@@ -19,7 +19,9 @@ all:
 	@echo "generating unit-tests..."
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT1).cpp -o $(BINDIR)/$(UNIT1) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT2).cpp -o $(BINDIR)/$(UNIT2) $(LIBS)
+	@bash ../scripts/separator.bash
 	@echo "runing unit-tests..."
+	@$(BINDIR)/$(UNIT1)
 	@$(BINDIR)/$(UNIT2)
 	@echo "done"
 
@@ -29,9 +31,11 @@ release:
 	mkdir -p $(BINDIR) $(OUTDIR)
 	@echo "generating unit-tests..."
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_RELEASE) $(UNIT1).cpp -o $(BINDIR)/$(UNIT1) $(LIBS)
-	@bash scripts/separator.bash
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_RELEASE) $(UNIT2).cpp -o $(BINDIR)/$(UNIT2) $(LIBS)
+	@bash ../scripts/separator.bash
 	@echo "runing unit-tests..."
 	@$(BINDIR)/$(UNIT1)
+	@$(BINDIR)/$(UNIT2)
 	@echo "done"
 
 buildonly:
@@ -40,6 +44,7 @@ buildonly:
 	mkdir -p $(BINDIR) $(OUTDIR)
 	@echo "generating unit-tests..."
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT1).cpp -o $(BINDIR)/$(UNIT1) $(LIBS)
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT2).cpp -o $(BINDIR)/$(UNIT2) $(LIBS)
 
 clean:
 	trash $(BINDIR)/*

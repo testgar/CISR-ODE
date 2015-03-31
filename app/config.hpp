@@ -9,7 +9,7 @@ namespace config
 
 	const double start_time=0;
 	const double stop_time=15;
-	const std::string web_dir="web";
+	const std::string web_dir="resources/html";
 }
 
 namespace config
