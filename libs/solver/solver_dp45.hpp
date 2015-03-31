@@ -19,7 +19,7 @@ public:
 	{ }
 
 	template< class System  >
-	controlled_step_result try_step( System system , state_type &x , time_type &t , time_type &dt )
+	controlled_step_result try_step( System &system , state_type &x , time_type &t , time_type &dt )
 	{
 		if( m_first_call )
 		{
@@ -28,7 +28,9 @@ public:
 			system.rhs( x , m_dxdt , t );
 			m_first_call = false;
 		}
+
 		controlled_step_result res = try_step( system , x , m_dxdt , t , m_xnew , m_dxdtnew , dt );
+
 		if( res == success )
 		{
 			x=m_xnew;
@@ -39,7 +41,7 @@ public:
 
 	//call 4
 	template<class System >
-	controlled_step_result try_step( System system , const state_type &in , const deriv_type &dxdt_in , time_type &t ,
+	controlled_step_result try_step( System &system , const state_type &in , const deriv_type &dxdt_in , time_type &t ,
 			state_type &out , deriv_type &dxdt_out , time_type &dt)
 	{
 		m_stepper.do_step( system , in , dxdt_in , t , out , dxdt_out , dt , m_xerr );
@@ -106,7 +108,7 @@ public:
 	{ }
 
 	template< class System , class StateIn , class DerivIn , class StateOut , class DerivOut , class Err >
-	void do_step( System system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
+	void do_step(System &system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
 			StateOut &out , DerivOut &dxdt_out , time_type dt , Err &xerr )
 	{
 		m_first_call = true;
@@ -114,7 +116,7 @@ public:
 	}
 
 	template< class System , class StateIn , class DerivIn , class StateOut , class DerivOut , class Err >
-	void do_step_impl_v1( System system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
+	void do_step_impl_v1( System &system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
 			StateOut &out , DerivOut &dxdt_out , time_type dt , Err &xerr )
 	{
 		const value_type c1 = value_type( 35 ) / value_type( 384 );
@@ -134,11 +136,10 @@ public:
 		//error estimate
 
 		xerr=dt*dc1*dxdt_in + dt*dc3*m_k3 + dt*dc4*m_k4 + dt*dc5*m_k5 + dt*dc6*m_k6 + dt*dc7*dxdt_out;
-
 	}
 
 	template< class System , class StateIn , class DerivIn , class StateOut , class DerivOut >
-	void do_step_impl_v2( System system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
+	void do_step_impl_v2( System &system , const StateIn &in , const DerivIn &dxdt_in , time_type t ,
 			StateOut &out , DerivOut &dxdt_out , time_type dt )
 	{
 		const value_type a2 = value_type( 1 ) / value_type( 5 );
@@ -173,6 +174,7 @@ public:
 		const value_type c6 = value_type( 11 ) / value_type( 84 );
 
 		typename std::remove_reference< System >::type &sys = system;
+	
 
 		m_x_tmp= in + dt*b21 * dxdt_in;
 
@@ -203,6 +205,5 @@ private:
 	deriv_type m_k2 , m_k3 , m_k4 , m_k5 , m_k6 ;
 	deriv_type m_dxdt_tmp;
 };
-
 
 NS_ODE_END

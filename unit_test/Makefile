@@ -7,7 +7,7 @@ CXXFLAGS_DEBUG := -g --coverage
 LIBS:= -lboost_filesystem -lboost_system -lcrypto -lrt
 UNIT1:= dp5_lorenz-attractor-50000
 
-.PHONY: all  clean
+.PHONY: all release buildonly clean
 
 # default
 all:
@@ -29,6 +29,13 @@ release:
 	@echo "runing unit-tests..."
 	@$(BINDIR)/$(UNIT1)
 	@echo "done"
+
+buildonly:
+	@echo "cleaning..."
+	trash $(BINDIR) $(OUTDIR)
+	mkdir -p $(BINDIR) $(OUTDIR)
+	@echo "generating unit-tests..."
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT1).cpp -o $(BINDIR)/$(UNIT1) $(LIBS)
 
 clean:
 	trash $(BINDIR)/*

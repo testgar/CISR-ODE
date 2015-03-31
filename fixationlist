@@ -1,3 +1,5 @@
+* 2015/03/31 : source of speed problem was instace copying, sending argument by reference fixed the problem
+* 2015/03/30 : profiling tools added: COUNT_ME, PROFILE_ONCE_ START/END
 ? 2015/03/30 : however the new integration is far slower than previous odeint
 * 2015/03/30 : Unit test added and RKDP5 matched
 * 2015/03/26 : SHA1 direct string output instead of printing hex-string output only

@@ -24,6 +24,18 @@
 
 #define _(x) LOG(#x,x)
 
+#define _PROFILE_ONCE_START 						\
+				{									\
+					static cronometer clock_tmp; 	\
+					clock_tmp.tic_once();
+
+#define _PROFILE_ONCE_END(STRING) 						\
+					clock_tmp.print_toc_once(STRING); 	\
+				}
+
+#define _COUNT_ME(TEXT) \
+				class COUNTER_TMP{int _count;std::string text; public: COUNTER_TMP(std::string text):_count(0),text(text){} ~COUNTER_TMP(){std::cout<<TEXT<<" counted "<<_count<<" times."<<std::endl;} void count(){_count++;}}; static COUNTER_TMP counted_tmp(TEXT); counted_tmp.count();
+
 class CLog
 {
 private:
@@ -110,9 +122,15 @@ protected:
 	timespec time_start, time_stop;
 	bool initialized;
 	double _last_toc;
+	bool print_toc_once_called;
+	bool tic_once_called;
 public:
 
-	cronometer() : initialized(false), _last_toc(-1)
+	cronometer() : 
+			initialized(false),
+			_last_toc(-1),
+			print_toc_once_called(false),
+			tic_once_called(false)
 	{
 		// constructor
 	}
@@ -138,6 +156,22 @@ public:
 	double last_toc()
 	{
 		return _last_toc;
+	}
+
+	void tic_once()
+	{
+		if(tic_once_called)
+			return ;
+		tic_once_called=true;
+		tic();
+	}
+
+	void print_toc_once(std::string text)
+	{
+		if(print_toc_once_called)
+			return ;
+		print_toc_once_called=true;
+		std::cout<<text<<": "<<toc()<<std::endl;
 	}
 
 };

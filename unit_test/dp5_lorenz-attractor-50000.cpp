@@ -1,6 +1,14 @@
 // unit test
 // dp5_lorenz-attractor-50000.cpp
 
+// conditions:
+// compiler mode: release
+// buffer size: 10000000
+// time: 0 ~ 50000
+// eps rel, abs: 1E-12
+// ODEINT sha1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a   time elapsed: 7.26671
+// CISR   sha1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a   time elapsed: 7.58852
+
 template <class T>
 struct show_type;
 
@@ -8,7 +16,7 @@ struct show_type;
 
 const uint state_size=3;
 const uint results_additions=2;
-const uint buffer_size=10000;
+const uint buffer_size=10000000;
 const uint buffer_headers=state_size+results_additions;
 typedef arma::vec::fixed<state_size> state_type;
 typedef state_type deriv_type;
@@ -19,7 +27,6 @@ typedef double value_type;
 
 // ----
 
-// #include <iostream>
 #include <boost/filesystem.hpp>
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp> // for using boost::split to explode a string
@@ -28,12 +35,11 @@ typedef double value_type;
 #include <iomanip>
 #include "config.hpp"
 #include "../libs/filesystem.hpp"
-	#include "../libs/application.hpp"
-	#include "../app/config_files.hpp"
-	#include "../libs/html.hpp"
+#include "../libs/application.hpp"
+#include "../app/config_files.hpp"
+#include "../libs/html.hpp"
 #include "../libs/log.hpp"
 #include "../libs/sha1.hpp"
-#include "../libs/solver/solver_ck45.hpp"
 #include "../libs/solver/solver_dp45.hpp"
 #include "uniform.hpp"
 #include "libs/odeint.hpp"
@@ -45,7 +51,7 @@ public:
 	const value_type eps_rel=1E-12;
 	const value_type eps_abs=1E-12;
 	const time_type start_time=0;
-	const time_type stop_time=10;
+	const time_type stop_time=50000;
 	const time_type max_dt=stop_time;
 	const time_type initial_dt=0.1;
 	const state_type start_state={10.0,1.0,1.0};
@@ -89,6 +95,7 @@ public:
 	std::string integrate_adaptive_cisr()
 	{
 		state_type X=start_state;
+		// ode::Solver<ode::Steppers::RKDP5,CSystem_ODEINT> solver_cisr(*this);
 		ode::Solver<ode::Steppers::RKDP5,CSystem_ODEINT> solver_cisr(std::ref(*this));
 		solver_cisr.integrate_adaptive(
 			X,// is manipulated
