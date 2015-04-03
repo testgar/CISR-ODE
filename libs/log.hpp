@@ -1,5 +1,7 @@
 #pragma once
 
+#include "config.hpp"
+#include "html.hpp"
 #include <boost/lexical_cast.hpp>
 
 #define LOG2(Message_,VALUE_)					\
@@ -117,62 +119,3 @@ void call_loger(std::string msg)
 	logger(msg,0,0,"","");
 }
 
-class cronometer
-{
-protected:
-	timespec time_start, time_stop;
-	bool initialized;
-	double _last_toc;
-	bool print_toc_once_called;
-	bool tic_once_called;
-public:
-
-	cronometer() : 
-			initialized(false),
-			_last_toc(-1),
-			print_toc_once_called(false),
-			tic_once_called(false)
-	{
-		// constructor
-	}
-
-	void tic()
-	{
-		initialized=true;
-		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_start);
-	}
-
-	double toc()
-	{
-		if(!initialized)
-			throw std::runtime_error("cronometer is not initialized!");
-		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_stop);
-		long diff_sec=time_stop.tv_sec-time_start.tv_sec;
-		long diff_nsec=time_stop.tv_nsec-time_start.tv_nsec;
-		double time_diff=static_cast<double>(diff_sec)+(1e-9)*static_cast<double>(diff_nsec);
-		_last_toc=time_diff;
-		return time_diff;
-	}
-
-	double last_toc()
-	{
-		return _last_toc;
-	}
-
-	void tic_once()
-	{
-		if(tic_once_called)
-			return ;
-		tic_once_called=true;
-		tic();
-	}
-
-	void print_toc_once(std::string text)
-	{
-		if(print_toc_once_called)
-			return ;
-		print_toc_once_called=true;
-		std::cout<<text<<": "<<toc()<<std::endl;
-	}
-
-};

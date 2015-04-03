@@ -1,5 +1,11 @@
 #pragma once
 
+#include <string>
+#include <fstream>
+#include <vector>
+#include "config_files.hpp"
+#include "filesystem.hpp"
+
 class CHTML
 {
 private:

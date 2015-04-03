@@ -19,7 +19,7 @@ all:
 	@echo "generating unit-tests..."
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT1).cpp -o $(BINDIR)/$(UNIT1) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(UNIT2).cpp -o $(BINDIR)/$(UNIT2) $(LIBS)
-	@bash ../scripts/separator.bash
+	@bash ../scripts/separator.sh
 	@echo "runing unit-tests..."
 	@$(BINDIR)/$(UNIT1)
 	@$(BINDIR)/$(UNIT2)
@@ -32,7 +32,7 @@ release:
 	@echo "generating unit-tests..."
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_RELEASE) $(UNIT1).cpp -o $(BINDIR)/$(UNIT1) $(LIBS)
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_RELEASE) $(UNIT2).cpp -o $(BINDIR)/$(UNIT2) $(LIBS)
-	@bash ../scripts/separator.bash
+	@bash ../scripts/separator.sh
 	@echo "runing unit-tests..."
 	@$(BINDIR)/$(UNIT1)
 	@$(BINDIR)/$(UNIT2)

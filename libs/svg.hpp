@@ -1,5 +1,10 @@
 #pragma once
 
+#include <armadillo>
+#include <string>
+#include <fstream>
+#include "types.hpp"
+
 class CSVG
 {
 public:
@@ -130,7 +135,7 @@ public:
 		svg_file<<"<!-- "<<comment_text<<"-->\n";
 	}
 
-	void path_l(mat fig,int f_index,Path_Config pconf)
+	void path_l(arma::mat fig,int f_index,Path_Config pconf)
 	{
 		int n_cols=fig.n_cols;
 		if(n_cols<2)

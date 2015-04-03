@@ -1,3 +1,5 @@
+#pragma once
+
 //
 // convert transfer function to steady states
 //

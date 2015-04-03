@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+#include <fstream>
+#include <boost/filesystem.hpp>
+
 void call_loger(std::string a);
 
 namespace filesystem
