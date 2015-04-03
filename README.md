@@ -254,12 +254,46 @@ to suppress compiler warnings.
 
 Unlike the intermediates, the state derivatives can be assigned in any order.
 
+To compile the code, call make at root of the framework:
+
+    make
+
+It generates an executive file inside `./bin/` directory.
+
+To run the executive file
+
+    make run
+
+The command above runs the built executive file. The outputs results and figures are generated inside folder `./out/`:
+
+`./out/data_20150403_122801__results`
+
+    t   dt  surge_input_acc_ref surge_hp_out    surge_kin_acc   surge_kin_vel   surge_kin_pos   surge_lp_out    specific_force
+    0   0.1 0   0   0   0   0   0   0
+    0.1 0.45    0   0   0   0   0   0   0
+    0.55    2.025   0   0   0   0   0   0   0
+    0.955   1.8225  0   0   0   0   0   0   0
+    0.96958 0.06561 0   0   0   0   0   0   0
+    0.982702    0.059049    0   0   0   0   0   0   0
+    0.994512    0.0531441   0   0   0   0   0   0   0
+    0.996638    0.00956594  0   0   0   0   0   0   0
+    0.998551    0.00860934  0   0   0   0   0   0   0
+    ...
+
+data_20150403_122801__results_surge_input_acc_ref.svg
+
+![02](https://cloud.githubusercontent.com/assets/11730626/6984273/cf164f42-da72-11e4-8d2f-402e2e53ef91.png)
+
+data_20150403_122801__results_specific_force.svg
+
+![03](https://cloud.githubusercontent.com/assets/11730626/6984275/d66f2c64-da72-11e4-8788-43a4c4975eb9.png)
+
 
 ## Unit test
 This application is not test driven. The purpose of using unit test is to check the validity of core codes such as comparing new ODE code with its original code.
 
 ## Facilities
-Inside folder `./libs` there are libraries for providing more facilities for the programmer. These facilities include:
+Inside folder `./libs/` there are libraries for providing more facilities for the programmer. These facilities include:
 * profiler
 * SHA1 check sum for identifying the output
 * SVG file generator
@@ -272,7 +306,7 @@ This library folder is planned to be extended depending on global user needs.
 This application is originally written for Linux environments. It has been tested on Ubuntu and works fine. We expect that this application works fine on other Unix based operating systems such as Mac. This application does not work on windows due to bash scripts used for automatic code generation. We plan to translate those scripts into another language such as Python to be run on all operating systems.
 
 ## Using simplified solver without the framework.
-It is possible that one uses the simplified solver only. For this purpose, just use `./libs/solver` folder and add it into your new project. You need to provide the required `typenames` which were used in this library.  
+It is possible that one uses the simplified solver only. For this purpose, just use `./libs/solver/` folder and add it into your new project. You need to provide the required `typenames` which were used in this library.  
 
 ## Licence
 
