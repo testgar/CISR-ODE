@@ -42,7 +42,7 @@ public:
 		// u1	pitch_vel
 
 		u(inputs::surge_acc)=(t>1.0&&t<5.0?1.0:0.0);
-		u(inputs::pitch_vel)=0;
+		u(inputs::pitch_angle)=0;
 
 		double next_sudden_change_time=-1;
 		return next_sudden_change_time;

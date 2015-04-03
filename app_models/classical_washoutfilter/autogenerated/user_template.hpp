@@ -8,10 +8,10 @@
 // inputs
 
 	// u0	surge_acc
-	// u1	pitch_vel
+	// u1	pitch_angle
 
 	u(inputs::surge_acc)=...
-	u(inputs::pitch_vel)=...
+	u(inputs::pitch_angle)=...
 
 
 // intermediates

@@ -9,10 +9,10 @@
 namespace inputs
 {
 	// i0	surge_acc
-	// i1	pitch_vel
+	// i1	pitch_angle
 
 	const int surge_acc=0;
-	const int pitch_vel=1;
+	const int pitch_angle=1;
 
 	// total size of inputs vector
 	const int input_size=2;
