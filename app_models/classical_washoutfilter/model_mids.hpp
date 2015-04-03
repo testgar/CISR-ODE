@@ -39,7 +39,7 @@ void Model::intermediates(
 	mid(mids::surge_kin_pos)=x(states::surge_kin_pos);
 	mid(mids::surge_lp_out)=lp_surge_out(x);
 	mid(mids::tilt_coordination)=mid(mids::surge_lp_out)/g;
-	mid(mids::pitch_input_angle_ref)=u(inputs::pitch_vel);
+	mid(mids::pitch_input_angle_ref)=u(inputs::pitch_angle);
 	mid(mids::pitch_hp_out)=hp_pitch_out(mid,x);
 	mid(mids::pitch_angle)=mid(mids::tilt_coordination)+mid(mids::pitch_hp_out);
 	mid(mids::tilt_force)=mid(mids::pitch_angle)*g;
