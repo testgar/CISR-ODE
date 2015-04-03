@@ -240,7 +240,7 @@ It is strongly recommended that:
  * states
  * other connected intermediates
 
-1. All states are obtained from:
+1. All states derivatives are obtained from:
  * intermediates which are the input to the block
  * states which are inside the same blocks.
 
