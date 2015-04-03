@@ -1,0 +1,1324 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lig",
+				"light_green"
+			],
+			[
+				"printe",
+				"print_toc_once_called"
+			],
+			[
+				"to",
+				"to_string"
+			],
+			[
+				"time_st",
+				"time_stop"
+			],
+			[
+				"file",
+				"filesystem"
+			],
+			[
+				"sha",
+				"sha1_odeint"
+			],
+			[
+				"sta",
+				"state_type"
+			],
+			[
+				"str",
+				"string"
+			],
+			[
+				"st",
+				"std"
+			],
+			[
+				"x",
+				"xmax"
+			],
+			[
+				"rate",
+				"rate_max"
+			],
+			[
+				"time",
+				"time_type"
+			],
+			[
+				"outp",
+				"outputs"
+			],
+			[
+				"pitch_k",
+				"pitch_kin_vel"
+			],
+			[
+				"out",
+				"outputs"
+			],
+			[
+				"ra",
+				"rate_limit"
+			],
+			[
+				"tim",
+				"time_type"
+			],
+			[
+				"my_",
+				"my_state_type"
+			],
+			[
+				"Solver",
+				"SolverMethod"
+			],
+			[
+				"my",
+				"my_system"
+			],
+			[
+				"dxdt",
+				"dxdt_old"
+			],
+			[
+				"m_a_",
+				"m_a_dxdt"
+			],
+			[
+				"m_ep",
+				"m_eps_rel"
+			],
+			[
+				"stati",
+				"static_cast"
+			],
+			[
+				"prin",
+				"print_vector"
+			],
+			[
+				"num",
+				"num_vec"
+			],
+			[
+				"ensu",
+				"ensure_open"
+			],
+			[
+				"body",
+				"body_closed"
+			],
+			[
+				"head_",
+				"head_opened"
+			],
+			[
+				"pri",
+				"private"
+			],
+			[
+				"body_c",
+				"body_closed"
+			],
+			[
+				"bod",
+				"body_opened"
+			],
+			[
+				"html_clo",
+				"html_closed"
+			],
+			[
+				"before_",
+				"before_body"
+			],
+			[
+				"htm",
+				"html_empty"
+			],
+			[
+				"loc",
+				"html_locations"
+			],
+			[
+				"log",
+				"log_row"
+			],
+			[
+				"col",
+				"columns"
+			],
+			[
+				"re",
+				"replace"
+			],
+			[
+				"body_",
+				"body_beginned"
+			],
+			[
+				"html_",
+				"html_end"
+			],
+			[
+				"ini",
+				"html_header_initialized"
+			],
+			[
+				"Cl",
+				"CLater"
+			],
+			[
+				"main",
+				"main_test_sat"
+			],
+			[
+				"con",
+				"config"
+			],
+			[
+				"sv",
+				"svg_image"
+			],
+			[
+				"stroke_",
+				"stroke_width"
+			],
+			[
+				"obse",
+				"observe_type"
+			],
+			[
+				"sur",
+				"surge_vmax"
+			],
+			[
+				"pitch",
+				"pitch_angvel"
+			],
+			[
+				"stat",
+				"states"
+			],
+			[
+				"posi",
+				"position_surge_begin"
+			],
+			[
+				"po",
+				"position_surge_begin"
+			],
+			[
+				"ob",
+				"observer_width"
+			],
+			[
+				"resu",
+				"results_finalize"
+			],
+			[
+				"type",
+				"typedef"
+			],
+			[
+				"CS",
+				"CSystem"
+			],
+			[
+				"C",
+				"CSystem"
+			],
+			[
+				"step",
+				"stepper_c"
+			],
+			[
+				"ar",
+				"argc"
+			],
+			[
+				"in",
+				"interrupt"
+			],
+			[
+				"me",
+				"method2"
+			],
+			[
+				"spa",
+				"space_power"
+			],
+			[
+				"dig",
+				"digit_length"
+			],
+			[
+				"di",
+				"digit_index"
+			],
+			[
+				"l",
+				"label_rounded"
+			],
+			[
+				"labe",
+				"label_number"
+			],
+			[
+				"pow",
+				"power"
+			],
+			[
+				"tic",
+				"tickspace"
+			],
+			[
+				"tick",
+				"tick_position"
+			],
+			[
+				"P",
+				"Point"
+			],
+			[
+				"tra",
+				"trans_t"
+			],
+			[
+				"ma",
+				"max_y-y"
+			],
+			[
+				"t",
+				"tickspace_y"
+			],
+			[
+				"s",
+				"svg_y"
+			],
+			[
+				"get",
+				"get_tickspace_t"
+			],
+			[
+				"fr",
+				"figure_frame"
+			],
+			[
+				"fra",
+				"frame_length"
+			],
+			[
+				"min",
+				"min_time"
+			],
+			[
+				"svg",
+				"svg_file"
+			],
+			[
+				"com",
+				"comment_text"
+			],
+			[
+				"tr",
+				"trans_t"
+			],
+			[
+				"end",
+				"endr"
+			],
+			[
+				"Pi_",
+				"Pi_1x"
+			],
+			[
+				"fi",
+				"figure_frame"
+			],
+			[
+				"y",
+				"y_last"
+			],
+			[
+				"clone",
+				"results_clone"
+			],
+			[
+				"max",
+				"max_y"
+			],
+			[
+				"n",
+				"n_rows"
+			],
+			[
+				"outpu",
+				"output_media"
+			],
+			[
+				"mat",
+				"mat_D"
+			],
+			[
+				"v",
+				"v_den"
+			],
+			[
+				"ro",
+				"rows_columns"
+			],
+			[
+				"sum",
+				"M_1_2_sum"
+			],
+			[
+				"inc",
+				"include"
+			],
+			[
+				"int",
+				"input_dimention"
+			],
+			[
+				"tx",
+				"txt2"
+			],
+			[
+				"boot",
+				"bootstrap"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/application/config.hpp",
+			"settings":
+			{
+				"buffer_size": 379,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/includes.hpp",
+			"settings":
+			{
+				"buffer_size": 1021,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/test.cpp",
+			"settings":
+			{
+				"buffer_size": 1028,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/application/types.hpp",
+			"settings":
+			{
+				"buffer_size": 534,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/application/preprocessor.h",
+			"settings":
+			{
+				"buffer_size": 44,
+				"line_ending": "Unix",
+				"name": "preprocessor.h"
+			}
+		},
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/lists/inputs.list",
+			"settings":
+			{
+				"buffer_size": 11,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/constants.hpp",
+			"settings":
+			{
+				"buffer_size": 446,
+				"line_ending": "Unix",
+				"name": "constants.hpp"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					""
+				],
+				[
+					"Packages/Makefile/Make.sublime-build",
+					"Clean"
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					""
+				],
+				[
+					"Packages/C++11/C++11.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++11/C++11.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Advanced Install Package"
+			],
+			[
+				"clear pa",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"c++",
+				"Set Syntax: C++"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"ic",
+			"c++",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/media/common/research/codes/c++/01_ode-cisr",
+		"/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/lists"
+	],
+	"file_history":
+	[
+		"/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/lists/outputs.list",
+		"/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/lists/intermediates.list",
+		"/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/lists/inputs.list",
+		"/media/common/research/codes/c++/01_ode-cisr/app/states.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/_models/classical_washoutfilter/lists/outputs.list",
+		"/media/common/research/codes/c++/01_ode-cisr/_models/classical_washoutfilter/lists/intermediates.list",
+		"/media/common/research/codes/c++/01_ode-cisr/app/states.list",
+		"/media/common/research/codes/c++/01_ode-cisr/autogenerated/model_observer.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/autogenerated/model_outputs.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/app/config.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/scripts/model_observer.bash",
+		"/media/common/research/codes/c++/01_ode-cisr/app/model.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/app/model_rhs.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/app/system.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/app/model_mids.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/app/declares.hpp",
+		"/media/common/research/codes/c++/01_ode-cisr/unit_test/test_dp5_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/01_ode-cisr/unit_test/test_ck54_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/02_motion-simulation-complete/unit_test/Makefile",
+		"/media/common/research/codes/c++/02_motion-simulation-complete/unit_test/test_dp5_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/02_motion-simulation-complete/unit_test/test_ck54_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/02_motion-simulation-complete/app/config_files.hpp",
+		"/media/common/research/codes/c++/02_motion-simulation-complete/unit_test/config.hpp",
+		"/media/common/research/codes/c++/02_motion-simulation-complete/app/config.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/out/data_20150330_190030__log",
+		"/media/common/research/codes/c++/motion-simulation/fixationlist",
+		"/media/common/research/codes/c++/motion-simulation/libs/solver/solver_ck54.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/test_ck54_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/motion-simulation/ README.md",
+		"/media/common/research/codes/c++/motion-simulation/CMakeLists.txt",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/test_dp5_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/Makefile",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/dp5_lorenz-attractor-50000.cpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/solver/solver.hpp",
+		"/media/common/research/codes/c++/motion-simulation/includes.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/model_mids.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/states.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/model_rhs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/filesystem.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/log.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/config.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/system.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/system_base.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/html.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/config_files.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/solver/main_dp.cpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator_mids.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator_rhs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator.hpp",
+		"/media/common/research/codes/c++/motion-simulation/scripts/model_observer.bash",
+		"/media/common/research/codes/c++/motion-simulation/bin/sim",
+		"/media/common/research/codes/c++/motion-simulation/autogenerated/model_observer.hpp",
+		"/media/common/research/codes/c++/motion-simulation/Makefile",
+		"/media/common/research/codes/c++/motion-simulation/main.cpp",
+		"/media/common/research/codes/c++/motion-simulation/scripts/model_outputs.bash",
+		"/media/common/research/codes/c++/motion-simulation/scripts/separator.bash",
+		"/media/common/research/codes/c++/motion-simulation/autogenerated/outputs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/autogenerated/simulator_outputs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/scripts/simulator_outputs.bash",
+		"/media/common/research/codes/c++/motion-simulation/scripts/outputs.bash",
+		"/media/common/research/codes/c++/motion-simulation/app/intermediates.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper/runge_kutta_dopri5.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/solver/solver_dp45.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper/base/explicit_error_stepper_fsal_base.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper/controlled_runge_kutta.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/integrate/detail/integrate_adaptive.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper/base/explicit_error_stepper_base.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/iterator/integrate/detail/integrate_adaptive.hpp",
+		"/media/common/research/codes/c++/temp/test.cpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/solver/solver_f78.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper/base/explicit_stepper_base.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper/velocity_verlet.hpp",
+		"/media/common/research/codes/c++/versions/2015-01-28_motion-simulator/simple/controlled_runge_kutta.hpp",
+		"/media/common/research/codes/c++/versions/2015-01-28_motion-simulator/simple/runge_kutta_dopri5.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/algebra/default_operations.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/iterator/detail/ode_iterator_base.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/iterator/impl/adaptive_iterator_impl.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/iterator/impl/times_iterator_impl.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/config.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/application.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/uniform.hpp",
+		"/media/common/research/codes/c++/temp/anonymous_func.cpp",
+		"/media/common/research/codes/c++/motion-simulation/app/types.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/libs/system_base.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/sha1.hpp",
+		"/media/common/research/codes/c++/motion-simulation/unit_test/.odeint/integrate/detail/integrate_adaptive.hpp",
+		"/media/common/tmp/2015-2-27_odeint/stepper/controlled_runge_kutta.hpp",
+		"/media/common/tmp/2015-2-27_odeint/algebra/default_operations.hpp",
+		"/media/common/research/codes/c++/motion-simulation/libs/solver/solver_ck45.hpp",
+		"/media/common/tmp/2015-2-27_odeint/algebra/detail/for_each.hpp",
+		"/media/common/tmp/2015-2-27_odeint/algebra/detail/norm_inf.hpp",
+		"/media/common/tmp/2015-2-27_odeint/algebra/range_algebra.hpp",
+		"/media/common/tmp/2015-2-27_odeint/algebra/operations_dispatcher.hpp",
+		"/media/common/tmp/2015-2-27_odeint/stepper/runge_kutta_cash_karp54_classic.hpp",
+		"/media/common/tmp/2015-2-27_odeint/stepper/adams_bashforth_moulton.hpp",
+		"/media/common/tmp/2015-2-27_odeint/stepper/runge_kutta_dopri5.hpp",
+		"/media/common/tmp/2015-2-27_odeint/stepper/runge_kutta_cash_karp54.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/outputs.list",
+		"/media/common/research/codes/c++/motion-simulation/libs/svg.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/outputs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator_outputs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/inputs.hpp",
+		"/media/common/research/codes/c++/motion-simulation/test.cpp",
+		"/media/common/research/codes/c++/motion-simulation/scripts/outpus.bash",
+		"/media/common/research/codes/c++/motion-simulation/app/includes.hpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator_mids.cpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator_outputs.cpp",
+		"/media/common/research/codes/c++/motion-simulation/app/simulator_rhs.cpp",
+		"/media/common/bkup/phone/apps/com.sec.android.automotive.drivelink/db/db_dl_contact",
+		"/home/arash/Downloads/android-backup-extractor-20140630-bin.zip",
+		"/media/common/bkup/phone/backup.ab",
+		"/media/common/research/report/2015-03-19_saturation-fixing/codes/06_motion-simulation-linear-logistic/main.cpp",
+		"/media/common/research/report/2015-03-19_saturation-fixing/codes/02_motion-simulation-smooth/app/simulator.hpp",
+		"/media/common/research/report/2015-03-19_saturation-fixing/codes/03_motion-simulation-smooth-sharp/app/outputs.hpp",
+		"/media/common/research/report/2015-03-19_saturation-fixing/codes/03_motion-simulation-smooth-sharp/app/system.hpp",
+		"/media/common/research/report/2015-03-19_saturation-fixing/codes/(copy)",
+		"/media/common/tmp/motion-simulation-smooth/app/simulator.hpp",
+		"/home/arash/.bkup/mzp/mov",
+		"/media/common/research/codes/c++/motion-simulation/notes",
+		"/media/common/research/codes/c++/motion-simulation/simple/explicit_error_stepper_fsal_base.hpp",
+		"/media/common/research/report/2015-03-16_saturation-modification/images/pos_after.svg",
+		"/home/arash/Downloads/texstudio_2.8.8-1_amd64.deb",
+		"/media/common/research/codes/c++/motion-simulation/.git/index",
+		"/media/common/research/codes/c++/2015-02-27_motion-simulation/app/simulator.hpp",
+		"/home/arash/Downloads/مناظره_محمد_بن_زکریای_رازی_و_ابو_حاتم_عبدالرحمن_رازی.pdf",
+		"/media/common/research/codes/c++/2015-02-27_motion-simulation/app/system.hpp",
+		"/media/common/research/codes/c++/2015-02-27_motion-simulation/app/config.hpp",
+		"/media/common/research/codes/c++/2015-02-27_motion-simulation/libs/svg.hpp"
+	],
+	"find":
+	{
+		"height": 44.0
+	},
+	"find_in_files":
+	{
+		"height": 102.0,
+		"where_history":
+		[
+			"/media/common/research/codes/c++/01_ode-cisr",
+			"/media/common/research/codes/c++/02_motion-simulation-complete",
+			"/media/common/research/codes/c++/motion-simulation/",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint",
+			"/media/common/research/codes/c++/versions/2015-01-28_motion-simulator/simple",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/stepper",
+			"/media/common/research/codes/c++/motion-simulation",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint",
+			"/media/common/research/codes/c++/motion-simulation/",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/integrate",
+			"/media/common/research/codes/c++/motion-simulation/unit_test/libs/odeint/iterator",
+			"",
+			"/media/common/research/codes/c++/motion-simulation",
+			"/media/common/tmp/2015-2-27_odeint",
+			"/media/common/research/codes/c++/motion-simulation",
+			"/media/common/research/codes/c++/2015-02-27_motion-simulation",
+			"/media/common/research/codes/c++/2015-02-20_motion-simulator",
+			"/media/common/research/codes/c++/2015-02-19_motion-simulator",
+			"/media/common/research/codes/c++_odeint/improved/old_lib",
+			"/media/common/research/codes/c++_odeint/odeint,-badmerge.cpp",
+			"/media/common/research/codes/c++_odeint/odeint",
+			"/media/common/research/codes/c++/2015-02-06_motion-simulator/",
+			"/media/common/research/codes/c++/2015-02-06_motion-simulator/simple",
+			"/media/common/research/codes/c++/2015-02-06_motion-simulator",
+			"/media/common/research/codes/c++/2015-02-04_motion-simulator",
+			"/media/common/research/codes/c++/2015-02-03_motion-simulator",
+			"/media/common/research/codes/c++/2015-01-31_motion-simulator",
+			"/media/common/research/codes/c++/2015-01-30_motion-simulator",
+			"/home/arash/Downloads/7kaa/7kaa-2.14.4",
+			"/media/common/research/codes/c++/2015-01-28_motion-simulator",
+			"/media/common/research/codes/c++/2015-01-21_A_linker-fix",
+			"/media/common/research/codes/c++/2015-01-20_B_linker-fix/tmp",
+			"/media/common/research/codes/c++/2015-01-20_library_minimalcode/tmp",
+			"/media/common/research/codes/c++/2015-01-20_library_minimalcode/libs",
+			"/media/common/research/codes/c++/2015-01-20_library_minimalcode/tmp",
+			"/media/common/research/codes/c++/2015-01-19_library_B",
+			"/media/common/research/codes/c++/2015-01-19_library_D_minimalcode/libs/odeint/",
+			"/media/common/research/codes/c++/2015-01-19_library_D_minimalcode/libs/odeint/util",
+			"/media/common/research/codes/c++/2015-01-19_library_D_minimalcode/libs",
+			"/media/common/research/codes/c++/2015-01-19_library_B",
+			"/media/common/research/codes/c++/2015-01-19_library_D_minimalcode",
+			"/media/common/research/codes/c++/2015-01-19_library_C",
+			"/media/common/research/codes/c++/2015-01-19_library",
+			"/media/common/research/codes/c++/2015-01-17_library",
+			"/media/common/research/codes/c++_odeint/odeint",
+			"/media/common/research/codes/c++_odeint/odeint/iterator",
+			"/media/common/research/codes/c++_odeint/odeint/integrate/",
+			"/media/common/research/codes/c++_odeint/odeint/integrate/detail",
+			"/media/common/research/codes/c++_odeint/odeint/stepper/detail",
+			"/media/common/research/codes/c++_odeint/odeint/algebra",
+			"/media/common/research/codes/c++_odeint/odeint/stepper/base",
+			"/media/common/research/codes/c++_odeint/odeint/util",
+			"/media/common/research/codes/c++_odeint/odeint/stepper",
+			"/media/common/research/codes/c++_odeint/odeint/util",
+			"/media/common/research/codes/c++_odeint",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"intermediate_states",
+			"sha1",
+			"web_dir",
+			"System system",
+			"UNIT2",
+			"simulator",
+			"simulator.hpp",
+			"ensure_folder",
+			"cannot open file ",
+			"output_log",
+			"ensure_folder",
+			"ARMA_NO_DEBUG",
+			"ARMA",
+			"output_folder",
+			"CSimulator",
+			"OBJDIR",
+			"l_green",
+			"outputs.hpp",
+			"simulator_outputs",
+			"outputs.hpp",
+			"try_step",
+			"do_step",
+			"bookmark",
+			"#bookmarked",
+			"m_error_checker.error",
+			"count",
+			"bookmark",
+			"#bookmark",
+			"cisr",
+			"LINE",
+			"FOR",
+			"do_step_impl",
+			"do_step_impl_v1",
+			"do_step_v1",
+			"do_step_V1",
+			"do_step",
+			"do_step_imp",
+			"do_step",
+			"boost::numeric::odeint::copy( m_xnew.m_v , x )",
+			"try_step",
+			"toc_printed",
+			"value_type(",
+			"x_err",
+			"show_type",
+			"pri5",
+			"p5",
+			"dpri",
+			"dp5",
+			"x_err",
+			"arma::abs",
+			"runtime",
+			"try_step",
+			"CHTML",
+			"\"web/",
+			"log_columns",
+			"printable_time",
+			"serialized_time",
+			"cisr",
+			"stepper_type",
+			"_unused",
+			"2",
+			"]",
+			"[",
+			"adaptive",
+			"    ",
+			"println",
+			"    ",
+			"error_checker_type",
+			"default_error_checker",
+			"rel_error",
+			"operations_dispatcher",
+			"operations_type",
+			"operation",
+			"rel_error",
+			"stepper_order_value",
+			"CK4",
+			"arma::abs",
+			"_(",
+			"controlled_step_result",
+			"do_step_impl",
+			"m_dxdt",
+			"call",
+			"    ",
+			"abs",
+			"using",
+			"max",
+			"min",
+			"max",
+			"min",
+			"max(",
+			"max_dt",
+			"controlled_runge_kutta",
+			"m_first_call",
+			"NS_BNO_END",
+			"NS_BNO_BEGIN",
+			"stepper_type",
+			"next_urgent_time",
+			"CSysHandler",
+			"CSystem",
+			"System",
+			"max ( value_type( value_type(9)/value_type(10)",
+			"static_cast<value_type> (",
+			"static_cast<value_type>(",
+			"static_cast<value_type> (",
+			"static_cast<value_type>(",
+			"string",
+			"cout<<",
+			"length",
+			"obuf",
+			"    ",
+			"ibuf",
+			"strlen",
+			"    ",
+			"exportlist",
+			"filename",
+			"export_outputs",
+			"results_export",
+			"output_results",
+			"file.",
+			".close",
+			"intermediate_states",
+			"std::numeric_limits<time_type>::epsilon()",
+			"epsi",
+			"last_observed_time",
+			"m_first_call",
+			"plot",
+			"output_plot",
+			"config"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"intermediates",
+			"System &system",
+			"Model",
+			"static_cast<value_type>(",
+			"web_dir+\"",
+			"web_dir+\"web/",
+			"	",
+			"NS_ODE_END",
+			"NS_ODE_BEGIN",
+			"next_sudden_change_time",
+			"CSystem",
+			"value_type(",
+			"std::string",
+			"	",
+			"figure_list",
+			"EPSILON",
+			"",
+			"\\t",
+			"",
+			"direct_state",
+			"std::abs",
+			"x_dot",
+			"sat_logistic_D1",
+			"sat_logistic",
+			"surge_proposed_pos",
+			"linear_kin_proposed",
+			"surge_kin_pos",
+			"pitch_pos",
+			"surgepitch_TCRL",
+			"pitch_hp_x1",
+			"surge_lp_x2",
+			"surge_lp_x1",
+			"surge_kin_acc",
+			"surge_kin_vel",
+			"surge_proposed_pos",
+			"surge_proposed_vel",
+			"surge_hp_x2",
+			"surge_hp_x1",
+			"deriv_type",
+			"state_type",
+			"time_type",
+			"value_type",
+			"",
+			"my_value_type",
+			"initially_resizer",
+			"my_operations_type",
+			"my_algebra_type",
+			"my_time_type",
+			"my_deriv_type",
+			"my_value_type",
+			"my_valu_type",
+			"my_state_type",
+			"	",
+			"}",
+			"{",
+			"}",
+			"{",
+			"",
+			"}",
+			"{",
+			"",
+			"}",
+			"{",
+			"",
+			"}",
+			"{",
+			"",
+			"\"",
+			"libs",
+			"double",
+			"\\n",
+			"",
+			"double",
+			"#include \"../../odeint/",
+			"#include \"../",
+			"#include \"..",
+			"#include \"../../odeint/",
+			"#include \"",
+			"#include \"../../../odeint/",
+			"#include \"../../odeint/algebra/",
+			"#include \"../../../odeint/",
+			"#include \"../../odeint/",
+			"#include \"",
+			"#include \"odeint/$1.hpp\"",
+			"#include \"boost/numeric/odeint/$1.hpp\"",
+			"#include \"boost/numeric/odeint/$0.hpp\"",
+			"#include \"boost/numeric/odeint/$+.hpp\"",
+			"#include \"boost/numeric/odeint/$*.hpp\"",
+			"#include \"boost/numeric/odeint/$$.hpp\"",
+			"#include \"boost/numeric/odeint/$.hpp\"",
+			"#include \"boost/numeric/odeint/$1.hpp\"",
+			"#include \"boost/numeric/odeint/([\\w,\\/])*.hpp\"",
+			"#include \"boost/numeric/odeint/$.hpp\"",
+			"#include \"boost/numeric/odeint/\\1+.hpp\"",
+			"#include \"boost/numeric/odeint/\\1.hpp\"",
+			"#include \"boost/numeric/odeint/$1.hpp\"",
+			"#include \"boost/numeric/odeint/([\\w,\\/])*.hpp\"",
+			".hpp\"",
+			"#include \"",
+			".hpp\"",
+			"#include \"",
+			"//",
+			">\n<",
+			"	",
+			"//",
+			"\n//",
+			"",
+			"std::runtime_error",
+			"CMatrix<T>::",
+			"CMatrix<typename T>::",
+			"T",
+			",",
+			"",
+			"\n",
+			"",
+			",",
+			";",
+			"	",
+			"",
+			"collapsable-panels",
+			"docker",
+			"Docker",
+			"virtualbox",
+			"VirtualBox",
+			"install",
+			"Install",
+			"scripts",
+			"Scripts"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/application/config.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 379,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								284,
+								284
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/includes.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1021,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								996,
+								996
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 168.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/test.cpp",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1028,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/application/types.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 534,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14,
+								14
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/application/preprocessor.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 44,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								44,
+								44
+							]
+						],
+						"settings":
+						{
+							"auto_name": "preprocessor.h",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/lists/inputs.list",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/media/common/research/codes/c++/01_ode-cisr/app_models/classical_washoutfilter/constants.hpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 446,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13,
+								13
+							]
+						],
+						"settings":
+						{
+							"auto_name": "constants.hpp",
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 223.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/C++11/C++11.sublime-build",
+	"project": "ode-cisr.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 255.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
