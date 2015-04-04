@@ -15,6 +15,9 @@ This solver uses Armadillo matrix library for the vectors. This library is fast 
 
 To use this software, you need to have a Unix based operating system with installation of a few applications and libraries:  
 * GCC compiler
+
+`sudo apt-get install g++`
+
 * Armadillo matrix library ([link](http://arma.sourceforge.net/))
 * Install libssl-dev package
 
