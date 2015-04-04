@@ -17,6 +17,7 @@ To use this software, you need to have a Unix based operating system with instal
 * GCC compiler
 * Armadillo matrix library ([link](http://arma.sourceforge.net/))
 * Install libssl-dev package
+
     sudo apt-get install libssl-dev
 
 
