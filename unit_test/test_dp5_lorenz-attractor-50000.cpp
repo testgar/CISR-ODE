@@ -111,19 +111,19 @@ int main()
 	std::string sha1_cisr,sha1_odeint;
 	CSystem_ODEINT system;
 
-	// test ODE CISR
-	cronometer t_cisr;
-	t_cisr.tic();
-	sha1_cisr=system.integrate_adaptive_cisr();
-	t_cisr.toc();
-
-	system.Reset();
-
 	// test ODEINT
 	cronometer t_odeint;
 	t_odeint.tic();
 	sha1_odeint=system.integrate_adaptive_odeint();
 	t_odeint.toc();
+
+	system.Reset();
+
+	// test ODE CISR
+	cronometer t_cisr;
+	t_cisr.tic();
+	sha1_cisr=system.integrate_adaptive_cisr();
+	t_cisr.toc();
 
 	std::cout<<"ODEINT SHA1: "<<sha1_odeint<<"   time elapsed: "<<t_odeint.last_toc()<<std::endl;
 	std::cout<<"CISR   SHA1: "<<sha1_cisr<<"   time elapsed: "<<t_cisr.last_toc()<<std::endl;
