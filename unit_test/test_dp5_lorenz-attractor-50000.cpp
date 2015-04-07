@@ -5,9 +5,10 @@
 // compiler mode: release
 // buffer size: 10000000
 // time: 0 ~ 50000
-// eps rel, abs: 1E-10
-// ODEINT SHA1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a   time elapsed: 7.26671
-// CISR   SHA1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a   time elapsed: 7.58852
+// eps rel, abs: 1E-12
+// ODEINT SHA1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a   time elapsed: 7.76337
+// CISR   SHA1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a   time elapsed: 6.9538
+// passed: comparison between CISR and ODEINT results (DP5)
 
 template <class T>
 struct show_type;
@@ -109,21 +110,25 @@ int main()
 	const std::string title="comparison between CISR and ODEINT results (DP5)";
 	std::cout<<"Running "<<title<<"..."<<std::endl;
 	std::string sha1_cisr,sha1_odeint;
-	CSystem_ODEINT system;
+	CSystem_ODEINT lerenz_model;
 
 	// test ODEINT
 	cronometer t_odeint;
+	//*** unit_test::cpu_temperature("ODEINT begin:");
 	t_odeint.tic();
-	sha1_odeint=system.integrate_adaptive_odeint();
+	sha1_odeint=lerenz_model.integrate_adaptive_odeint();
 	t_odeint.toc();
+	//*** unit_test::cpu_temperature("ODEINT end:");
 
-	system.Reset();
+	lerenz_model.Reset();
 
 	// test ODE CISR
 	cronometer t_cisr;
+	//*** unit_test::cpu_temperature("CISR begin:");
 	t_cisr.tic();
-	sha1_cisr=system.integrate_adaptive_cisr();
+	sha1_cisr=lerenz_model.integrate_adaptive_cisr();
 	t_cisr.toc();
+	//*** unit_test::cpu_temperature("CISR end:");
 
 	std::cout<<"ODEINT SHA1: "<<sha1_odeint<<"   time elapsed: "<<t_odeint.last_toc()<<std::endl;
 	std::cout<<"CISR   SHA1: "<<sha1_cisr<<"   time elapsed: "<<t_cisr.last_toc()<<std::endl;

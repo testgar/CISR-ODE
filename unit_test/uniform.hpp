@@ -28,4 +28,12 @@ public:
 		print_red(text);
 	}
 
+	static void cpu_temperature(std::string message)
+	{
+		if(system((std::string("")+"echo \""+message+"\" $(acpi -t)").c_str()))
+		{
+			// do nothing, suppress warning...
+		}
+	}
+
 };
