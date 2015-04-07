@@ -33,7 +33,7 @@ The following changes have been done to the original code:
 
 * The solver has been specialized for Armadillo matrices/vectors and the usage of templates have been minimized dramatically.
 * the compilation time has been decreased (due to template specialization).
-* The number of library files has been decreased from over 160 to a few files (currently 4 files).
+* The number of library files has been decreased to a few files (currently 4 files).
 * All SFINAE s have been removed and the code is easier to understand.
 * The ODEINT solver does not support maximum step size while many engineers expect this facility for their works, thesis, etc. In this framework, the maximum step size is introduced.
 * The original solver does not support specified times to stop which is necessary for implementation of many engineering applications such as Model Predictive Control (MPC). This project supports this demand.
