@@ -49,7 +49,7 @@ public:
 			state_type &start_state,
 			const time_type start_time,
 			const time_type end_time,
-			const time_type dt )
+			const time_type dt_init)
 	{
 		ode::Solver<ode::Steppers::RKDP5,CSystem> solver(std::ref(*this));
 		last_observed_time=start_time;
@@ -60,7 +60,7 @@ public:
 				start_state,// is manipulated
 				start_time ,
 				end_time ,
-				dt);
+				dt_init);
 		results_finalize();
 		post_solve();
 		std::cout<<"Results("<<files::now_print<<") SHA1: ";
