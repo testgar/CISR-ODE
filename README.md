@@ -19,6 +19,13 @@ To use this software, you need to have a Unix based operating system with instal
 `sudo apt-get install g++`
 
 * Armadillo matrix library ([link](http://arma.sourceforge.net/))
+
+`sudo apt-get install libarmadillo-dev`
+
+* Boost library
+
+`sudo apt-get install libboost-all-dev`
+
 * Install libssl-dev package
 
 `sudo apt-get install libssl-dev`
