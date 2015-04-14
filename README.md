@@ -1,9 +1,9 @@
-# ODE-CISR
+# CISR-ODE
 Customized ODE framework for engineers and scientists
 
 ## About
 
-ODE-CISR is a C++ code framework to provide a flexible simulation environment for variety of models especially for control systems with block diagrams. This framework aims to provide comfortable facilities for engineers and scientists to ease the modelling programming of simple or complicated systems. This framework aims to be a good C++ alternative for MATLAB Simulink.
+CISR-ODE is a C++ code framework to provide a flexible simulation environment for variety of models especially for control systems with block diagrams. This framework aims to provide comfortable facilities for engineers and scientists to ease the modelling programming of simple or complicated systems. This framework aims to be a good C++ alternative for MATLAB Simulink.
 
 This framework allows user to define models, specify the input, output, states and connections. The framework generates partial of the code automatically for user convenience. Each time this program runs, all outputs are stored in a new file with the figure of requested parameters and output log(in HTML format) inside the output folder. This framework stores the output in a matrix labelled by time and `dt` and it generates an `SHA1` signature for each output to identify it. This helps engineers to detect if two outputs are identical. 
 
