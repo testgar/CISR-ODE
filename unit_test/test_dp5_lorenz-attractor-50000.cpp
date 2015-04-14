@@ -46,7 +46,7 @@ public:
 		// constructor
 	}
 
-	void observer(const state_type &x, const double &t,const double &dummy_next_dt)
+	void observer_generic(const state_type &x, const double &t,const double &dummy_next_dt)
 	{
 		_unused(dummy_next_dt);
 		observer_type ymat;
@@ -54,12 +54,7 @@ public:
 		results_push(t,0,ymat);
 	}
 
-	void observer(const state_type &x, const double &t)
-	{
-		observer(x,t,0);
-	}
-
-	void rhs(const state_type &x, state_type &x_dot, const double t)
+	void rhs_generic(const state_type &x, state_type &x_dot, const double t)
 	{
 		_unused(t);
 		const double sigma = 10.0;
@@ -68,6 +63,27 @@ public:
 		x_dot(0) = sigma * ( x(1) - x(0) );
 		x_dot(1) = R * x(0) - x(1) - x(0) * x(2);
 		x_dot(2) = -b * x(2) + x(0) * x(1);
+	}
+
+	void observer(const state_type &x, const double &t,const double &dummy_next_dt)
+	{
+		observer_generic(x,t,dummy_next_dt);
+	}
+
+	void operator()(const state_type &x, const double &t)
+	{
+		observer_generic(x,t,0);
+	}
+
+
+	void rhs(const state_type &x, state_type &x_dot, const double t)
+	{
+		rhs_generic(x,x_dot,t);
+	}
+
+	void operator()(const state_type &x, state_type &x_dot, const double t)
+	{
+		rhs_generic(x,x_dot,t);
 	}
 
 	double timer(const state_type &x, const double t)
@@ -95,9 +111,9 @@ public:
 		state_type X=start_state;
 		typedef runge_kutta_dopri5<state_type> stepper_type;
 		integrate_adaptive( make_controlled( eps_abs , eps_rel , stepper_type() ) ,
-			[this](const state_type &x, state_type &x_dot, const double t){ this->rhs(x,x_dot,t); },
+			std::ref(*this),
 			X , start_time , stop_time , initial_dt ,
-			[this](const state_type &x, const double &t){ this->observer(x,t); }
+			std::ref(*this)
 			);
 		results_finalize();
 		return sha1sum(results).signature();
