@@ -14,6 +14,7 @@ template <class T>
 struct show_type;
 
 #include "top_include.hpp"
+#include "libs/odeint.hpp"
 
 const uint state_size=3;
 const uint results_additions=2;

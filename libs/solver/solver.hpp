@@ -20,10 +20,10 @@ class default_error_checker
 public:
 
 	default_error_checker(
-			value_type eps_abs = static_cast<value_type>( 1.0e-6 ) ,
-			value_type eps_rel = static_cast<value_type>( 1.0e-6 ) ,
-			value_type a_x = static_cast< value_type >( 1 ) ,
-			value_type a_dxdt = static_cast< value_type >( 1 ) )
+			value_type eps_abs = value_type( 1.0e-6 ) ,
+			value_type eps_rel = value_type( 1.0e-6 ) ,
+			value_type a_x = value_type( 1 ) ,
+			value_type a_dxdt = value_type( 1 ) )
 	: m_eps_abs( eps_abs ) , m_eps_rel( eps_rel ) , m_a_x( a_x ) , m_a_dxdt( a_dxdt )
 	{ }
 
