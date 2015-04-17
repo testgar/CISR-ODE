@@ -15,8 +15,15 @@ NS_ODE_BEGIN
 
 enum class Steppers { RKDP5, RKCK54, RKF78 };
 
+template<class System>
 class default_error_checker
 {
+protected:
+	typedef typename System::value_type value_type;
+	typedef typename System::state_type state_type;
+	typedef typename System::deriv_type deriv_type;
+	typedef typename System::time_type time_type;
+
 public:
 
 	default_error_checker(
@@ -60,7 +67,11 @@ class Solver
 
 	typedef typename std::remove_reference<System>::type system_type;
 	typedef controlled_runge_kutta<SolverMethod,System> stepper_type;
-
+	typedef typename system_type::value_type value_type;
+	typedef typename system_type::state_type state_type;
+	typedef typename system_type::deriv_type deriv_type;
+	typedef typename system_type::time_type time_type;
+	
 	system_type &system;
 	stepper_type stepper;
 

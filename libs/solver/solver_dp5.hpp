@@ -7,6 +7,12 @@ NS_ODE_BEGIN
 template<class System>
 class controlled_runge_kutta<Steppers::RKDP5,System>
 {
+protected:
+	typedef typename System::value_type value_type;
+	typedef typename System::state_type state_type;
+	typedef typename System::deriv_type deriv_type;
+	typedef typename System::time_type time_type;
+
 public:
 
 	controlled_runge_kutta(const value_type eps_abs,const value_type eps_rel)
@@ -68,7 +74,7 @@ public:
 
 private:
 
-	default_error_checker m_error_checker;
+	default_error_checker<System> m_error_checker;
 
 	deriv_type m_dxdt;
 	state_type m_xerr;

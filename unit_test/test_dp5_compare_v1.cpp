@@ -16,15 +16,9 @@ struct show_type;
 #include "top_include.hpp"
 
 const uint state_size=3;
-const uint results_additions=2;
 const uint buffer_size=10000000;
+const uint results_additions=2;
 const uint buffer_headers=state_size+results_additions;
-typedef arma::vec::fixed<state_size> state_type;
-typedef state_type deriv_type;
-typedef arma::vec::fixed<state_size> observer_type;
-typedef arma::mat::fixed<buffer_headers,buffer_size> buffer_type;
-typedef double time_type;
-typedef double value_type;
 
 #include "../libs/solver/solver_dp5.hpp"
 #include "libs/solver-v1/solver_dp5.hpp"
@@ -42,6 +36,9 @@ public:
 	const state_type start_state={10.0,1.0,1.0};
 	const time_type next_sudden_change_time=stop_time;
 	std::string sha1;
+
+	typedef arma::vec::fixed<state_size> state_type;
+	typedef state_type deriv_type;
 
 	CSystem(): CSystem_UnitTest()
 	{

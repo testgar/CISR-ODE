@@ -7,14 +7,20 @@
 class CSystem_Base
 {
 protected:
-
 	buffer_type buffer;
 	arma::mat results;
 	int buffer_index=0;
 
 public:
 
-	CSystem_Base()//:results(config::buffer_headers,0)
+	typedef double value_type;
+	typedef double time_type;
+	typedef arma::vec::fixed<state_size> state_type;
+	typedef state_type deriv_type;
+	typedef arma::vec::fixed<state_size> observer_type;
+	typedef arma::mat::fixed<buffer_headers,buffer_size> buffer_type;
+
+	CSystem_Base()
 	{
 		// constructor
 		Reset();
