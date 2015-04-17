@@ -4,7 +4,7 @@
 void main_normal()
 {
 	CSystem my_system;
-	state_type x_iv;
+	Model::state_type x_iv;
 	x_iv.zeros();
 	my_system.integrate_adaptive(
 		x_iv ,// is manipulated
