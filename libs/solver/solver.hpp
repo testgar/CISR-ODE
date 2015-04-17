@@ -49,10 +49,7 @@ typedef enum
 	fail	  // < The step was not successful and might possibly be repeated with a small step size.
 } controlled_step_result;
 
-template<enum Steppers>
-class runge_kutta;
-
-template<enum Steppers,class ErrorStepper>
+template<enum Steppers,class System>
 class controlled_runge_kutta;
 
 #define EPSILON (std::numeric_limits<time_type>::epsilon())
@@ -62,7 +59,7 @@ class Solver
 {
 
 	typedef typename std::remove_reference<System>::type system_type;
-	typedef controlled_runge_kutta<SolverMethod,runge_kutta<SolverMethod>> stepper_type;
+	typedef controlled_runge_kutta<SolverMethod,System> stepper_type;
 
 	system_type &system;
 	stepper_type stepper;
@@ -71,7 +68,7 @@ public:
 
 	Solver(system_type &_system):
 		system(_system),
-		stepper(system.eps_abs,system.eps_rel,system.max_dt)
+		stepper(system.eps_abs,system.eps_rel)
 	{
 		// constructor
 	}
@@ -87,7 +84,7 @@ public:
 		size_t count = 0;
 		time_type next_interrupt_time=system.timer(start_state,start_time);
 		time_type next_sudden_change_time=system.next_sudden_change_time;
-		dt=std::min(dt,system.max_dt); // what if system.max_dt is mismatches with stepper.max_dt
+		dt=std::min(dt,system.max_dt);
 		time_type force_point;
 		while(less_with_sign(start_time,end_time,dt))
 		{
@@ -101,8 +98,8 @@ public:
 			{
 				dt= force_point - start_time;
 				if(std::abs(dt)<EPSILON)
-					throw std::runtime_error("dt was proposed to be zero!");
-				dt= std::min(dt,system.max_dt);// what if system.max_dt is mismatches with stepper.max_dt
+					throw std::runtime_error("dt has been proposed to be zero!");
+				dt= std::min(dt,system.max_dt);
 			}
 			size_t trials = 0;
 			controlled_step_result res = success;

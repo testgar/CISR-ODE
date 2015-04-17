@@ -30,7 +30,7 @@ typedef double value_type;
 #include "../libs/solver/solver_dp5.hpp"
 #include "libs/system_base.hpp"
 
-class CSystem_ODEINT: public CSystem_UnitTest
+class CSystem: public CSystem_UnitTest
 {
 public:
 	const value_type eps_rel=1E-12;
@@ -41,8 +41,9 @@ public:
 	const time_type initial_dt=0.1;
 	const state_type start_state={10.0,1.0,1.0};
 	const time_type next_sudden_change_time=stop_time;
+	std::string sha1;
 
-	CSystem_ODEINT(): CSystem_UnitTest()
+	CSystem(): CSystem_UnitTest()
 	{
 		// constructor
 	}
@@ -93,20 +94,20 @@ public:
 		return t+stop_time;
 	}
 
-	std::string integrate_adaptive_cisr()
+	void integrate_adaptive_cisr()
 	{
 		state_type X=start_state;
-		ode::Solver<ode::Steppers::RKDP5,CSystem_ODEINT> solver_cisr(std::ref(*this));
+		ode::Solver<ode::Steppers::RKDP5,CSystem> solver_cisr(std::ref(*this));
 		solver_cisr.integrate_adaptive(
 			X,// is manipulated
 			start_time ,
 			stop_time ,
 			initial_dt);
 		results_finalize();
-		return sha1sum(results).signature();
+		sha1=sha1sum(results).signature();
 	}
 
-	std::string integrate_adaptive_odeint()
+	void integrate_adaptive_odeint()
 	{
 		using namespace boost::numeric::odeint;
 		state_type X=start_state;
@@ -117,40 +118,33 @@ public:
 			std::ref(*this)
 			);
 		results_finalize();
-		return sha1sum(results).signature();
+		sha1=sha1sum(results).signature();
 	}
 
 };
+
+void test_item(CSystem &model,std::string name,void (CSystem::*custom_integrate)(void))
+{
+	cronometer t;
+	//*** unit_test::cpu_temperature("v1.0 begin:");
+	t.tic();
+	(model.*custom_integrate)();
+	t.toc();
+	//*** unit_test::cpu_temperature("v1.0 end:");
+	std::cout<<name<<" SHA1: "<<model.sha1<<" time elapsed: "<<t.last_toc()<<std::endl;
+}
 
 int main()
 {
 	const std::string title="comparison between CISR and ODEINT results (DP5)";
 	std::cout<<"Running "<<title<<"..."<<std::endl;
-	std::string sha1_cisr,sha1_odeint;
-	CSystem_ODEINT lerenz_model;
+	CSystem model1;
+	CSystem model2;
 
-	// test ODEINT
-	cronometer t_odeint;
-	//*** unit_test::cpu_temperature("ODEINT begin:");
-	t_odeint.tic();
-	sha1_odeint=lerenz_model.integrate_adaptive_odeint();
-	t_odeint.toc();
-	//*** unit_test::cpu_temperature("ODEINT end:");
+	test_item(model2,"ODEINT",&CSystem::integrate_adaptive_odeint);
+	test_item(model1,"CISR",&CSystem::integrate_adaptive_cisr);
 
-	lerenz_model.Reset();
-
-	// test ODE CISR
-	cronometer t_cisr;
-	//*** unit_test::cpu_temperature("CISR begin:");
-	t_cisr.tic();
-	sha1_cisr=lerenz_model.integrate_adaptive_cisr();
-	t_cisr.toc();
-	//*** unit_test::cpu_temperature("CISR end:");
-
-	std::cout<<"ODEINT SHA1: "<<sha1_odeint<<"   time elapsed: "<<t_odeint.last_toc()<<std::endl;
-	std::cout<<"CISR   SHA1: "<<sha1_cisr<<"   time elapsed: "<<t_cisr.last_toc()<<std::endl;
-
-	if(sha1_odeint==sha1_cisr)
+	if(model1.sha1==model2.sha1)
 		unit_test::passed(std::string("passed: ")+title);
 	else
 		unit_test::failed(std::string("rejected: ")+title);

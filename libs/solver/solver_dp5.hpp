@@ -4,20 +4,16 @@
 
 NS_ODE_BEGIN
 
-template<class ErrorStepper>
-class controlled_runge_kutta<Steppers::RKDP5,ErrorStepper>
+template<class System>
+class controlled_runge_kutta<Steppers::RKDP5,System>
 {
-
 public:
 
-	typedef ErrorStepper stepper_type;
-
-	controlled_runge_kutta(const value_type eps_abs,const value_type eps_rel,const time_type max_dt)
-	: m_stepper() , m_error_checker( eps_abs, eps_rel) ,
-	  m_first_call( true ), max_dt(max_dt)
+	controlled_runge_kutta(const value_type eps_abs,const value_type eps_rel)
+	: m_error_checker( eps_abs, eps_rel) ,
+	  m_first_call( true )
 	{ }
 
-	template< class System  >
 	controlled_step_result try_step( System &system , state_type &x , time_type &t , time_type &dt )
 	{
 		if( m_first_call )
@@ -28,6 +24,7 @@ public:
 		}
 
 		controlled_step_result res = try_step2( system , x , m_dxdt , t , m_xnew , m_dxdtnew , dt );
+		dt=std::min(dt,system.max_dt); // added for maximum step size
 
 		if( res == success )
 		{
@@ -38,11 +35,10 @@ public:
 	}
 
 	//call 4
-	template<class System >
 	controlled_step_result try_step2( System &system , const state_type &x_in , const deriv_type &dxdt_in , time_type &t ,
-			state_type &out , deriv_type &dxdt_out , time_type &dt)
+			state_type &x_out , deriv_type &dxdt_out , time_type &dt)
 	{
-		m_stepper.do_step( system , x_in , dxdt_in , t , out , dxdt_out , dt , m_xerr );
+		do_step( system , x_in , dxdt_in , t , x_out , dxdt_out , dt , m_xerr );
 
 		// this potentially overwrites m_x_err! (standard_error_checker does, at least)
 		value_type max_rel_err = m_error_checker.error(  x_in , dxdt_in , m_xerr , dt );
@@ -52,34 +48,26 @@ public:
 			// error too large - decrease dt ,limit scaling factor to 0.2 and reset state
 			// simplified: max( 9/10*pow( max_rel_err , -1/( m_stepper.error_order_value - 1) ) ,1/5 );
 			dt *= std::max( value_type( value_type(9)/value_type(10) *
-																 pow( max_rel_err , value_type(-1) / ( m_stepper.error_order_value - 1 ) ) ) ,
-														 value_type( value_type(1)/value_type(5)) );
+						pow( max_rel_err , value_type(-1) / ( error_order_value - 1 ) ) ) ,
+						value_type( value_type(1)/value_type(5)) );
 			return fail;
 		}
 		else
 		{
+			t += dt;
 			if( max_rel_err < 0.5 )
 			{   //error too small - increase dt and keep the evolution and limit scaling factor to 5.0
 				// error should be > 0
-				max_rel_err = std::max( value_type( pow( value_type(5.0) , -value_type(m_stepper.stepper_order_value) ) ) ,
-																	 max_rel_err );
-				t += dt;
+				max_rel_err = std::max( value_type( pow( value_type(5.0) , -value_type(stepper_order_value) ) ) , max_rel_err );
 				// simplified: 9/10 * pow( max_rel_err , -1 / m_stepper.stepper_order_value )
-				dt *= value_type( value_type(9)/value_type(10) * pow( max_rel_err , value_type(-1) / m_stepper.stepper_order_value ) );
-				dt=std::min(dt,max_dt); // added for maximum step size
-				return success;
+				dt *= value_type( value_type(9)/value_type(10) * pow( max_rel_err , value_type(-1) / stepper_order_value ) );
 			}
-			else
-			{
-				t += dt;
-				return success;
-			}
+			return success;
 		}
 	}
 
 private:
 
-	stepper_type m_stepper;
 	default_error_checker m_error_checker;
 
 	deriv_type m_dxdt;
@@ -87,30 +75,15 @@ private:
 	state_type m_xnew;
 	deriv_type m_dxdtnew;
 	bool m_first_call;
-	const time_type max_dt;
-};
-
-
-template<>
-class runge_kutta<Steppers::RKDP5>
-{
 
 public:
-
-	const unsigned short order_value = 5;
+	const unsigned short order_value = 5; // where is it used????
 	const unsigned short stepper_order_value = 5;
 	const unsigned short error_order_value = 4;
 
-	runge_kutta(  )
-		:  m_first_call( true )
-	{ }
-
-	template< class System, class Err >
 	void do_step(System &system , const state_type &x_in , const deriv_type &dxdt_in , time_type t ,
-			state_type &out , deriv_type &dxdt_out , time_type dt , Err &xerr )
+			state_type &x_out , deriv_type &dxdt_out , time_type dt , state_type &xerr )
 	{
-		m_first_call = true;
-
 		const value_type a2 = value_type( 1 ) / value_type( 5 );
 		const value_type a3 = value_type( 3 ) / value_type( 10 );
 		const value_type a4 = value_type( 4 ) / value_type( 5 );
@@ -164,21 +137,18 @@ public:
 		m_x_tmp=x_in + dt*b61*dxdt_in + dt*b62*m_k2 + dt*b63*m_k3 + dt*b64*m_k4 + dt*b65*m_k5 ;
 
 		system.rhs( m_x_tmp , m_k6 , t + dt );
-		out= x_in + dt*c1*dxdt_in + dt*c3*m_k3 + dt*c4*m_k4 + dt*c5*m_k5 + dt*c6*m_k6;
+		x_out= x_in + dt*c1*dxdt_in + dt*c3*m_k3 + dt*c4*m_k4 + dt*c5*m_k5 + dt*c6*m_k6;
 
 		// the new derivative
-		system.rhs( out , dxdt_out , t + dt );
+		system.rhs( x_out , dxdt_out , t + dt );
 
 		//error estimate
 		xerr=dt*dc1*dxdt_in + dt*dc3*m_k3 + dt*dc4*m_k4 + dt*dc5*m_k5 + dt*dc6*m_k6 + dt*dc7*dxdt_out;
 	}
 
 private:
-	bool m_first_call;
-
 	state_type m_x_tmp;
 	deriv_type m_k2 , m_k3 , m_k4 , m_k5 , m_k6 ;
-	deriv_type m_dxdt_tmp;
 };
 
 NS_ODE_END
