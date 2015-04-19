@@ -1,5 +1,4 @@
 // unit test
-// test_ck54_lorenz-attractor-50000.cpp
 
 // conditions:
 // compiler mode: release

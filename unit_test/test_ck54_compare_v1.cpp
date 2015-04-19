@@ -5,9 +5,9 @@
 // buffer size: 10000000
 // time: 0 ~ 50000
 // eps rel, abs: 1E-12
-// current SHA1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a time elapsed: 6.20748
-// v1.0 SHA1: 95b2d4c3ee74fd240ce9cd31ee0c0333560c9c9a time elapsed: 6.1156
-// passed: comparison between current and v1.0 results (DP5)
+// current SHA1: 0acbb973cec11e9ec1807b29c04235e767c3b0b4 time elapsed: 5.34405
+// v1.0 SHA1: 0acbb973cec11e9ec1807b29c04235e767c3b0b4 time elapsed: 5.22111
+// passed: comparison between current and v1.0 results (CK54)
 
 template <class T>
 struct show_type;
@@ -15,12 +15,12 @@ struct show_type;
 #include "top_include.hpp"
 
 const uint state_size=3;
-const uint buffer_size=10000000;
 const uint results_additions=2;
+const uint buffer_size=10000000;
 const uint buffer_headers=state_size+results_additions;
 
-#include "../libs/solver/solver_dp5.hpp"
-#include "libs/solver-v1/solver_dp5.hpp"
+#include "../libs/solver/solver_ck54.hpp"
+#include "libs/solver-v1/solver_ck54.hpp"
 #include "libs/system_base.hpp"
 
 class CSystem: public CSystem_UnitTest
@@ -35,9 +35,6 @@ public:
 	const state_type start_state={10.0,1.0,1.0};
 	const time_type next_sudden_change_time=stop_time;
 	std::string sha1;
-
-	typedef arma::vec::fixed<state_size> state_type;
-	typedef state_type deriv_type;
 
 	CSystem(): CSystem_UnitTest()
 	{
@@ -82,7 +79,7 @@ public:
 	void integrate_adaptive_current()
 	{
 		state_type X=start_state;
-		ode::Solver<ode::Steppers::RKDP5,CSystem> solver_current(std::ref(*this));
+		ode::Solver<ode::Steppers::RKCK54,CSystem> solver_current(std::ref(*this));
 		solver_current.integrate_adaptive(
 			X,// is manipulated
 			start_time ,
@@ -95,7 +92,7 @@ public:
 	void integrate_adaptive_v1()
 	{
 		state_type X=start_state;
-		odev1::Solver<odev1::Steppers::RKDP5,CSystem> solver_v1(std::ref(*this));
+		odev1::Solver<odev1::Steppers::RKCK54,CSystem> solver_v1(std::ref(*this));
 		solver_v1.integrate_adaptive(
 			X,// is manipulated
 			start_time ,
@@ -120,9 +117,8 @@ void test_item(CSystem &model,std::string name,void (CSystem::*custom_integrate)
 
 int main()
 {
-	const std::string title="comparison between current and v1.0 results (DP5)";
+	const std::string title="comparison between current and v1.0 results (CK54)";
 	std::cout<<"Running "<<title<<"..."<<std::endl;
-
 	CSystem model1;
 	CSystem model2;
 
@@ -133,6 +129,5 @@ int main()
 		unit_test::passed(std::string("passed: ")+title);
 	else
 		unit_test::failed(std::string("rejected: ")+title);
-
 	return 0;
 }
