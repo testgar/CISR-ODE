@@ -32,7 +32,7 @@ To use this software, you need to have a Unix based operating system with instal
 
 * Install trash-cli for makefile clean up
 
-`sudo apt-get install trash-cli
+`sudo apt-get install trash-cli`
 
 
 ## Solver
