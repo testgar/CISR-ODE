@@ -20,7 +20,7 @@ const uint results_additions=2;
 const uint buffer_size=10000000;
 const uint buffer_headers=state_size+results_additions;
 
-#include "../libs/solver/solver_dp5.hpp"
+#include "libs/solver-v1/solver_dp5.hpp"
 #include "libs/system_base.hpp"
 
 class CSystem: public CSystem_UnitTest
@@ -87,11 +87,11 @@ public:
 		return t+stop_time;
 	}
 
-	void integrate_adaptive_cisr()
+	void integrate_adaptive_cisrv1()
 	{
 		state_type X=start_state;
-		ode::Solver<ode::Steppers::RKDP5,CSystem> solver_cisr(std::ref(*this));
-		solver_cisr.integrate_adaptive(
+		odev1::Solver<odev1::Steppers::RKDP5,CSystem> solver_v1(std::ref(*this));
+		solver_v1.integrate_adaptive(
 			X,// is manipulated
 			start_time ,
 			stop_time ,
@@ -129,13 +129,13 @@ void test_item(CSystem &model,std::string name,void (CSystem::*custom_integrate)
 
 int main()
 {
-	const std::string title="comparison between CISR and ODEINT results (DP5)";
+	const std::string title="comparison between CISR v1.0 and ODEINT results (DP5)";
 	std::cout<<"Running "<<title<<"..."<<std::endl;
 	CSystem model1;
 	CSystem model2;
 
 	test_item(model2,"ODEINT",&CSystem::integrate_adaptive_odeint);
-	test_item(model1,"CISR",&CSystem::integrate_adaptive_cisr);
+	test_item(model1,"CISR",&CSystem::integrate_adaptive_cisrv1);
 
 	if(model1.sha1==model2.sha1)
 		unit_test::passed(std::string("passed: ")+title);

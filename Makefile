@@ -8,6 +8,13 @@ OBJECTS:= $(addprefix $(OBJDIR)/,$(SOURCES:.cpp=.o))
 DEPFILES:= $(OBJECTS:.o=.d)
 CXX := g++
 CXXFLAGS := -c -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11 -MD -MP
+GCC_VERSION:=$(subst ., ,$(shell gcc -dumpversion))
+GCC_MAJOR:=$(word 1,$(GCC_VERSION))
+GCC_MINOR:=$(word 2,$(GCC_VERSION))
+ifeq ($(shell expr $(GCC_MAJOR).$(GCC_MINOR) '>=' 4.9),1)
+    GCC_COLORS:=error=01;31:warning=01;33:note=01;36:caret=01;32:locus=01;32:quote=0
+    CXXFLAGS +=-fdiagnostics-color=always
+endif
 CXXFLAGS_RELEASE := -O3 -s -DNDEBUG  -DARMA_NO_DEBUG
 CXXFLAGS_DEBUG := -g
 
