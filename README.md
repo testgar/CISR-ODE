@@ -7,7 +7,7 @@ CISR-ODE is a C++ code framework to provide a flexible simulation environment fo
 
 This framework allows user to define models, specify the input, output, states and connections. The framework generates partial of the code automatically for user convenience. Each time this program runs, all outputs are stored in a new file with the figure of requested parameters and output log(in HTML format) inside the output folder. This framework stores the output in a matrix labelled by time and `dt` and it generates an `SHA1` signature for each output to identify it. This helps engineers to detect if two outputs are identical. 
 
-This framework solver is based on ODE (Ordinary Differential Equation) solver with variable step sizes using Runge Kutta methods Dormand-Prince (RKDP5), Cash-Karp (RKCK45) (and in near future Fehlberg RKF78).
+This framework solver is based on ODE (Ordinary Differential Equation) solver with variable step sizes using Runge Kutta methods Dormand-Prince (RKDP5), Cash-Karp (RKCK45) and Fehlberg (RKF78).
 
 This solver uses Armadillo matrix library for the vectors. This library is fast and easy to use. The syntax of this library is more closed to MATLAB syntax compared to the other C++ libraries and easier for engineers. 
 
