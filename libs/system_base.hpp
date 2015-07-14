@@ -62,21 +62,21 @@ protected:
 		svg_image.close();
 	}
 
-	void export_figures(std::string basename)
+	void export_figures(boost::filesystem::path basepath)
 	{
 		int explist_size=std::extent<decltype(outputs::figure_list)>::value;
 
 		for(int i=0;i<explist_size;i++)
 		{
-			std::string filename_aug=basename+"_"+outputs::figure_list[i].file_suffix;
+			std::string filename_aug=basepath.string()+"_"+outputs::figure_list[i].file_suffix;
 			export_output(filename_aug,outputs::figure_list[i].output_index);
 		}
 	}
 
 	void post_solve()
 	{
-		std::string basename=files::output_results;
-		std::ofstream file(basename);
+		boost::filesystem::path basename=files::output_results;
+		std::ofstream file(basename.string());
 		results_export(&file);
 		file.close();
 		export_figures(basename);

@@ -66,11 +66,6 @@ public:
 		}
 	}
 
-	// value_type last_error( void ) const
-	// {
-	//	 return m_max_rel_error;
-	// }
-
 private:
 
 	stepper_type m_stepper;
@@ -94,14 +89,12 @@ public:
 	const unsigned short error_order_value = 7;
 
 	runge_kutta(  )
-  //	  :  m_first_call( true )
 	{ }
 
 	template< class System >
 	void do_step( System &system , const state_type &in , const deriv_type &dxdt_in , time_type t ,
 			state_type &out , time_type dt , state_type &xerr )
 	{
-		//m_first_call = true;
 		do_step_impl_v1( system , in , dxdt_in , t , out /*, dxdt_out*/ , dt , xerr );
 	}
 
@@ -119,9 +112,6 @@ public:
 		//error estimate
 		xerr=dt*dc1*dxdt_in + dt*dc11*m_k11 + dt*dc12*m_k12 + dt*dc13*m_k13;
 
-		// stepper_base_type::m_algebra.for_each6( xerr , dxdt , m_k3.m_v , m_k4.m_v , m_k5.m_v , m_k6.m_v ,
-		//		 typename operations_type::template scale_sum5< time_type , time_type , time_type , time_type , time_type >( dt*dc1 , dt*dc3 , dt*dc4 , dt*dc5 , dt*dc6 ));
-
 	}
 
 	template< class System , class StateIn , class DerivIn , class StateOut >
@@ -136,8 +126,6 @@ public:
 		const value_type a8 = value_type( 1 ) / value_type( 6 );
 		const value_type a9 = value_type( 2 ) / value_type( 3 );
 		const value_type a10 = value_type( 1 ) / value_type( 3 );
-		const value_type a11 = value_type( 1 );
-		const value_type a13 = value_type( 1 );
 
 		const value_type b21 = value_type( 2 ) / value_type( 27 );
 
@@ -148,7 +136,6 @@ public:
 		const value_type b43 = value_type( 1 ) / value_type( 8 );
 
 		const value_type b51 = value_type( 5 ) / value_type( 12 );
-		const value_type b52 = value_type( 0 );
 		const value_type b53 = value_type( -25 ) / value_type( 16 );
 		const value_type b54 = value_type( 25 ) / value_type( 16 );
 
@@ -224,10 +211,10 @@ public:
 		m_x_tmp= x_in + dt*b31*dxdt_in + dt*b32*m_k2; // why cannot factor dt????
 
 		system.rhs( m_x_tmp , m_k3 , t + dt*a3 );
-		m_x_tmp=x_in+dt*b41*dxdt_in+dt*b43*m_k3;
+		m_x_tmp=x_in + dt*b41*dxdt_in + dt*b43*m_k3;
 
 		system.rhs( m_x_tmp, m_k4 , t + dt*a4 );
-		m_x_tmp=x_in+dt*b51*dxdt_in+dt*b52*m_k2+ dt*b53*m_k3+dt*b54*m_k4;
+		m_x_tmp=x_in + dt*b51*dxdt_in + dt*b53*m_k3 + dt*b54*m_k4;
 
 		system.rhs( m_x_tmp , m_k5 , t + dt*a5 );
 		m_x_tmp=x_in + dt*b61*dxdt_in + dt*b64*m_k4 + dt*b65*m_k5 ;
@@ -247,23 +234,20 @@ public:
 		system.rhs( m_x_tmp , m_k10 , t + dt*a10 );
 		m_x_tmp=x_in + dt*b11_1*dxdt_in + dt*b11_4*m_k4 + dt*b11_5*m_k5 + dt*b11_6*m_k6 + dt*b11_7*m_k7 + dt*b11_8*m_k8 + dt*b11_9*m_k9 + dt*b11_10*m_k10;
 
-		system.rhs( m_x_tmp , m_k11 , t + dt*a11 );
+		system.rhs( m_x_tmp , m_k11 , t + dt );
 		m_x_tmp=x_in + dt*b12_1*dxdt_in + dt*b12_6*m_k6 + dt*b12_7*m_k7 + dt*b12_8*m_k8 + dt*b12_9*m_k9 + dt*b12_10*m_k10;
 
 		system.rhs( m_x_tmp , m_k12 , t );
 		m_x_tmp=x_in + dt*b13_1*dxdt_in + dt*b13_4*m_k4 + dt*b13_5*m_k5 + dt*b13_6*m_k6 + dt*b13_7*m_k7 + dt*b13_8*m_k8 + dt*b13_9*m_k9 + dt*b13_10*m_k10 + dt*b13_11*m_k11 + dt*b13_12*m_k12;
 
-		system.rhs( m_x_tmp , m_k13 , t + dt*a13 ); // a13=1
+		system.rhs( m_x_tmp , m_k13 , t + dt );
 		out= x_in + dt*c6*m_k6 + dt*c7*m_k7 + dt*c8*m_k8 + dt*c9*m_k9 + dt*c10*m_k10 + dt*c12*m_k12 + dt*c13*m_k13 ;
-
 	}
 
 private:
- //   bool m_first_call;
 
 	state_type m_x_tmp;
 	deriv_type m_k2 , m_k3 , m_k4 , m_k5 , m_k6 , m_k7 , m_k8 , m_k9 , m_k10 , m_k11 , m_k12 , m_k13 ;
-	// deriv_type m_dxdt_tmp;
 };
 
 NS_ODEV1_END

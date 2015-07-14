@@ -9,25 +9,26 @@ void call_loger(std::string a);
 namespace filesystem
 {
 
-	void ensure_folder(std::string filename)
+	void ensure_folder(const boost::filesystem::path &filepath)
 	{
-		if(!boost::filesystem::exists(filename))
-			boost::filesystem::create_directory(filename);	
+		if(!boost::filesystem::exists(filepath))
+			boost::filesystem::create_directory(filepath);	
 	}
 
-	bool exists(std::string filename)
+	bool exists(const boost::filesystem::path &filepath)
 	{
-		return boost::filesystem::exists(filename);
+		return boost::filesystem::exists(filepath);
 	}
 
-	std::string read_file(const std::string &filename)
+	std::string read_file(const boost::filesystem::path &filepath)
 	{
-		if(!boost::filesystem::exists(filename))
-			throw std::runtime_error(std::string("file \"")+filename+"\" does not exist!");
+		if(!boost::filesystem::exists(filepath))
+			throw std::runtime_error(std::string("file \"")+filepath.string()+"\" does not exist!");
 		std::string data;
-		std::ifstream in(filename.c_str());
+		std::ifstream in(filepath.c_str());
 		std::getline(in, data, std::string::traits_type::to_char_type(
 						  std::string::traits_type::eof()));
 		return data;
 	}
+
 };

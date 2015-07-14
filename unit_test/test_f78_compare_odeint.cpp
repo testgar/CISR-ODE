@@ -5,8 +5,8 @@
 // buffer size: 10000000
 // time: 0 ~ 50000
 // eps rel, abs: 1E-12
-// ODEINT SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.82389
-// CISR SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.643
+// ODEINT SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.84368
+// CISR SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.62687
 // passed: comparison between CISR v1.0 and ODEINT results (F78)
 
 template <class T>

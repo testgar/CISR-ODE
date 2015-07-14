@@ -49,8 +49,8 @@ private:
 
 public:
 
-	CLog(const std::string log_filename) 
-		: html((filesystem::ensure_folder(files::log_folder),log_filename))
+	CLog(const boost::filesystem::path log_path) 
+		: html((filesystem::ensure_folder(files::log_folder),log_path))
 	{
 		html.head_open();
 		html.js_src(files::jquery);
@@ -82,7 +82,7 @@ public:
 		}
 		else
 		{
-			html.insert_text(std::string("(fixation file does not exist: ")+files::fixation_list+")");
+			html.insert_text(std::string("(fixation file does not exist: ")+files::fixation_list.string()+")");
 		}
 		html.body_close();
 	}

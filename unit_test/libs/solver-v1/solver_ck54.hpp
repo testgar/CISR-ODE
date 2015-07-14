@@ -95,15 +95,13 @@ public:
 	const unsigned short error_order_value = 4;
 
 	runge_kutta(  )
-  //	  :  m_first_call( true )
 	{ }
 
 	template< class System >
 	void do_step( System &system , const state_type &in , const deriv_type &dxdt_in , time_type t ,
 			state_type &out , time_type dt , state_type &xerr )
 	{
-		//m_first_call = true;
-		do_step_impl_v1( system , in , dxdt_in , t , out /*, dxdt_out*/ , dt , xerr );
+		do_step_impl_v1( system , in , dxdt_in , t , out , dt , xerr );
 	}
 
 	template< class System  >
@@ -125,9 +123,6 @@ public:
 		//error estimate
 		xerr=dt*dc1*dxdt_in + dt*dc3*m_k3 + dt*dc4*m_k4 + dt*dc5*m_k5 + dt*dc6*m_k6;
 
-		// stepper_base_type::m_algebra.for_each6( xerr , dxdt , m_k3.m_v , m_k4.m_v , m_k5.m_v , m_k6.m_v ,
-		//		 typename operations_type::template scale_sum5< time_type , time_type , time_type , time_type , time_type >( dt*dc1 , dt*dc3 , dt*dc4 , dt*dc5 , dt*dc6 ));
-
 	}
 
 	template< class System , class StateIn , class DerivIn , class StateOut >
@@ -136,7 +131,6 @@ public:
 		const value_type a2 = value_type( 1 ) / value_type( 5 );
 		const value_type a3 = value_type( 3 ) / value_type( 10 );
 		const value_type a4 = value_type( 3 ) / value_type( 5 );
-		const value_type a5 = value_type( 1 );
 		const value_type a6 = value_type( 7 ) / value_type( 8 );
 
 		const value_type b21 = value_type( 1 ) / value_type( 5 );
@@ -173,7 +167,7 @@ public:
 		sys.rhs( m_x_tmp, m_k4 , t + dt*a4 );
 		m_x_tmp=in+dt*b51*dxdt_in+dt*b52*m_k2+ dt*b53*m_k3+dt*b54*m_k4;
 
-		sys.rhs( m_x_tmp , m_k5 , t + dt*a5 );
+		sys.rhs( m_x_tmp , m_k5 , t + dt );
 		m_x_tmp=in + dt*b61*dxdt_in + dt*b62*m_k2 + dt*b63*m_k3 + dt*b64*m_k4 + dt*b65*m_k5 ;
 
 		sys.rhs( m_x_tmp , m_k6 , t + dt*a6 );

@@ -5,8 +5,8 @@
 // buffer size: 10000000
 // time: 0 ~ 50000
 // eps rel, abs: 1E-12
-// current SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.45786
-// v1.0 SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.34065
+// current SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.32405
+// v1.0 SHA1: 9774ffdef303c1d115ac3ba6e4120fe16ee7488b time elapsed: 1.31857
 // passed: comparison between current and v1.0 results (F78)
 
 template <class T>

@@ -9,7 +9,8 @@
 class CHTML
 {
 private:
-	std::string html_file_name;
+	typedef boost::filesystem::path path;
+	path html_file_path;
 	std::ofstream html_file;
 
 	bool file_opened=false;
@@ -43,10 +44,10 @@ private:
 
 public:
 
-	CHTML(const std::string filename)
+	CHTML(const path &filepath)
 	{
-		html_file_name=filename;
-		open(filename);
+		html_file_path=filepath;
+		open(filepath);
 		html_open();
 	}
 
@@ -129,10 +130,10 @@ public:
 		insert_text(row_close_text);
 	}
 
-	void style(std::string filename)
+	void style(boost::filesystem::path filepath)
 	{
 		open_tag("style");
-		insert_text(filesystem::read_file(filename));
+		insert_text(filesystem::read_file(filepath));
 		next_line();
 		close_tag("style");
 	}
@@ -144,11 +145,11 @@ public:
 		insert_text(easytext::replace(sc_hmtl,"{src}",js_url));
 	}
 
-	void js_inline(std::string filename)
+	void js_inline(boost::filesystem::path filepath)
 	{
 		ensure(html_locations::in_head,"Cannot link to script out of head!");
 		open_tag("script");
-		insert_text(filesystem::read_file(filename));
+		insert_text(filesystem::read_file(filepath));
 		next_line();
 		close_tag("script");
 	}
@@ -174,9 +175,9 @@ public:
 		html_file<<text;
 	}
 
-	void insert_template(std::string filename)
+	void insert_template(boost::filesystem::path filepath)
 	{
-		std::string text=filesystem::read_file(filename);
+		std::string text=filesystem::read_file(filepath);
 		insert_text(text);
 	}
 
@@ -218,12 +219,12 @@ private:
 		insert_template(files::html_close);
 	}
 
-	void open(const std::string filename)
+	void open(const path filepath)
 	{
-		html_file.open(filename);
+		html_file.open(filepath.string());
 		if(!html_file.is_open())
 			throw std::runtime_error(
-				std::string("cannot open file \"")+filename+"\" !");
+				std::string("cannot open file \"")+filepath.string()+"\" !");
 		file_opened=true;
 	}
 
@@ -239,10 +240,10 @@ private:
 	{
 		if(!file_opened)
 			throw std::runtime_error(
-				std::string("file ")+html_file_name+" is not open yet!");
+				std::string("file ")+html_file_path.string()+" is not open yet!");
 		if(file_closed)
 			throw std::runtime_error(
-				std::string("file ")+html_file_name+" is already closed!");
+				std::string("file ")+html_file_path.string()+" is already closed!");
 	}
 
 	void ensure(html_locations location,std::string message)

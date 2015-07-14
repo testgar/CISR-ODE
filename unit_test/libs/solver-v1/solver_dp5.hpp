@@ -23,8 +23,6 @@ public:
 	{
 		if( m_first_call )
 		{
-			// initialize
-			 // typename std::remove_reference< System >::type &sys = system;
 			system.rhs( x , m_dxdt , t );
 			m_first_call = false;
 		}
