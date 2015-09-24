@@ -15,7 +15,7 @@ namespace outputs
 		"surge_kin_vel",
 		"surge_kin_pos",
 		"surge_lp_out",
-		"specific_force",
+		"specific_force"
 	};
 
 	// o0	surge_input_acc_ref
@@ -34,9 +34,9 @@ namespace outputs
 	const int surge_lp_out=5;
 	const int specific_force=6;
 
-	// total size of output vector
+	// total size of outputs vector
 	const int output_size=7;
-
+	
 	//Export list
 	struct ExpList
 	{
@@ -44,6 +44,6 @@ namespace outputs
 		int output_index;
 	} figure_list[]={
 		{"surge_input_acc_ref",outputs::surge_input_acc_ref},
-		{"specific_force",outputs::specific_force},
+		{"specific_force",outputs::specific_force}
 	};
 }

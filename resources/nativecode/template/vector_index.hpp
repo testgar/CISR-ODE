@@ -1,13 +1,16 @@
+
+#WARNING_COMMENTS#
+
+// path: ./#TRACING_PATH#
+
 #pragma once
 
-//	#TITLE#
-
-namespace states
+namespace #TITLE#
 {
-	// #COMMENT#
+	#INDEX_NUMBERS_COMMENTS#
 
-	const int #VAR_VAL#
+	#INDEX_CONSTANTS#
 
-	// total size of state vector
-	const int #TOTAL_SIZE#
+	// total size of #TITLE# vector
+	const int #TOTAL_SIZE#;
 }

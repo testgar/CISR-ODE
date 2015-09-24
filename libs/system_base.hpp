@@ -40,6 +40,11 @@ public:
 		results=arma::mat(config::buffer_headers,0);
 	}
 
+	const arma::mat get_results()
+	{
+		return results;
+	}
+	
 protected:
 
 	void export_output(std::string filename,const int fig_index)
@@ -167,11 +172,6 @@ protected:
 		frame.min_y=min_y;
 		frame.max_y=max_y;
 		return frame;
-	}
-
-	const arma::mat get_results()
-	{
-		return results;
 	}
 
 };

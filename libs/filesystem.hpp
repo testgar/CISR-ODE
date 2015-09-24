@@ -31,4 +31,11 @@ namespace filesystem
 		return data;
 	}
 
+	void write_file(const boost::filesystem::path &filepath, const std::string &text)
+	{
+		std::ofstream out(filepath.string().c_str());
+		out << text;
+		out.close();
+	}
+
 };

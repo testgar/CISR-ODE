@@ -8,8 +8,8 @@
 
 namespace inputs
 {
-	// i0	surge_acc
-	// i1	pitch_angle
+	// u0	surge_acc
+	// u1	pitch_angle
 
 	const int surge_acc=0;
 	const int pitch_angle=1;

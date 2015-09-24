@@ -34,6 +34,6 @@ namespace mids
 	const int tilt_force=10;
 	const int specific_force=11;
 
-	// total size of intermediate vector
+	// total size of mids vector
 	const int intermediate_size=12;
 }
