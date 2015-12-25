@@ -35,6 +35,7 @@ modelname:
 	@trash $(BINDIR)/modelname
 
 autogenerate:
+	@mkdir -p $(BINDIR)
 	@g++ -std=c++11 -g -Wall -Wfatal-errors autogenerator/autogenerator.cpp $(LIBS) -o $(BINDIR)/autogenerate
 	@$(BINDIR)/autogenerate
 	@trash $(BINDIR)/autogenerate
