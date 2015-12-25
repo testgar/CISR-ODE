@@ -17,7 +17,7 @@ struct show_type;
 
 const uint state_size=3;
 const uint results_additions=2;
-const uint buffer_size=10000000;
+const uint buffer_size=35000000;
 const uint buffer_headers=state_size+results_additions;
 
 #include "libs/solver-v1/solver_dp5.hpp"

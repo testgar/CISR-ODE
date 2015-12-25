@@ -203,7 +203,7 @@ public:
 		const value_type c12 = value_type( 41 ) / value_type( 840 );
 		const value_type c13 = value_type( 41 ) / value_type( 840 );
 
-		typename std::remove_reference< System >::type &sys = system;
+		// typename std::remove_reference< System >::type &sys = system;
 
 		m_x_tmp= x_in + dt*b21 * dxdt_in;
 

@@ -15,7 +15,7 @@ struct show_type;
 #include "top_include.hpp"
 
 const uint state_size=3;
-const uint buffer_size=10000000;
+const uint buffer_size=35000000;
 const uint results_additions=2;
 const uint buffer_headers=state_size+results_additions;
 
