@@ -4,16 +4,16 @@
 using namespace arma;
 
 void Model::intermediates(
-	const input_type &u,
-	const state_type &x,
-	intermediate_type &mid,
-	const time_type &t,
-	const state_type &last_observed_x,
-	const time_type &last_observed_t
+	const input_type			&u,
+	const state_type			&x,
+	intermediate_type			&mid,
+	const time_type 			&t,
+	const intermediate_type		&last_observed_mids,
+	const time_type				&last_observed_t
 	)
 {
 	_unused(t);
-	_unused(last_observed_x);
+	_unused(last_observed_mids);
 	_unused(last_observed_t);
 
 	// m0	surge_input_acc_ref

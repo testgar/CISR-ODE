@@ -1,0 +1,13 @@
+theta_desired[3],out[0:2],plot[0:2]
+D_theta_desired[3]
+DD_theta_desired[3]
+theta[3],explicit,out[0:2],plot[0:2]
+D_theta[3]
+theta_error[3]
+D_theta_error[3]
+DD_theta_controller[6],explicit[2,3]
+T[6]
+angular_vec[6],explicit[2,3]
+position[3],out,plot
+position_desired[3]
+error,out,plot

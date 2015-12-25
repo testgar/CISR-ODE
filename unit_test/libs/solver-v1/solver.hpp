@@ -80,7 +80,7 @@ public:
 
 	Solver(system_type &_system):
 		system(_system),
-		stepper(system.eps_abs,system.eps_rel,system.max_dt)
+		stepper(system.eps_abs,system.eps_rel,system.max_dt,system.min_dt)
 	{
 		// constructor
 	}
@@ -111,7 +111,7 @@ public:
 				dt= force_point - start_time;
 				if(std::abs(dt)<EPSILON)
 					throw std::runtime_error("dt was proposed to be zero!");
-				dt= std::min(dt,system.max_dt);// what if system.max_dt is mismatches with stepper.max_dt
+				dt= std::max(dt,system.min_dt);// what if system.min_dt is mismatches with stepper.min_dt
 			}
 			size_t trials = 0;
 			controlled_step_result res = success;

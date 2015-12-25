@@ -27,14 +27,14 @@ public:
 	void tic()
 	{
 		initialized=true;
-		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_start);
+		clock_gettime(CLOCK_MONOTONIC, &time_start);
 	}
 
 	double toc()
 	{
 		if(!initialized)
 			throw std::runtime_error("cronometer is not initialized!");
-		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &time_stop);
+		clock_gettime(CLOCK_MONOTONIC, &time_stop);
 		long diff_sec=time_stop.tv_sec-time_start.tv_sec;
 		long diff_nsec=time_stop.tv_nsec-time_start.tv_nsec;
 		double time_diff=static_cast<double>(diff_sec)+(1e-9)*static_cast<double>(diff_nsec);

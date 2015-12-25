@@ -23,7 +23,6 @@ public:
 	{
 		system.rhs( x , m_dxdt , t );
 		controlled_step_result res = try_step2( system , x , m_dxdt , t , m_xnew , dt );
-		dt=std::min(dt,system.max_dt); // added for maximum step size
 		if( res == success )
 		{
 			x=m_xnew;
@@ -33,12 +32,24 @@ public:
 
 	controlled_step_result try_step2( System &system , const state_type &x_in , const deriv_type &dxdt_in , time_type &t , state_type &x_out , time_type &dt )
 	{
+		bool dt_overwritten=false;
+		if(system.min_dt>0 && dt<system.min_dt) // Help C++ optimizer
+		{
+			dt=system.min_dt; // added for minimum step size
+			dt_overwritten=true;
+		}
+		if(system.max_dt>0 && dt>system.max_dt) // Help C++ optimizer
+		{
+			dt=system.max_dt; // added for maximum step size
+			dt_overwritten=true;
+		}
+
 		// do one step with error calculationm_stepper
 		do_step( system , x_in , dxdt_in , t , x_out , dt , m_xerr );
 
 		m_max_rel_error = m_error_checker.error( x_in , dxdt_in , m_xerr , dt );
 
-		if( m_max_rel_error > 1.0 )
+		if( m_max_rel_error > 1.0 && !dt_overwritten)
 		{
 			// error too large - decrease dt ,limit scaling factor to 0.2 and reset state
 			dt *= std::max ( value_type( value_type(9)/value_type(10) *

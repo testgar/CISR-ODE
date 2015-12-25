@@ -7,22 +7,23 @@ OBJECTS:= $(addprefix $(OBJDIR)/,$(SOURCES:.cpp=.o))
 DEPFILES:= $(OBJECTS:.o=.d)
 CXX := g++
 CXXFLAGS := -c -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11 -MD -MP
+CXXTestFLAGS := -g -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11
 GCC_VERSION:=$(subst ., ,$(shell gcc -dumpversion))
 GCC_MAJOR:=$(word 1,$(GCC_VERSION))
 GCC_MINOR:=$(word 2,$(GCC_VERSION))
 ifeq ($(shell expr $(GCC_MAJOR).$(GCC_MINOR) '>=' 4.9),1)
     export GCC_COLORS='error=01;31:warning=01;33:note=01;36:caret=01;32:locus=01;32:quote=0'
     CXXFLAGS +=-fdiagnostics-color=always
+    CXXTestFLAGS +=-fdiagnostics-color=always
 endif
 CXXFLAGS_RELEASE := -O3 -s -DNDEBUG  -DARMA_NO_DEBUG
 CXXFLAGS_DEBUG := -g
 
-CXXTestFLAGS := -g -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11
 #CXXFLAGS+= --cover
-LIBS:= -lboost_filesystem -lboost_system -lcrypto -lrt
-# -lboost_thread -larmadillo
+LIBS:= -lboost_filesystem -lboost_system -lcrypto -lrt -lboost_regex -lboost_wave -larmadillo
+# -lboost_thread
 
-.PHONY: all clean run rmresults separator $(MODELS_DEP) modelname autogenerate
+.PHONY: all clean run test rmresults separator $(MODELS_DEP) modelname autogenerate
 
 # default
 all: separator autogenerate $(BINDIR)/sim 
@@ -37,7 +38,6 @@ autogenerate:
 	@g++ -std=c++11 -g -Wall -Wfatal-errors autogenerator/autogenerator.cpp $(LIBS) -o $(BINDIR)/autogenerate
 	@$(BINDIR)/autogenerate
 	@trash $(BINDIR)/autogenerate
-
 
 MODEL_%:
 	@bash ./scripts/model_callscripts.sh $*

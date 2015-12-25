@@ -88,13 +88,20 @@ private:
 
 public:
 
-	CSVG(std::string filename,figure_frame frame,int width,int height,Margin margin): width(width),height(height),frame(frame), margin(margin)
+	CSVG(std::string filename,figure_frame frame,int width,int height,Margin margin):
+		width(width),height(height),frame(frame), margin(margin)
 	{
 		svg_file.open(filename);
 	}
 
-	CSVG(std::string filename,figure_frame frame): CSVG(filename,frame,1000,600,{70,130,100,180})
+	CSVG(std::string filename,figure_frame frame): 
+		CSVG(filename,frame,1000,600,{70,130,100,180})
 	{
+// _(frame.min_time);
+// _(frame.min_time);
+// _(frame.max_time);
+// _(frame.min_y);
+// _(frame.max_y);
 	}
 
 	void begin()
@@ -137,14 +144,14 @@ public:
 
 	void path_l(arma::mat fig,int f_index,Path_Config pconf)
 	{
-		int n_cols=fig.n_cols;
+		arma::uword n_cols=fig.n_cols;
 		if(n_cols<2)
 			throw std::runtime_error("unexpected small matrix!");
 		svg_file<<"<path d=\"M ";
 		double P0x=fig(0,0);
 		double P0y=fig(f_index,0);
 		svg_file<<trans_t(P0x)<<" "<<trans_y(P0y); // first point
-		for(int i=1;i<n_cols;i++)
+		for(uint i=1;i<n_cols;i++)
 		{
 			svg_file<<" L ";
 			double Px=fig(0,i);
@@ -292,6 +299,9 @@ public:
 	double get_tickspace_y()
 	{
 		const int tick_number[2]={5,10};// maximum number of thicks in y axis
+		if(std::isinf(frame.max_y)||std::isinf(frame.min_y))
+			throw std::runtime_error("Infinity value detected.");
+
 		return get_tickspace(frame.max_y-frame.min_y,tick_number[0],tick_number[1]);
 	}
 
@@ -401,6 +411,11 @@ public:
 		draw_ticks_y();
 		CSVG::Attribute frame_attr;
 		rectangle(frame,frame_attr,true);
+// _(frame.min_time);
+// _(frame.min_time);
+// _(frame.max_time);
+// _(frame.min_y);
+// _(frame.max_y);
 	}
 
 

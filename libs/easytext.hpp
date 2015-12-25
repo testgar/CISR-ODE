@@ -3,11 +3,18 @@
 #include <vector>
 #include <boost/format.hpp>
 #include <boost/algorithm/string.hpp> // for using boost::split to explode a string
-// #include <boost/algorithm/string/predicate.hpp>
+#include <boost/regex.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/wave.hpp>
+#include <boost/wave/cpplexer/cpp_lex_token.hpp>	// token class
+#include <boost/wave/cpplexer/cpp_lex_iterator.hpp> // lexer class
+#include <boost/algorithm/string/trim.hpp>
 
 namespace easytext
 {
-	std::string replace(std::string text,
+	const std::string newline("\n");
+
+	std::string replace_once(std::string text,
 						std::string tofind,
 						std::string toreplace)
 	{
@@ -17,10 +24,74 @@ namespace easytext
 		return text.replace(found_pos,tofind.length(),toreplace);
 	}
 
+	std::string replace_all(std::string text,
+						std::string tofind,
+						std::string toreplace)
+	{
+		size_t found_pos;
+		std::string result=text;
+		while((found_pos = text.find(tofind))!=std::string::npos)
+		{
+			result=result.replace(found_pos,tofind.length(),toreplace);
+		}
+		return result;
+	}
+
 	std::vector<std::string> explode(std::string const & text, std::string const delim)
 	{
 		std::vector<std::string> results;
 		boost::split(results,text,boost::is_any_of(delim),boost::token_compress_off);
+		return results;
+	}
+
+	// explode skipping parenthesis() and braces[]{}
+	// notice that skip_ranges might have duplicat ranges and function should not fail
+	std::vector<std::string> explode_shallow(
+		std::string const & text,
+		char const delim,
+		std::vector<std::pair<char,char> > skip_ranges = {{'(', ')'},{'[', ']'},{'{', '}'}}
+		)
+	{
+		std::vector<std::string> results;
+		std::string result;
+		std::vector<char> container_heads;
+		for(auto skip_range:skip_ranges)
+		{
+			if(delim==skip_range.first||delim==skip_range.second)
+				throw std::runtime_error("Delimiter should not match any range character.");
+		}
+		for(char c : text)
+		{
+			if(c==delim && container_heads.empty())
+			{
+				results.push_back(result);
+				result="";
+			}
+			else
+			{
+				result+=c;
+				
+				// look for range head
+				bool found_head=false;
+				for(auto skip_range:skip_ranges)
+					if(c==skip_range.first)
+						found_head=true;
+				if(found_head)
+					container_heads.push_back(c);
+
+				if(container_heads.size()>0)
+				{
+					// look for range tail
+					bool found_tail=false;
+					for(auto skip_range:skip_ranges)
+						if(c==skip_range.second && container_heads.back()==skip_range.first)
+							found_tail=true;
+					if(found_tail)
+						container_heads.pop_back();
+				}
+			}
+		}
+		results.push_back(result);
 		return results;
 	}
 
@@ -57,4 +128,38 @@ namespace easytext
 	{
 		return boost::starts_with(text, item);
 	}
+
+	std::string strip_comments(std::string const& text_raw)
+	{
+		std::string result_text;
+		typedef boost::wave::cpplexer::lex_token<> token_type;
+		typedef boost::wave::cpplexer::lex_iterator<token_type> lexer_type;
+		typedef token_type::position_type position_type;
+		position_type pos;
+		std::string input_c=boost::trim_copy(text_raw)+"\n";
+
+		lexer_type it = lexer_type(input_c.begin(), input_c.end(), pos, 
+			boost::wave::language_support(
+			boost::wave::support_cpp|boost::wave::support_option_long_long));
+		lexer_type end = lexer_type();
+
+		for (;it != end; ++it)
+		{
+			switch(*it)
+			{
+				case boost::wave::T_CCOMMENT :
+					// ignore
+					break;
+				case boost::wave::T_CPPCOMMENT :
+					// ignore
+					result_text = boost::trim_copy(result_text)+"\n";
+					break;
+				default:
+					std::string new_part(it->get_value().begin(), it->get_value().end());
+					result_text += new_part;
+			}
+		}
+		return boost::trim_copy(result_text)+"\n";
+	}
+
 }

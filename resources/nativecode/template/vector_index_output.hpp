@@ -19,11 +19,11 @@ namespace #TITLE#
 	const int #TOTAL_SIZE#;
 	
 	//Export list
-	struct ExpList
+	struct FigureList
 	{
 		std::string file_suffix; // no space is accepted in file suffix name
 		int output_index;
 	} figure_list[]={
-		#EXPORT_LIST#
+		#FIGURE_LIST#
 	};
 }

@@ -77,7 +77,7 @@ public:
 			auto fix_vec=easytext::explode(fix_content,"\n*");
 			for(const std::string fix:fix_vec)
 				if(fix!="")
-					html.insert_text(easytext::replace(option,"{option}",fix));
+					html.insert_text(easytext::replace_once(option,"{option}",fix));
 			html.insert_template(files::html_fixation_list_close);
 		}
 		else

@@ -31,6 +31,7 @@ public:
 	const time_type start_time=0;
 	const time_type stop_time=50000;
 	const time_type max_dt=stop_time;
+	const time_type min_dt=0.0;
 	const time_type initial_dt=0.1;
 	const state_type start_state={10.0,1.0,1.0};
 	const time_type next_sudden_change_time=stop_time;

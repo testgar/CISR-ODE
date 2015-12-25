@@ -8,8 +8,10 @@
 
 namespace mids
 {
+	
 
+	
 
-	// total size of intermediate vector
+	// total size of mids vector
 	const int intermediate_size=0;
 }

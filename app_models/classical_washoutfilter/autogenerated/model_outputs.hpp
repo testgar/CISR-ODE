@@ -18,27 +18,27 @@ namespace outputs
 		"specific_force"
 	};
 
-	// o0	surge_input_acc_ref
-	// o1	surge_hp_out
-	// o2	surge_kin_acc
-	// o3	surge_kin_vel
-	// o4	surge_kin_pos
-	// o5	surge_lp_out
-	// o6	specific_force
+	// y0	surge_input_acc_ref;
+	// y1	surge_hp_out;
+	// y2	surge_kin_acc;
+	// y3	surge_kin_vel;
+	// y4	surge_kin_pos;
+	// y5	surge_lp_out;
+	// y6	specific_force;
 
-	const int surge_input_acc_ref=0;
-	const int surge_hp_out=1;
-	const int surge_kin_acc=2;
-	const int surge_kin_vel=3;
-	const int surge_kin_pos=4;
-	const int surge_lp_out=5;
-	const int specific_force=6;
+	const uint surge_input_acc_ref=0;
+	const uint surge_hp_out=1;
+	const uint surge_kin_acc=2;
+	const uint surge_kin_vel=3;
+	const uint surge_kin_pos=4;
+	const uint surge_lp_out=5;
+	const uint specific_force=6;
 
 	// total size of outputs vector
 	const int output_size=7;
 	
 	//Export list
-	struct ExpList
+	struct FigureList
 	{
 		std::string file_suffix; // no space is accepted in file suffix name
 		int output_index;

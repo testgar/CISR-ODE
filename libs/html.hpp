@@ -126,7 +126,7 @@ public:
 
 		insert_text(row_open_text);
 		for(const std::string cell: cells)
-			insert_text(easytext::replace(cell_text,"{cell}",cell));
+			insert_text(easytext::replace_once(cell_text,"{cell}",cell));
 		insert_text(row_close_text);
 	}
 
@@ -142,7 +142,7 @@ public:
 	{
 		ensure(html_locations::in_head,"Cannot link to script out of head!");
 		static std::string sc_hmtl=filesystem::read_file(files::js_src);
-		insert_text(easytext::replace(sc_hmtl,"{src}",js_url));
+		insert_text(easytext::replace_once(sc_hmtl,"{src}",js_url));
 	}
 
 	void js_inline(boost::filesystem::path filepath)
@@ -159,7 +159,7 @@ public:
 		ensure(html_locations::in_body,"Large pen is not valid out of body!");
 		ensure(html_locations::out_table,"Large pen cannot be used inside table!");
 		static std::string h1_t=filesystem::read_file(files::html_h1);
-		insert_text(easytext::replace(h1_t,"{title}",title));
+		insert_text(easytext::replace_once(h1_t,"{title}",title));
 	}
 
 	void h2(std::string title)
@@ -167,7 +167,7 @@ public:
 		ensure(html_locations::in_body,"Large pen is not valid out of body!");
 		ensure(html_locations::out_table,"Large pen cannot be used inside table!");
 		static std::string h2_t=filesystem::read_file(files::html_h2);
-		insert_text(easytext::replace(h2_t,"{title}",title));
+		insert_text(easytext::replace_once(h2_t,"{title}",title));
 	}
 
 	void insert_text(std::string text)
@@ -201,7 +201,7 @@ private:
 	void fhs_table_column(std::string column)
 	{
 		const static std::string ct=filesystem::read_file(files::fhs_thead_column);
-		insert_text(easytext::replace(ct,"{column_name}",column));
+		insert_text(easytext::replace_once(ct,"{column_name}",column));
 	}
 
 	void html_open()

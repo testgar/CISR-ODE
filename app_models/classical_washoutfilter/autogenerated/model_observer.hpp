@@ -12,21 +12,21 @@ void Model::observer(
 	const state_type 			&x ,
 	const double 				&t,
 	observer_type 				&ymat,
-	const state_type 			&last_observed_x,
+	const intermediate_type 	&last_observed_mids,
 	const time_type 			&last_observed_t,
 	input_type					&u
 	)
 {
 	intermediate_type mid;
-	intermediates(u,x,mid,t,last_observed_x,last_observed_t);
+	intermediates(u,x,mid,t,last_observed_mids,last_observed_t);
 
-	// o0	surge_input_acc_ref
-	// o1	surge_hp_out
-	// o2	surge_kin_acc
-	// o3	surge_kin_vel
-	// o4	surge_kin_pos
-	// o5	surge_lp_out
-	// o6	specific_force
+	// y0	surge_input_acc_ref;
+	// y1	surge_hp_out;
+	// y2	surge_kin_acc;
+	// y3	surge_kin_vel;
+	// y4	surge_kin_pos;
+	// y5	surge_lp_out;
+	// y6	specific_force;
 
 	ymat(outputs::surge_input_acc_ref)=mid(mids::surge_input_acc_ref);
 	ymat(outputs::surge_hp_out)=mid(mids::surge_hp_out);

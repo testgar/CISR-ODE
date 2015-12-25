@@ -30,7 +30,6 @@ public:
 		}
 
 		controlled_step_result res = try_step2( system , x , m_dxdt , t , m_xnew , m_dxdtnew , dt );
-		dt=std::min(dt,system.max_dt); // added for maximum step size
 
 		if( res == success )
 		{
@@ -44,12 +43,24 @@ public:
 	controlled_step_result try_step2( System &system , const state_type &x_in , const deriv_type &dxdt_in , time_type &t ,
 			state_type &x_out , deriv_type &dxdt_out , time_type &dt)
 	{
+		bool dt_overwritten=false;
+		if(system.min_dt>0 && dt<system.min_dt) // Help C++ optimizer
+		{
+			dt=system.min_dt; // added for minimum step size
+			dt_overwritten=true;
+		}
+		if(system.max_dt>0 && dt>system.max_dt) // Help C++ optimizer
+		{
+			dt=system.max_dt; // added for maximum step size
+			dt_overwritten=true;
+		}
+
 		do_step( system , x_in , dxdt_in , t , x_out , dxdt_out , dt , m_xerr );
 
 		// this potentially overwrites m_x_err! (standard_error_checker does, at least)
 		value_type max_rel_err = m_error_checker.error(  x_in , dxdt_in , m_xerr , dt );
 
-		if( max_rel_err > 1.0 )
+		if( max_rel_err > 1.0 && !dt_overwritten)
 		{
 			// error too large - decrease dt ,limit scaling factor to 0.2 and reset state
 			// simplified: max( 9/10*pow( max_rel_err , -1/( m_stepper.error_order_value - 1) ) ,1/5 );
@@ -69,7 +80,7 @@ public:
 				dt *= value_type( value_type(9)/value_type(10) * pow( max_rel_err , value_type(-1) / stepper_order_value ) );
 			}
 			return success;
-		}
+		}		
 	}
 
 private:

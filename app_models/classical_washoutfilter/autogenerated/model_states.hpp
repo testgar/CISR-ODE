@@ -8,21 +8,21 @@
 
 namespace states
 {
-	// x0	surge_hp_x1
-	// x1	surge_hp_x2
-	// x2	surge_kin_vel
-	// x3	surge_kin_pos
-	// x4	surge_lp_x1
-	// x5	surge_lp_x2
-	// x6	pitch_hp_x1
+	// x[0]	surge_hp_x1
+	// x[1]	surge_hp_x2
+	// x[2]	surge_kin_vel
+	// x[3]	surge_kin_pos
+	// x[4]	surge_lp_x1
+	// x[5]	surge_lp_x2
+	// x[6]	pitch_hp_x1
 
-	const int surge_hp_x1=0;
-	const int surge_hp_x2=1;
-	const int surge_kin_vel=2;
-	const int surge_kin_pos=3;
-	const int surge_lp_x1=4;
-	const int surge_lp_x2=5;
-	const int pitch_hp_x1=6;
+	const uint surge_hp_x1=0;
+	const uint surge_hp_x2=1;
+	const uint surge_kin_vel=2;
+	const uint surge_kin_pos=3;
+	const uint surge_lp_x1=4;
+	const uint surge_lp_x2=5;
+	const uint pitch_hp_x1=6;
 
 	// total size of states vector
 	const int state_size=7;

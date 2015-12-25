@@ -94,8 +94,13 @@ public:
 		const char *error_string = "Integrate adaptive : Maximal number of iterations reached. A step size could not be found.";
 		size_t count = 0;
 		time_type next_interrupt_time=system.timer(start_state,start_time);
-		time_type next_sudden_change_time=system.next_sudden_change_time;
-		dt=std::min(dt,system.max_dt);
+		time_type& next_sudden_change_time=system.next_sudden_change_time;
+		if(system.max_dt>0 && system.max_dt<EPSILON)
+			throw std::runtime_error("Maximum step size has been proposed to be zero!");
+		if(system.max_dt>0 && dt>system.max_dt) // Help C++ optimizer
+			dt=system.max_dt;
+		if(system.min_dt>0 && dt<system.max_dt) // Help C++ optimizer
+			dt=system.min_dt;
 		time_type force_point;
 		while(less_with_sign(start_time,end_time,dt))
 		{
@@ -105,12 +110,11 @@ public:
 			force_point=std::min(end_time,next_interrupt_time); // minimum
 			if(next_sudden_change_time-start_time>EPSILON)
 				force_point=std::min(force_point,next_sudden_change_time);
-			if(less_with_sign(force_point,static_cast<time_type>(start_time + dt) , dt ) )
+			if(less_with_sign(force_point,start_time + dt , dt ) )
 			{
 				dt= force_point - start_time;
 				if(std::abs(dt)<EPSILON)
 					throw std::runtime_error("dt has been proposed to be zero!");
-				dt= std::min(dt,system.max_dt);
 			}
 			size_t trials = 0;
 			controlled_step_result res = success;

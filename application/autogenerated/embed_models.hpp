@@ -8,4 +8,4 @@
 
 // include models
 
-#include "../../app_models/classical_washoutfilter/model.hpp"
+#include "../../app_models/puma_560_robot/model.hpp"

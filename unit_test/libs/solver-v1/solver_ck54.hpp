@@ -14,7 +14,7 @@ public:
 	typedef default_error_checker error_checker_type;
 
 	controlled_runge_kutta(const value_type eps_abs,const value_type eps_rel,const time_type max_dt)
-	: m_stepper() , m_error_checker( eps_abs, eps_rel), max_dt(max_dt)
+	: m_stepper() , m_error_checker( eps_abs, eps_rel), max_dt(max_dt) ????????????? min?
 	{ }
 
 	template< class System  >

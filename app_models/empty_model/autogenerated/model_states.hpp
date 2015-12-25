@@ -8,7 +8,9 @@
 
 namespace states
 {
+	
 
+	
 
 	// total size of states vector
 	const int state_size=0;

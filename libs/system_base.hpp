@@ -16,6 +16,7 @@ public:
 	typedef Model::buffer_type buffer_type;
 	typedef Model::input_type input_type;
 	typedef Model::intermediate_type intermediate_type;
+	// typedef std::make_signed<decltype(results.n_rows)>::type result_row_index_type;
 
 protected:
 	buffer_type buffer;
@@ -29,7 +30,7 @@ public:
 		// constructor
 		Reset();
 		filesystem::ensure_folder(files::output_folder);
-		int out_header_size=std::extent<decltype(outputs::output_header)>::value;
+		uint out_header_size=std::extent<decltype(outputs::output_header)>::value;
 		if(out_header_size!=outputs::output_size)
 			throw std::runtime_error("output header size mismatch!");
 	}
@@ -122,20 +123,20 @@ protected:
 		if(results.n_rows==0)
 			throw std::runtime_error("empty results!");
 
-		int n_cols=results.n_cols;
-		int n_rows=results.n_rows;
+		arma::uword n_cols=results.n_cols;
+		arma::uword n_rows=results.n_rows;
 
 		*output_media <<"t\tdt";
-		int out_header_size=std::extent<decltype(outputs::output_header)>::value;
-		for(int i=0;i<out_header_size;i++)
+		uint out_header_size=std::extent<decltype(outputs::output_header)>::value;
+		for(uint i=0;i<out_header_size;i++)
 		{
 			*output_media << '\t' << outputs::output_header[i];
 		}
 		*output_media << std::endl;
 
-		for(int i=0;i<n_cols;i++)
+		for(uint i=0;i<n_cols;i++)
 		{
-			for(int j=0;j<n_rows;j++)
+			for(uint j=0;j<n_rows;j++)
 			{
 				*output_media << results(j,i);
 				if(j!=n_rows-1)
@@ -148,11 +149,11 @@ protected:
 	figure_frame view_range(int y_first=0,int y_last=-1)
 	{
 		if(y_last==-1)
-			y_last=results.n_rows-2;
+			y_last=int(results.n_rows-2); // to be resolved
 		if(buffer_index>0)
 			throw std::runtime_error("observer is not finalized!");
 		if(y_first>y_last)
-			throw std::runtime_error("wrong matrix dimention!");
+			throw std::runtime_error("out of range matrix index!");
 		arma::mat sub_t=results.submat(0,0,0,results.n_cols-1);
 		int offset=config::results_additions;
 		arma::mat sub_y=results.submat(y_first+offset,0,y_last+offset,results.n_cols-1);
@@ -162,7 +163,7 @@ protected:
 		double max_y=sub_y.max();
 		double min_y=sub_y.min();
 		double d=(max_y-min_y)/2;
-		if(d==0)
+		if(d==0.0)
 			d=1;
 		max_y+=d/10;
 		min_y-=d/10;

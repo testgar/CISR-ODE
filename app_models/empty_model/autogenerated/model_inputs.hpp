@@ -8,7 +8,9 @@
 
 namespace inputs
 {
+	
 
+	
 
 	// total size of inputs vector
 	const int input_size=0;

@@ -6,26 +6,26 @@
 
 // inputs
 
-	// u0	surge_acc
-	// u1	pitch_angle
+	// u[0]	surge_acc
+	// u[1]	pitch_angle
 
 	u(inputs::surge_acc)=...
 	u(inputs::pitch_angle)=...
 
 // intermediates
 
-	// m0	surge_input_acc_ref
-	// m1	surge_hp_out
-	// m2	surge_kin_acc
-	// m3	surge_kin_vel
-	// m4	surge_kin_pos
-	// m5	surge_lp_out
-	// m6	tilt_coordination
-	// m7	pitch_input_angle_ref
-	// m8	pitch_hp_out
-	// m9	pitch_angle
-	// m10	tilt_force
-	// m11	specific_force
+	// m[0]	surge_input_acc_ref
+	// m[1]	surge_hp_out
+	// m[2]	surge_kin_acc
+	// m[3]	surge_kin_vel
+	// m[4]	surge_kin_pos
+	// m[5]	surge_lp_out
+	// m[6]	tilt_coordination
+	// m[7]	pitch_input_angle_ref
+	// m[8]	pitch_hp_out
+	// m[9]	pitch_angle
+	// m[10]	tilt_force
+	// m[11]	specific_force
 
 	mid(mids::surge_input_acc_ref)=...
 	mid(mids::surge_hp_out)=...
@@ -42,13 +42,13 @@
 
 // states
 
-	// x0	surge_hp_x1
-	// x1	surge_hp_x2
-	// x2	surge_kin_vel
-	// x3	surge_kin_pos
-	// x4	surge_lp_x1
-	// x5	surge_lp_x2
-	// x6	pitch_hp_x1
+	// x[0]	surge_hp_x1
+	// x[1]	surge_hp_x2
+	// x[2]	surge_kin_vel
+	// x[3]	surge_kin_pos
+	// x[4]	surge_lp_x1
+	// x[5]	surge_lp_x2
+	// x[6]	pitch_hp_x1
 
 	x_dot(states::surge_hp_x1)=...
 	x_dot(states::surge_hp_x2)=...

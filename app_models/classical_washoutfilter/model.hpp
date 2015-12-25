@@ -25,7 +25,7 @@ public:
 		const state_type 			&x,
 		state_type 					&x_dot,
 		const time_type				&t,
-		const state_type 			&last_observed_x,
+		const intermediate_type 	&last_observed_mids,
 		const time_type 			&last_observed_t,
 		input_type					&u
 		);
@@ -34,18 +34,18 @@ public:
 		const state_type 			&x ,
 		const double 				&t,
 		observer_type 				&ymat,
-		const state_type 			&last_observed_x,
+		const intermediate_type 	&last_observed_mids,
 		const time_type 			&last_observed_t,
 		input_type					&u
 		);
 
 	static void intermediates(
-		const input_type &u,
-		const state_type &x,
-		intermediate_type &mid,
-		const time_type &t,
-		const state_type &last_observed_x,
-		const time_type &last_observed_t
+		const input_type			&u,
+		const state_type			&x,
+		intermediate_type			&mid,
+		const time_type				&t,
+		const intermediate_type		&last_observed_mids,
+		const time_type				&last_observed_t
 		);
 
 	static double input(const time_type t,input_type &u)
@@ -53,10 +53,14 @@ public:
 		// u0	surge_acc
 		// u1	pitch_vel
 
-		u(inputs::surge_acc)=(t>1.0&&t<5.0?1.0:0.0);
-		u(inputs::pitch_angle)=0;
+		u(inputs::surge_acc)=(t>=1.0&&t<5.0?1.0:0.0);
+		u(inputs::pitch_angle)=0.0;
 
 		double next_sudden_change_time=-1;
+		if(t<1.0)
+			next_sudden_change_time=1.0;
+		else if(t<5.0)
+			next_sudden_change_time=5.0;
 		return next_sudden_change_time;
 	}
 
