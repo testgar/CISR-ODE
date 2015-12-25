@@ -115,32 +115,21 @@ In `states.list`, write down the list of states from the diagram:
     surge_lp_x2
     pitch_hp_x1
 
-In `intermediates.list`, write down the list of intermediates according to the diagram:
+In `intermediates.list`, write down the list of intermediates according to the diagram. You can specify which of them must be collected as an output result and which of the outputs must be plotted.
 
-    surge_input_acc_ref
-    surge_hp_out
-    surge_kin_acc
-    surge_kin_vel
-    surge_kin_pos
-    surge_lp_out
+    surge_input_acc_ref,out,plot
+    surge_hp_out,out
+    surge_kin_acc,out
+    surge_kin_vel,out
+    surge_kin_pos,out
+    surge_lp_out,out
     tilt_coordination
     pitch_input_angle_ref
     pitch_hp_out
     pitch_angle
     tilt_force
-    specific_force
+    specific_force,out,plot
 
-In `outputs.list`, write down the list of intermediates which are supposed to be stored. If the figure of that intermediate respect to time is required, it must be followed by a comma and then word `plot`:
-
-    surge_input_acc_ref,plot
-    surge_hp_out
-    surge_kin_acc
-    surge_kin_vel
-    surge_kin_pos
-    surge_lp_out
-    specific_force,plot
-
-If there is no comma after an intermediate or it is followed by any other word than `plot` (such as `none`), that output would not be plotted.
 
 Then, you need to use some parts of the auto-generated codes according to your model. In the root directory of the framework, run makefile:
 
