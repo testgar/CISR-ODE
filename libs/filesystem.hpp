@@ -25,7 +25,7 @@ namespace filesystem
 		if(!boost::filesystem::exists(filepath))
 			throw std::runtime_error(std::string("file \"")+filepath.string()+"\" does not exist!");
 		std::string data;
-		std::ifstream in(filepath.c_str());
+		std::ifstream in(filepath.string().c_str());
 		std::getline(in, data, std::string::traits_type::to_char_type(
 						  std::string::traits_type::eof()));
 		return data;
