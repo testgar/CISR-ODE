@@ -5,5 +5,5 @@ Theta_1 and Theta_desired 1:
 Theta_2 and Theta_desired 2:
 ![compare_theta2](https://cloud.githubusercontent.com/assets/11730626/12203284/40ca1b32-b682-11e5-8b2a-63b0e9796f91.png)
 
-Error
+Error:
 ![error](https://cloud.githubusercontent.com/assets/11730626/12203300/5021d714-b682-11e5-9924-eadf612e7677.png)
