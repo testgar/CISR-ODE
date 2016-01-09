@@ -23,6 +23,9 @@
 {d\varphi_n\over dt}=\frac1C q_{n-1}-\frac1C q_n-\frac RL \varphi_n~~~~~~~~~~~~~~~~~~(n=2,...,N)\\
  -->
 
+
+
+
 **State equations**
 
 ![equation states](https://cloud.githubusercontent.com/assets/11730626/12213387/4dc526ee-b6cb-11e5-99df-a108bd9d7a07.png)
@@ -42,6 +45,10 @@
 ~\\
 {dx_{N+n}\over dt}=\frac1C x_{n-1}-\frac1C x_n-\frac RL x_{N+n}~~~~~~~~~~~~~~~~~~(n=2,...,N)\\
  -->
+
+
+
+
 
 
 **Results**
