@@ -162,4 +162,12 @@ namespace easytext
 		return boost::trim_copy(result_text)+"\n";
 	}
 
+	template <typename T>
+	std::string to_string(T val)
+	{
+		std::stringstream stream;
+		stream << val;
+		return stream.str();
+	}
+
 }

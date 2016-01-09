@@ -108,7 +108,7 @@ public:
 			std::cout<<"logger file already closed! message="<<message<<std::endl;
 			return ;
 		}
-		std::vector<std::string> log_row={filename,std::to_string(line),function,boost::lexical_cast<std::string>(value),message};
+		std::vector<std::string> log_row={filename,easytext::to_string(line),function,boost::lexical_cast<std::string>(value),message};
 		html.fhs_table_row(log_row);
 	}
 

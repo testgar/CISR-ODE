@@ -57,7 +57,7 @@ public:
 				for(uint k=0;k<out_indices.size();k++)
 				{
 					ret+=(k>0?std::string(",")+easytext::newline:"");
-					ret+="\""+name+"["+std::to_string(out_indices[k])+"]\"";
+					ret+="\""+name+"["+easytext::to_string(out_indices[k])+"]\"";
 				}
 			}
 		}
@@ -91,7 +91,7 @@ public:
 				if(cover_all_range)
 				{
 					ret+=(line_number?easytext::newline:"");
-					ret+="ymat.subvec(outputs::"+name+"_0,outputs::"+name+"_"+std::to_string(array_size-1)+")=mid.subvec(mids::"+name+"_0,mids::"+name+"_end);";
+					ret+="ymat.subvec(outputs::"+name+"_0,outputs::"+name+"_"+easytext::to_string(array_size-1)+")=mid.subvec(mids::"+name+"_0,mids::"+name+"_end);";
 					line_number++;
 				}
 				else
@@ -101,9 +101,9 @@ public:
 						ret+=(line_number?easytext::newline:"");
 						bool k_is_explicit= (k==0) || ( std::find(explicit_indices.begin(), explicit_indices.end(), k)!=explicit_indices.end() );
 						if(k_is_explicit)
-							ret+="ymat(outputs::"+name+"_"+std::to_string(k)+")=mid(mids::"+name+"_"+std::to_string(k)+");";
+							ret+="ymat(outputs::"+name+"_"+easytext::to_string(k)+")=mid(mids::"+name+"_"+easytext::to_string(k)+");";
 						else
-							ret+="ymat(outputs::"+name+"_"+std::to_string(k)+")=mid(mids::"+name+"_0+"+std::to_string(k)+");";
+							ret+="ymat(outputs::"+name+"_"+easytext::to_string(k)+")=mid(mids::"+name+"_0+"+easytext::to_string(k)+");";
 						line_number++;
 					}
 				}
@@ -126,7 +126,7 @@ public:
 			for(auto explicit_index:explicit_indices)
 				if(explicit_index!=0)
 				{
-					ret+=easytext::newline+"//* Also explicitly used: "+var_name+"("+vec_ns+"::"+name+"_"+std::to_string(explicit_index)+")=...";
+					ret+=easytext::newline+"//* Also explicitly used: "+var_name+"("+vec_ns+"::"+name+"_"+easytext::to_string(explicit_index)+")=...";
 				}
 		}
 		return ret;		
@@ -150,7 +150,7 @@ public:
 				for(auto plot_index:plot_indices)
 				{
 					ret+=(line_number?std::string(",")+easytext::newline:"");
-					ret+="{\""+name+"["+std::to_string(plot_index)+"]"+"\",outputs::"+name+"_"+std::to_string(plot_index)+"}";
+					ret+="{\""+name+"["+easytext::to_string(plot_index)+"]"+"\",outputs::"+name+"_"+easytext::to_string(plot_index)+"}";
 					line_number++;
 				}
 			}
@@ -161,9 +161,9 @@ public:
 	std::string to_index_explanations(uint &start_index,std::string variable_ns)
 	{
 		std::string ret;
-		std::string index_start_tx=std::to_string(start_index);
-		std::string index_stop_tx=std::to_string(start_index+array_size-1);
-		std::string variable_size=std::to_string(array_size);
+		std::string index_start_tx=easytext::to_string(start_index);
+		std::string index_stop_tx=easytext::to_string(start_index+array_size-1);
+		std::string variable_size=easytext::to_string(array_size);
 
 		std::string range=(array_size==1?index_start_tx:index_start_tx+":"+index_stop_tx);
 		ret="// "+variable_ns+"["+range+"]"+"\t"+name+(array_size==1?"":"["+variable_size+"]");
@@ -177,18 +177,18 @@ public:
 		const std::string type_text="const uint ";
 		if(array_size==1)
 		{
-			ret+=type_text+name+"="+std::to_string(start_index)+";";
+			ret+=type_text+name+"="+easytext::to_string(start_index)+";";
 			start_index++;
 		}
 		else
 		{
-			ret+=type_text+name+"_0="+std::to_string(start_index)+";"+easytext::newline;
+			ret+=type_text+name+"_0="+easytext::to_string(start_index)+";"+easytext::newline;
 			for(auto explicit_index:explicit_indices)
 				if(explicit_index!=0)
 				{
-					ret+=type_text+name+"_"+std::to_string(explicit_index)+"="+std::to_string(start_index+explicit_index)+";"+easytext::newline;
+					ret+=type_text+name+"_"+easytext::to_string(explicit_index)+"="+easytext::to_string(start_index+explicit_index)+";"+easytext::newline;
 				}
-			ret+=type_text+name+"_end="+std::to_string(start_index+array_size-1)+";";
+			ret+=type_text+name+"_end="+easytext::to_string(start_index+array_size-1)+";";
 			start_index+=array_size;
 		}
 		return ret;
@@ -203,7 +203,7 @@ public:
 			if(array_size==1)
 			{
 				ret+=(start_index?easytext::newline:"");
-				ret+=type_text+name+"="+std::to_string(start_index)+";";
+				ret+=type_text+name+"="+easytext::to_string(start_index)+";";
 				start_index++;
 			}
 			else
@@ -211,7 +211,7 @@ public:
 				for(auto out_index:out_indices)
 				{
 					ret+=(start_index?easytext::newline:"");
-					ret+=type_text+name+"_"+std::to_string(out_index)+"="+std::to_string(start_index)+";";
+					ret+=type_text+name+"_"+easytext::to_string(out_index)+"="+easytext::to_string(start_index)+";";
 					start_index++;
 				}
 			}
@@ -227,7 +227,7 @@ public:
 			if(array_size==1)
 			{
 				ret+=(start_index?easytext::newline:"");
-				ret+="// y"+std::to_string(start_index)+"\t"+name+";";
+				ret+="// y"+easytext::to_string(start_index)+"\t"+name+";";
 				start_index++;
 			}
 			else
@@ -235,7 +235,7 @@ public:
 				for(auto out_index:out_indices)
 				{
 					ret+=(start_index?easytext::newline:"");
-					ret+="// y"+std::to_string(start_index)+"\t"+name+"["+std::to_string(out_index)+"];";
+					ret+="// y"+easytext::to_string(start_index)+"\t"+name+"["+easytext::to_string(out_index)+"];";
 					start_index++;
 				}
 			}

@@ -64,7 +64,7 @@ public:
 		AG_Vector vec_inputs(ag_config.list_inputs);
 		dictionary["#INDEX_NUMBERS_COMMENTS#"]=vec_inputs.index_explanations("u");
 		dictionary["#INDEX_CONSTANTS#"]=vec_inputs.index_constants_definitions();
-		dictionary["#TOTAL_SIZE#"]=std::string("input_size=")+std::to_string(vec_inputs.size());
+		dictionary["#TOTAL_SIZE#"]=std::string("input_size=")+easytext::to_string(vec_inputs.size());
 	}
 };
 
@@ -77,7 +77,7 @@ public:
 		AG_Vector vec_mids(ag_config.list_intermediates);
 		dictionary["#INDEX_NUMBERS_COMMENTS#"]=vec_mids.index_explanations("m");
 		dictionary["#INDEX_CONSTANTS#"]=vec_mids.index_constants_definitions();
-		dictionary["#TOTAL_SIZE#"]=std::string("intermediate_size=")+std::to_string(vec_mids.size());
+		dictionary["#TOTAL_SIZE#"]=std::string("intermediate_size=")+easytext::to_string(vec_mids.size());
 	}
 };
 
@@ -90,7 +90,7 @@ public:
 		AG_Vector vec_states(ag_config.list_states);
 		dictionary["#INDEX_NUMBERS_COMMENTS#"]=vec_states.index_explanations("x");
 		dictionary["#INDEX_CONSTANTS#"]=vec_states.index_constants_definitions();
-		dictionary["#TOTAL_SIZE#"]=std::string("state_size=")+std::to_string(vec_states.size());
+		dictionary["#TOTAL_SIZE#"]=std::string("state_size=")+easytext::to_string(vec_states.size());
 	}
 };
 
@@ -104,7 +104,7 @@ public:
 		AG_Vector vec_mids(ag_config.list_intermediates);
 		dictionary["#INDEX_NUMBERS_COMMENTS#"]=vec_mids.output_index_explanations();
 		dictionary["#INDEX_CONSTANTS#"]=vec_mids.output_index_constants_definitions();
-		dictionary["#TOTAL_SIZE#"]=std::string("output_size=")+std::to_string(vec_mids.output_size());
+		dictionary["#TOTAL_SIZE#"]=std::string("output_size=")+easytext::to_string(vec_mids.output_size());
 		dictionary["#FIGURE_LIST#"]=vec_mids.export_figures_list();
 		dictionary["#OUTPUTHEADER#"]=vec_mids.output_header();
 	}

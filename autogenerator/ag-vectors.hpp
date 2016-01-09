@@ -104,7 +104,7 @@ public:
 
 		for(auto x:item.plot_indices)
 			if ( std::find(item.out_indices.begin(), item.out_indices.end(), x)==item.out_indices.end() )
-				throw std::runtime_error(item.name+"["+std::to_string(x)+"] is requested to be plotted but is not in output list in `"+row+"`");
+				throw std::runtime_error(item.name+"["+easytext::to_string(x)+"] is requested to be plotted but is not in output list in `"+row+"`");
 
 		return item;
 	}
@@ -153,9 +153,9 @@ public:
 			}
 
 			if(step<1)
-				throw std::runtime_error("Invalid step `"+std::to_string(step)+"` in `"+range_text+"`");
+				throw std::runtime_error("Invalid step `"+easytext::to_string(step)+"` in `"+range_text+"`");
 			if(start<0)
-				throw std::runtime_error("Invalid index `"+std::to_string(start)+"` in `"+range_text+"`");
+				throw std::runtime_error("Invalid index `"+easytext::to_string(start)+"` in `"+range_text+"`");
 
 			for(int i=start;i<=stop;i+=step)
 				result.push_back(i);
