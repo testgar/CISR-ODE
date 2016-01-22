@@ -1,3 +1,47 @@
+IS_LINUX:=0
+
+ifeq ($(OS),Windows_NT) #if windows
+	CCFLAGS += -D WIN32
+	ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+		CCFLAGS += -D AMD64
+	endif
+	ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+		CCFLAGS += -D IA32
+	endif
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux) #if Linux
+		CCFLAGS += -D LINUX
+		IS_LINUX:=1
+	endif
+	ifeq ($(UNAME_S),Darwin) #if OSX
+		CCFLAGS += -D OSX
+	endif
+	UNAME_P := $(shell uname -p)
+	ifeq ($(UNAME_P),x86_64)
+		CCFLAGS += -D AMD64
+	endif
+	ifneq ($(filter %86,$(UNAME_P)),)
+		CCFLAGS += -D IA32
+	endif
+	ifneq ($(filter arm%,$(UNAME_P)),)
+		CCFLAGS += -D ARM
+	endif
+endif
+
+ifeq ($(IS_LINUX),1)
+	trash_command:=trash
+else
+	trash_command:=rm
+endif
+
+GCC_VERSION:=$(subst ., ,$(shell gcc -dumpversion))
+
+MACHINE:=$(subst -, ,$(shell gcc -dumpmachine))
+MACHINE_3:=$(word 3,$($(subst -, ,MACHINE)))
+
+IS_CYGWIN:=$(shell expr $(MACHINE_3) '==' cygwin)
+
 SOURCES := application/main.cpp
 OUTDIR:= ./out
 BINDIR:= ./bin
@@ -8,6 +52,14 @@ DEPFILES:= $(OBJECTS:.o=.d)
 CXX := g++
 CXXFLAGS := -c -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11 -MD -MP
 CXXTestFLAGS := -g -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11
+MACHINE:=$(subst -, ,$(shell gcc -dumpmachine))
+MACHINE_3:=$(word 3,$($(subst -, ,MACHINE)))
+IS_CYGWIN:=$(shell expr $(MACHINE_3) '==' cygwin)
+ifeq ($(IS_CYGWIN),1)
+	ADDITIONAL_PATHS:= -L'C:\cygwin\usr\local\lib\'  -I'C:\cygwin\usr\local\include\' -I'C:\cygwin\usr\include'
+else
+	ADDITIONAL_PATHS:= # nothing
+endif
 GCC_VERSION:=$(subst ., ,$(shell gcc -dumpversion))
 GCC_MAJOR:=$(word 1,$(GCC_VERSION))
 GCC_MINOR:=$(word 2,$(GCC_VERSION))
@@ -30,29 +82,29 @@ all: separator autogenerate $(BINDIR)/sim
 	@echo "done"
 
 modelname:
-	@g++ -std=c++11 -Wfatal-errors autogenerator/autogenerator.cpp -DSHOW_MODEL_NAME_ONLY $(LIBS) -o $(BINDIR)/modelname
+	@$(CXX) -std=c++11 -Wfatal-errors autogenerator/autogenerator.cpp -DSHOW_MODEL_NAME_ONLY $(LIBS) $(ADDITIONAL_PATHS) -o $(BINDIR)/modelname
 	@$(BINDIR)/modelname
-	@trash $(BINDIR)/modelname
+	@$(trash_command) $(BINDIR)/modelname
 
 autogenerate:
 	@mkdir -p $(BINDIR)
-	@g++ -std=c++11 -g -Wall -Wfatal-errors autogenerator/autogenerator.cpp $(LIBS) -o $(BINDIR)/autogenerate
+	@$(CXX) -std=c++11 -g -Wall -Wfatal-errors autogenerator/autogenerator.cpp $(LIBS) $(ADDITIONAL_PATHS) -o $(BINDIR)/autogenerate
 	@$(BINDIR)/autogenerate
-	@trash $(BINDIR)/autogenerate
+	@$(trash_command) $(BINDIR)/autogenerate
 
 MODEL_%:
 	@bash ./scripts/model_callscripts.sh $*
 
 # Link the executable
 $(BINDIR)/sim: $(OBJECTS)
-	$(CXX) $(CXXFLAGS_DEBUG) $^ -o $@ $(LIBS)
+	$(CXX) $(CXXFLAGS_DEBUG) $^ -o $@ $(LIBS) $(ADDITIONAL_PATHS)
 
 run:
 	$(BINDIR)/sim
  
 # Build the test
 test:
-	$(CXX) $(CXXTestFLAGS) $(CXXFLAGS_DEBUG) test.cpp -o $(BINDIR)/test $(LIBS)
+	$(CXX) $(CXXTestFLAGS) $(CXXFLAGS_DEBUG) test.cpp -o $(BINDIR)/test $(LIBS) $(ADDITIONAL_PATHS)
 
 $(OBJDIR)/%.o: %.cpp
 	@if [ ! -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR) && echo "$(OBJDIR) directory created: $(OBJDIR)";  fi
@@ -60,10 +112,10 @@ $(OBJDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) -MF $(OBJDIR)/$*.d -o $@  $<
 
 rmresults:
-	trash $(OUTDIR)/data_201*
+	$(trash_command) $(OUTDIR)/data_201*
 
 clean:
-	trash $(OBJDIR)/*.o $(OBJDIR)/*.d $(BINDIR)/sim
+	$(trash_command) $(OBJDIR)/*.o $(OBJDIR)/*.d $(BINDIR)/sim
 
 separator:
 	@bash ./scripts/separator.sh
