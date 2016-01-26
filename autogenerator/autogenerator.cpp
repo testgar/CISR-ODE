@@ -3,7 +3,6 @@
 #include <string>
 #include "ag-config.hpp"
 #include "ag-dictionaries.hpp"
-#include "support.hpp"
 
 
 void main_model_only()
@@ -51,7 +50,6 @@ void main_autogenerator()
 	AG_Dictionary_usertemplate dictionary_usertemplate;
 	std::string usertemplate_text(dictionary_usertemplate.replace_dictionary(template_usertemplate_text));
 	filesystem::write_file(ag_config.autogen_usertemplate,usertemplate_text);
-
 }
 
 int main()
@@ -60,7 +58,7 @@ int main()
 		main_model_only();
 	#else
 		std::cout<<"Automatic generating code ..."<<std::endl;
-		support_javascript_files();
+		// support_javascript_files();
 		main_autogenerator();
 		std::cout<<"Automatic codes are generated ..."<<std::endl;
 	#endif

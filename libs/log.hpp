@@ -53,7 +53,8 @@ public:
 		: html((filesystem::ensure_folder(files::log_folder),log_path))
 	{
 		html.head_open();
-		html.js_src(files::jquery);
+		// html.js_src(files::jquery_basename);
+		html.js_inline(files::jquery_src_path);
 		html.js_inline(files::fhs_table_js);
 		html.style(files::fhs_table_style);
 		html.head_close();

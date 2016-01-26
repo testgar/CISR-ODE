@@ -34,9 +34,10 @@ namespace files
 	const path fhs_tbody_td=web_dir/"fixed_header_scrolling"/"tbody_td.html";
 	const path fhs_table_style=web_dir/"fixed_header_scrolling"/"table2.css"; 
 	const std::string fhs_table_js_basename("fhs_adjust.js");
-	const std::string jquery("jquery-1.11.2.min.js");
+	const std::string jquery_basename("jquery-1.11.2.min.js");
+	const path jquery_src_path=web_dir/jquery_basename;
 	const path fhs_table_js=web_dir/"fixed_header_scrolling"/fhs_table_js_basename;
-	const path js_src=web_dir/"js_src.html";
+	const path js_src_template=web_dir/"js_src.html";
 	const path html_fixation_list_open=web_dir/"templates"/"fixation_list"/"select_open.html";
 	const path html_fixation_list_close=web_dir/"templates"/"fixation_list"/"select_close.html";
 	const path html_fixation_option=web_dir/"templates"/"fixation_list"/"option.html";

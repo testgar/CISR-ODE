@@ -141,7 +141,7 @@ public:
 	void js_src(std::string js_url)
 	{
 		ensure(html_locations::in_head,"Cannot link to script out of head!");
-		static std::string sc_hmtl=filesystem::read_file(files::js_src);
+		static std::string sc_hmtl=filesystem::read_file(files::js_src_template);
 		insert_text(easytext::replace_once(sc_hmtl,"{src}",js_url));
 	}
 
