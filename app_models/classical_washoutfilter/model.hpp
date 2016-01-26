@@ -3,8 +3,6 @@
 #include "types.hpp"
 #include "constants.hpp"
 
-using namespace arma;
-
 class Model
 {
 public:

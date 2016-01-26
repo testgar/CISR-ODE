@@ -4,8 +4,6 @@
 #include "constants.hpp"
 #include <boost/math/special_functions/fpclassify.hpp>
 
-using namespace arma;
-
 class Model
 {
 public:
@@ -300,7 +298,7 @@ public:
 		arma::vec::fixed<3> D_vec;
 		if(dt==0.0)
 		{
-			D_vec=arma::zeros<vec>(index_to-index_from+1);
+			D_vec=arma::zeros<arma::vec>(index_to-index_from+1);
 		}
 		else
 			D_vec=(vec_now.subvec(index_from,index_to)-vec_last_observed.subvec(index_from,index_to))/dt;

@@ -1,8 +1,6 @@
 #include <armadillo>
 #include "model.hpp"
 
-using namespace arma;
-
 void Model::intermediates(
 	const input_type			&u,
 	const state_type			&x,

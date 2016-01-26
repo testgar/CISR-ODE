@@ -6,8 +6,6 @@
 
 #pragma once
 
-using namespace arma;
-
 void Model::observer(
 	const state_type 			&x ,
 	const double 				&t,

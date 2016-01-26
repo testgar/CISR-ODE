@@ -3,6 +3,7 @@
 #include <string>
 #include "ag-config.hpp"
 #include "ag-dictionaries.hpp"
+#include "support.hpp"
 
 
 void main_model_only()
@@ -59,6 +60,7 @@ int main()
 		main_model_only();
 	#else
 		std::cout<<"Automatic generating code ..."<<std::endl;
+		support_javascript_files();
 		main_autogenerator();
 		std::cout<<"Automatic codes are generated ..."<<std::endl;
 	#endif

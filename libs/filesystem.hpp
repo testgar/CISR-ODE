@@ -1,8 +1,12 @@
 #pragma once
 
+// bug problem of BOOST: http://stackoverflow.com/questions/15634114/c#17988317
+#define BOOST_NO_CXX11_SCOPED_ENUMS
+#include <boost/filesystem.hpp>
+#undef BOOST_NO_CXX11_SCOPED_ENUMS
+
 #include <string>
 #include <fstream>
-#include <boost/filesystem.hpp>
 
 void call_loger(std::string a);
 

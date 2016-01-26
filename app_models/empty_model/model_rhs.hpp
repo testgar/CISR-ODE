@@ -1,8 +1,6 @@
 #include <armadillo>
 #include "model.hpp"
 
-using namespace arma;
-
 void Model::rhs(
 	const state_type 			&x,
 	state_type 					&x_dot,
