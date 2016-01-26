@@ -1,6 +1,6 @@
 #include "../includes.hpp"
 #include "system.hpp"
-#include "../libs/profiler.hpp"
+#include "profiler.hpp"
 
 void main_normal()
 {

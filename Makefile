@@ -55,10 +55,11 @@ CXXTestFLAGS := -g -Wall -Wconversion -Wfatal-errors -Wextra -std=c++11
 MACHINE:=$(subst -, ,$(shell gcc -dumpmachine))
 MACHINE_3:=$(word 3,$($(subst -, ,MACHINE)))
 IS_CYGWIN:=$(shell expr $(MACHINE_3) '==' cygwin)
+ADDITIONAL_PATHS= -iquotelibs
 ifeq ($(IS_CYGWIN),1)
-	ADDITIONAL_PATHS:= -L'C:\cygwin\usr\local\lib\'  -I'C:\cygwin\usr\local\include\' -I'C:\cygwin\usr\include'
+	ADDITIONAL_PATHS+= -L'C:\cygwin\usr\local\lib\'  -I'C:\cygwin\usr\local\include\' -I'C:\cygwin\usr\include'
 else
-	ADDITIONAL_PATHS:= # nothing
+	ADDITIONAL_PATHS+= # nothing
 endif
 GCC_VERSION:=$(subst ., ,$(shell gcc -dumpversion))
 GCC_MAJOR:=$(word 1,$(GCC_VERSION))
@@ -109,7 +110,7 @@ test:
 $(OBJDIR)/%.o: %.cpp
 	@if [ ! -d "$(OBJDIR)" ]; then mkdir -p $(OBJDIR) && echo "$(OBJDIR) directory created: $(OBJDIR)";  fi
 	@if [ ! -d "$(DEPDIR)" ]; then mkdir -p $(DEPDIR) && echo "$(DEPDIR) directory created: $(DEPDIR)";  fi
-	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) -MF $(OBJDIR)/$*.d -o $@  $<
+	$(CXX) $(CXXFLAGS) $(CXXFLAGS_DEBUG) $(ADDITIONAL_PATHS) -MF $(OBJDIR)/$*.d -o $@  $<
 
 rmresults:
 	$(trash_command) $(OUTDIR)/data_201*

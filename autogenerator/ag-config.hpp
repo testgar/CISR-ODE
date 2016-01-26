@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "../libs/filesystem.hpp"
+#include "filesystem.hpp"
 
 const boost::filesystem::path model_name_configfile("models");
 

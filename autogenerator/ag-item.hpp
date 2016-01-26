@@ -3,9 +3,9 @@
 #include <boost/filesystem.hpp>
 #include <string>
 #include <vector>
-#include "../libs/filesystem.hpp"
-#include "../libs/easytext.hpp"
-#include "../libs/easyalgorithm.hpp"
+#include "filesystem.hpp"
+#include "easytext.hpp"
+#include "easyalgorithm.hpp"
 
 class AG_Item
 {

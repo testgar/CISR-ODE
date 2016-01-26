@@ -1,5 +1,5 @@
 #pragma once
-#include "../libs/config.hpp"
+#include "libs_config.hpp"
 
 namespace config
 {
