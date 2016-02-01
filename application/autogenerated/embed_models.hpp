@@ -8,4 +8,4 @@
 
 // include models
 
-#include "../../app_models/puma_560_robot/model.hpp"
+#include "../../app_models/transmission_line/model.hpp"

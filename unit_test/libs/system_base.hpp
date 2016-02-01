@@ -6,8 +6,8 @@ public:
 
 	typedef double value_type;
 	typedef double time_type;
-	typedef arma::vec::fixed<state_size> state_type;
-	typedef state_type deriv_type;
+	// typedef arma::vec::fixed<state_size> state_type;
+	// typedef state_type deriv_type;
 	typedef state_type deriv_type;
 	typedef arma::vec::fixed<state_size> observer_type;
 	typedef arma::mat::fixed<buffer_headers,buffer_size> buffer_type;
